@@ -38,5 +38,4 @@ yarn-error.log*
 
 *.xml
 
-yarn.lock
 package-lock.json
