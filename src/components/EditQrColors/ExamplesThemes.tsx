@@ -16,17 +16,17 @@ const ImageEx = styled.img`
 const examplesThemes = [
 	{
 		link: `images/qr-example-1.png`,
-		dotsOptions: "#0b064b",
+		dotsOptions: "#E91E63",
 		backgroundOptions: "#ffffff",
-		cornersSquareOptions: "#c9a05d",
-		cornersDotOptions: "#0b064b",
+		cornersSquareOptions: "#FFF",
+		cornersDotOptions: "#E91E63",
 	},
 	{
 		link: `images/qr-example-2.png`,
-		dotsOptions: "#c9a05d",
-		backgroundOptions: "#0b064b",
-		cornersSquareOptions: "#c9a05d",
-		cornersDotOptions: "#c9a05d",
+		dotsOptions: "#FFF",
+		backgroundOptions: "#E91E63",
+		cornersSquareOptions: "#FFF",
+		cornersDotOptions: "#FFF",
 	},
 	{
 		link: `images/qr-example-3.png`,
@@ -63,8 +63,8 @@ const ExamplesThemes: FC<IOptions> = ({ options, setOptions }) => {
 								example.cornersSquareOptions ===
 									options.cornersSquareOptions?.color &&
 								example.cornersDotOptions === options.cornersDotOptions?.color
-									? `2px solid #0b064b`
-									: `2px solid #DDEBFF`
+									? `2px solid #E91E63`
+									: `2px solid #FAD3E0`
 							}
 							onClick={() => {
 								setOptions?.({

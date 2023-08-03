@@ -8,11 +8,12 @@ const Wrapper = styled(Wrapp)`
 
 	padding: 25px 50px;
 
-	background-color: silver;
+	background: #fad3e0;
+	border-top: 2px solid #e91e63;
 `;
 
 const Footer: React.FC = () => {
-	return <Wrapper>Footer</Wrapper>;
+	return <Wrapper>Here will be footer</Wrapper>;
 };
 
 export default Footer;

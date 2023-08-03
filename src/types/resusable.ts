@@ -14,9 +14,9 @@ export interface InputProps {
 	onClick?: () => void;
 	onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 
-	title?: string;
+	title?: string | ReactNode;
 
-	value: string;
+	value: string | number | undefined;
 	setValue?: Dispatch<SetStateAction<string>>;
 
 	secondary?: boolean;
@@ -32,12 +32,28 @@ export interface InputProps {
 	p?: string;
 	m?: string;
 
+	id?: string;
 	bgColor?: string;
 	c?: string;
 
 	placeholder?: string;
 
 	disabled?: boolean;
+	isLoading?: boolean;
+
+	min?: string;
+	step?: string;
+	max?: string;
+	type?: string;
+	name?: string;
+
+	autoFocus?: boolean;
+	maxLength?: number;
+
+	onMouseDown?: () => void;
+	onMouseUp?: () => void;
+	onFocus?: () => void;
+	onBlur?: () => void;
 }
 
 export interface ButtonProps {

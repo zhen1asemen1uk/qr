@@ -1,0 +1,14 @@
+@font-face {
+	font-family: "Barbie";
+	src: url("fonts/Barbie.ttf") format("truetype");
+}
+
+@font-face {
+	font-family: "BarbieMedium";
+	src: url("fonts/BarbieMedium.ttf") format("truetype");
+}
+
+@font-face {
+	font-family: "DollieScript";
+	src: url("fonts/DollieScript.ttf") format("truetype");
+}

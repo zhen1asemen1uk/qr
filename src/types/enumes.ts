@@ -29,16 +29,16 @@ export enum EmailKeys {
 	BODY = `body`,
 }
 
-export enum WiFiKeys {
-	NETWORKNAME = `networkName`,
-	NETWORKTYPE = `networkType`,
-	PASS = `pass`,
-	HIDE = `hide`,
-}
-
 export enum Placement {
 	TOP = `top`,
 	RIGHT = `right`,
 	LEFT = `left`,
 	BOTTOM = `bottom`,
+}
+
+export enum TypeImage {
+	SVG = `svg`,
+	WEBP = `webp`,
+	JPEG = `jpeg`,
+	PNG = `png`,
 }

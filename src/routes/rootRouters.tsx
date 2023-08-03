@@ -3,9 +3,8 @@ import { createBrowserRouter } from "react-router-dom";
 
 import ErrorPage from "../pages/ErrorPage";
 
-import MainLayout from "../reusable/Layout";
-
 import { Qr } from "../pages/Qr";
+import MainLayout from "../components/reusable/Layout";
 
 const arrPathsAndComponents = [
 	{

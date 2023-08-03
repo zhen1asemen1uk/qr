@@ -1,6 +1,7 @@
 import React, { FC, ReactNode, useState } from "react";
 import styled from "styled-components";
 import { Col, Row } from "../../styles/styles";
+import ArrowSVG from "./Svg's/ArrowSVG";
 
 interface IAccordion {
 	title: string;
@@ -10,7 +11,7 @@ interface IAccordion {
 const AccordionItem = styled(Col)`
 	border: none;
 	color: white;
-	background: #ddebff !important;
+	background: #fad3e0 !important;
 
 	cursor: pointer;
 `;
@@ -18,21 +19,21 @@ const AccordionItem = styled(Col)`
 const AccordionWrappTitle = styled(Row)`
 	align-items: center;
 	justify-content: space-between;
-	background: #0b064b;
+	background: #e91e63;
 	padding: 15px 20px;
 	width: 100%;
-
-	img {
-		stroke: white;
-		fill: white;
-		width: 20px;
-	}
+	border-radius: 2px;
 `;
 
 const WrappArrow = styled.div<{ isRotate: boolean }>`
 	transform: ${({ isRotate }) =>
 		isRotate ? `rotate(180deg)` : `rotate(0deg)`};
 	transition: 0.5s;
+
+	* {
+		width: 20px;
+		height: 20px;
+	}
 `;
 
 const AccordionContent = styled.div`
@@ -48,8 +49,7 @@ const Accordion: FC<IAccordion> = ({ title, content }) => {
 			<AccordionWrappTitle onClick={() => setIsActive(!isActive)}>
 				<h5>{title}</h5>
 				<WrappArrow isRotate={isActive}>
-					{/* <img src={👇🏻} alt='White arr Down' /> */}
-					<span>👇🏻</span>
+					<ArrowSVG fill='#FFF' />
 				</WrappArrow>
 			</AccordionWrappTitle>
 			{isActive && <AccordionContent>{content}</AccordionContent>}

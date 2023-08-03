@@ -2,7 +2,7 @@ import React, { useState, type PropsWithChildren } from "react";
 import { createPortal } from "react-dom";
 import styled from "styled-components";
 
-import { FlexBlock } from "../styles/styles";
+import { FlexBlock } from "../../styles/styles";
 import Button from "./Button";
 
 const portal = document.getElementById(`portal`) as HTMLElement;

@@ -6,6 +6,7 @@ import { IInput } from "../../types/resusable";
 
 const WrappInput = styled(Col)`
 	cursor: pointer;
+	color: rgb(233, 30, 99);
 `;
 
 const rotating = keyframes`
@@ -41,7 +42,20 @@ const InputConteiner = styled.div`
 const InputStyled = styled.input`
 	width: 100%;
 
+	padding: 10px;
+
+	background: #fad3e0;
+
+	border: none;
+	border-bottom: 2px solid #f6a5c0 !important;
+	border-radius: 2px 2px 0 0;
+
 	outline: none;
+	transition: all 0.3s ease-in-out;
+
+	&:focus {
+		border-bottom: 2px solid #e91e63 !important;
+	}
 `;
 
 const Input: FC<IInput> = ({

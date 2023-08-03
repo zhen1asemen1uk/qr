@@ -50,19 +50,19 @@ const EditQrColors: React.FC<IOptions> = ({ options, setOptions }) => {
 							<Input
 								w={`100%`}
 								id={`${el.key}`}
-								value={options[el.key]?.color}
+								value={`${options[el.key]?.color}`}
 								onChange={(e) =>
 									setOptions?.({
 										...options,
 										[el.key]: { color: e.target.value },
 									})
 								}
-								onFocus={() => {
-									hideLogo(options, setOptions);
-								}}
-								onBlur={() => {
-									showLogo(options, setOptions);
-								}}
+								// onFocus={() => {
+								// 	hideLogo(options, setOptions);
+								// }}
+								// onBlur={() => {
+								// 	showLogo(options, setOptions);
+								// }}
 							/>
 
 							<InputColor

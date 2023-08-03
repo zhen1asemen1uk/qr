@@ -1,0 +1,30 @@
+[debug] [2023-08-03T08:56:44.253Z] ----------------------------------------------------------------------
+[debug] [2023-08-03T08:56:44.254Z] Command:       /Users/yevhensemeniuk/.nodebrew/node/v18.15.0/bin/node /opt/homebrew/bin/firebase deploy --only hosting
+[debug] [2023-08-03T08:56:44.254Z] CLI Version:   12.4.5
+[debug] [2023-08-03T08:56:44.254Z] Platform:      darwin
+[debug] [2023-08-03T08:56:44.254Z] Node Version:  v18.15.0
+[debug] [2023-08-03T08:56:44.255Z] Time:          Thu Aug 03 2023 11:56:44 GMT+0300 (Eastern European Summer Time)
+[debug] [2023-08-03T08:56:44.255Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-08-03T08:56:44.292Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-08-03T08:56:44.292Z] > authorizing via signed-in user (jekasemenuk@icloud.com)
+[debug] [2023-08-03T08:56:44.292Z] [iam] checking project pet-custom-qr for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2023-08-03T08:56:44.293Z] > refreshing access token with scopes: []
+[debug] [2023-08-03T08:56:44.294Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2023-08-03T08:56:44.294Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2023-08-03T08:56:44.561Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2023-08-03T08:56:44.562Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2023-08-03T08:56:44.576Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/pet-custom-qr:testIamPermissions [none]
+[debug] [2023-08-03T08:56:44.576Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/pet-custom-qr:testIamPermissions x-goog-quota-user=projects/pet-custom-qr
+[debug] [2023-08-03T08:56:44.576Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/pet-custom-qr:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2023-08-03T08:56:45.434Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/pet-custom-qr:testIamPermissions 200
+[debug] [2023-08-03T08:56:45.434Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/pet-custom-qr:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2023-08-03T08:56:45.435Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/pet-custom-qr [none]
+[debug] [2023-08-03T08:56:45.824Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/pet-custom-qr 200
+[debug] [2023-08-03T08:56:45.824Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/pet-custom-qr {"projectId":"pet-custom-qr","projectNumber":"729965089614","displayName":"pet-custom-qr","name":"projects/pet-custom-qr","resources":{"hostingSite":"pet-custom-qr"},"state":"ACTIVE","etag":"1_5e1017d6-ba6a-4133-953b-eb5480a4a0d2"}
+[info] 
+[info] === Deploying to 'pet-custom-qr'...
+[info] 
+[info] i  deploying hosting 
+[debug] [2023-08-03T08:56:45.826Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/pet-custom-qr/versions [none]
+[debug] [2023-08-03T08:56:45.827Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/pet-custom-qr/versions {"status":"CREATED","labels":{"deployment-tool":"cli-firebase"}}

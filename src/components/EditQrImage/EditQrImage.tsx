@@ -5,11 +5,13 @@ import { Col, Row } from "../../styles/styles";
 
 import { IArrSize } from "../../types/resusable";
 import Input from "../reusable/Input";
-import { hardcodeImage } from "../reusable/mockData";
+
 import Button from "../reusable/Button";
 import { IOptions } from "../../types/components";
 import styled from "styled-components";
 import ExamplesImages from "./ExamplesImages";
+import Checkbox from "../reusable/Checkbox";
+import InputRagne from "../reusable/InputRagne";
 
 const Title = styled.h1``;
 
@@ -34,8 +36,8 @@ const arrSizes: IArrSize[] = [
 
 const EditQrImage: React.FC<IOptions> = ({ options, setOptions }) => {
 	const [withoutImage, setWithoutImage] = useState<boolean>(false);
-	const [linkImg, setLinkImg] = useState<string>(hardcodeImage);
-	const [delay] = useState<number>(500);
+	const [linkImg, setLinkImg] = useState<string>(``);
+	const delay: number = 500;
 
 	useEffect(() => {
 		const timer = setTimeout(() => {
@@ -70,25 +72,23 @@ const EditQrImage: React.FC<IOptions> = ({ options, setOptions }) => {
 		return () => {
 			clearTimeout(timer);
 		};
-	}, [linkImg, delay]);
+	}, [linkImg]);
 
 	return (
 		<Col g='20px'>
 			<Title>Image:</Title>
-			<label htmlFor='withoutImage'>Without image</label>
-			<input
-				type='checkbox'
+			<Checkbox
+				label={`Without image`}
 				id='withoutImage'
 				name='withoutImage'
 				onChange={(e: ChangeEvent<HTMLInputElement>) => {
 					setWithoutImage(e.target?.checked);
 					setOptions?.({
 						...options,
-						image: e.target?.checked ? `` : hardcodeImage,
+						image: e.target?.checked ? `` : ``,
 					});
 					setLinkImg?.(``);
 				}}
-				defaultChecked={withoutImage}
 			/>
 			<Input
 				disabled={withoutImage}
@@ -124,9 +124,8 @@ const EditQrImage: React.FC<IOptions> = ({ options, setOptions }) => {
 					);
 				})}
 			</Row>
-			<Input
+			<InputRagne
 				disabled={withoutImage}
-				type='range'
 				min={`0.1`}
 				step={`0.1`}
 				max={`0.8`}

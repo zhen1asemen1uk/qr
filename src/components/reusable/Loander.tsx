@@ -1,8 +1,8 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
 
+import { FlexBlock } from "../../styles/styles";
 import DollarSoinSVG from "./Svg's/DollarSoinSVG";
-import { FlexBlock } from "../styles/styles";
 
 const bounceInTop = keyframes`
 	0% {

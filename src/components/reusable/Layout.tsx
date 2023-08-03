@@ -1,12 +1,10 @@
 import React from "react";
 
 import styled from "styled-components";
-
-import { Col } from "../styles/styles";
-import { MainLayoutProps } from "../types/components";
-
-import Header from "../components/Header/Header";
-import Footer from "../components/Footer/Footer";
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
+import { MainLayoutProps } from "../../types/components";
+import { Col } from "../../styles/styles";
 
 const Wrapp = styled(Col)``;
 
