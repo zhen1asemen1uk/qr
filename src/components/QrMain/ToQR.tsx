@@ -35,13 +35,15 @@ interface IToQR {
 export const ToQR: FC<IToQR> = ({ refQrStyled }) => {
 	return (
 		<ToQRStyled
-			onClick={() => {
-				if (refQrStyled && refQrStyled?.current) {
-					refQrStyled?.current.scrollIntoView({ behavior: "smooth" });
+			onClick={(e) => {
+				if (refQrStyled?.current) {
+					console.log(refQrStyled?.current);
+					refQrStyled?.current.scrollIntoView({
+						behavior: "smooth",
+					});
 				}
 			}}>
 			<strong>QR</strong>
-			{/* <img src={👇🏻} alt='black arrow down' /> */}
 			<span>👇🏻</span>
 		</ToQRStyled>
 	);

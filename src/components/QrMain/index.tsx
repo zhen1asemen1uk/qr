@@ -61,9 +61,10 @@ const QrMain: React.FC<IQrMain> = ({
 	const [qrCodeCopy] = useState<QRCodeStyling>(new QRCodeStyling(options));
 
 	const refQrStyled = useRef<HTMLDivElement>(null);
+	const refScrollTo = useRef<HTMLDivElement>(null);
 	const refQrStyledCopy = useRef<HTMLDivElement>(document.createElement("div"));
 
-	const isVisible = useIsVisible(refQrStyled);
+	const isVisible = useIsVisible(refScrollTo);
 
 	const [isCopied, setIsCopied] = useState<boolean>(false);
 	const [linkFromBlob, setLinkFromBlob] = useState<string>(
@@ -101,8 +102,9 @@ const QrMain: React.FC<IQrMain> = ({
 
 	return (
 		<Col w={`100%`}>
-			<Col pos={`sticky`} posT={`20px`} g={`15px`}>
+			<Col pos={`sticky`} posT={`20px`} g={`15px`} ref={refScrollTo}>
 				<QrStyled ref={refQrStyled} />
+
 				<MobilQr src={linkFromBlob} alt='Qr-Code' />
 
 				<Col g={`15px`} w={`80%`} m={"0 auto"}>
@@ -113,6 +115,7 @@ const QrMain: React.FC<IQrMain> = ({
 						setFileExt={setFileExt}
 						options={options}
 					/>
+
 					{/* Copy */}
 					<Button
 						onClick={() => {
@@ -136,7 +139,7 @@ const QrMain: React.FC<IQrMain> = ({
 			</Col>
 
 			{/* "Go Qr" - only mobile */}
-			{size.width < 1280 && !isVisible && <ToQR refQrStyled={refQrStyled} />}
+			{size.width < 1280 && !isVisible && <ToQR refQrStyled={refScrollTo} />}
 		</Col>
 	);
 };

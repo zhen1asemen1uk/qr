@@ -20,8 +20,8 @@ const rotating = keyframes`
 
 const Loader = styled.div`
 	position: absolute;
-	right: 3px;
-	top: 3px;
+	top: 10px;
+	right: 10px;
 
 	width: 15px;
 	height: 15px;

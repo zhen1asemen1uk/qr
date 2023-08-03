@@ -8,17 +8,37 @@ const Color = styled.input`
 `;
 
 const LabelStyled = styled.label`
+	border-radius: 50%;
+
 	${Color}[type="color"] {
-		padding: 0;
-
+		cursor: pointer;
+		-webkit-appearance: none;
 		border: none;
-		border-radius: 50%;
-
 		background: transparent;
-
+		border-radius: 50%;
 		overflow: hidden;
 		outline: none;
-		cursor: pointer;
+	}
+
+	${Color}[type="color"]::-webkit-color-swatch-wrapper {
+		padding: 0;
+	}
+
+	${Color}[type="color"]::-webkit-color-swatch {
+		border: none;
+		border-radius: 50%;
+	}
+
+	/* firefox */
+	${Color}[type="color"]::-moz-focus-inner {
+		border: none;
+		padding: 0;
+		border-radius: 50%;
+	}
+
+	${Color}[type="color"]::-moz-color-swatch {
+		border: none;
+		border-radius: 50%;
 	}
 `;
 

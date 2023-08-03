@@ -5,7 +5,10 @@ import { Link } from "react-router-dom";
 import { FlexBlock } from "../../../styles/styles";
 
 const Wrapp = styled(FlexBlock)`
-	font-family: "DollieScript";";
+	font-family: "DollieScript";
+
+	font-size: 40px;
+	color: white;
 	cursor: pointer;
 `;
 

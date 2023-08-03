@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { FC, useCallback, useEffect, useMemo, useState } from "react";
 
 import { Col } from "../../styles/styles";
 
@@ -7,6 +7,7 @@ import Input from "../reusable/Input";
 
 import { IOptions } from "../../types/components";
 import Checkbox from "../reusable/Checkbox";
+import { Dropdown } from "../reusable/Dropdown";
 
 interface IWiFi {
 	networkName: string;
@@ -15,7 +16,7 @@ interface IWiFi {
 	hide: boolean;
 }
 
-const WiFiType: React.FC<IOptions> = ({ options, setOptions }) => {
+const WiFiType: FC<IOptions> = ({ options, setOptions }) => {
 	const [wiFi, setWiFi] = useState<IWiFi>({
 		networkName: "",
 		pass: "",
@@ -61,20 +62,22 @@ const WiFiType: React.FC<IOptions> = ({ options, setOptions }) => {
 					Network type:
 					<RedStar />
 				</label>
-				<select
-					name='networkType'
+
+				<Dropdown
 					id='networkType'
 					value={wiFi.networkType}
-					onChange={(e) =>
+					onClick={(value) =>
 						setWiFi({
 							...wiFi,
-							networkType: e.target.value,
+							networkType: value,
 						})
-					}>
-					<option value='WEP'>WEP</option>
-					<option value='WPA'>WPA/WPA2</option>
-					<option value=''>No encryption</option>
-				</select>
+					}
+					options={[
+						{ value: "WEP", title: "WEP" },
+						{ value: "WPA", title: "WPA/WPA2" },
+						{ value: "", title: "No encryption" },
+					]}
+				/>
 			</Col>
 			{wiFi.networkType && (
 				<Col ai='stretch'>

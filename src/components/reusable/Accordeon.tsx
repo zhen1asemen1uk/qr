@@ -49,7 +49,7 @@ const Accordion: FC<IAccordion> = ({ title, content }) => {
 			<AccordionWrappTitle onClick={() => setIsActive(!isActive)}>
 				<h5>{title}</h5>
 				<WrappArrow isRotate={isActive}>
-					<ArrowSVG fill='#FFF' />
+					<ArrowSVG fill='#FFFFFF' />
 				</WrappArrow>
 			</AccordionWrappTitle>
 			{isActive && <AccordionContent>{content}</AccordionContent>}

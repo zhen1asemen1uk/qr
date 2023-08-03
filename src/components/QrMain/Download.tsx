@@ -1,10 +1,4 @@
-import React, {
-	ChangeEvent,
-	Dispatch,
-	FC,
-	SetStateAction,
-	useState,
-} from "react";
+import { Dispatch, FC, SetStateAction, useState } from "react";
 import { FileExtension, Options } from "qr-code-styling";
 import Button from "../reusable/Button";
 import Input from "../reusable/Input";
@@ -12,8 +6,9 @@ import Input from "../reusable/Input";
 import { onDownloadClick } from "../../utils/onDownloadClick";
 import { TypeImage } from "../../types/enumes";
 import Accordion from "../reusable/Accordeon";
-import { Col } from "../../styles/styles";
+import { Col, Row } from "../../styles/styles";
 import InputRagne from "../reusable/InputRagne";
+import { Dropdown } from "../reusable/Dropdown";
 
 interface IDownload {
 	size: { width: number; height: number };
@@ -38,34 +33,22 @@ const Download: FC<IDownload> = ({
 				title={"Download Settings"}
 				content={
 					<Col g='20px'>
-						<label htmlFor='formateForDownload'>
-							Formate of image:
-							<select
-								value={fileExt}
-								id='formateForDownload'
-								name='formateForDownload'
-								onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-									setFileExt(e.target.value as FileExtension)
-								}>
-								<option value={TypeImage.SVG}>
-									{TypeImage.SVG.toLocaleUpperCase()}
-								</option>
-								<option value={TypeImage.WEBP}>
-									{TypeImage.WEBP.toLocaleUpperCase()}
-								</option>
-								<option value={TypeImage.JPEG}>
-									{TypeImage.JPEG.toLocaleUpperCase()}
-								</option>
-								<option value={TypeImage.PNG}>
-									{TypeImage.PNG.toLocaleUpperCase()}
-								</option>
-							</select>
-						</label>
+						Formate of image:
+						<Dropdown
+							value={fileExt}
+							id='formateForDownload'
+							onClick={(value) => setFileExt(value as FileExtension)}
+							options={[
+								{ value: TypeImage.SVG, title: TypeImage.SVG },
+								{ value: TypeImage.WEBP, title: TypeImage.WEBP },
+								{ value: TypeImage.JPEG, title: TypeImage.JPEG },
+								{ value: TypeImage.PNG, title: TypeImage.PNG },
+							]}
+						/>
 						<Col>
 							<label htmlFor='sizeForDownload'>
 								{`Resolution of Qr image 
-								(${sizeForDownload}px/${sizeForDownload}
-								px):`}
+								(${sizeForDownload}px/${sizeForDownload}px):`}
 							</label>
 							<InputRagne
 								w='100%'
@@ -77,7 +60,7 @@ const Download: FC<IDownload> = ({
 								value={`${sizeForDownload}`}
 								onChange={(e) => setSizeForDownload(+e.target.value)}
 							/>
-							or
+							<Row m='0 auto'>or</Row>
 							<Input
 								min={`300`}
 								step={"5"}

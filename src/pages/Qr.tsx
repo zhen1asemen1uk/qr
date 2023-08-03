@@ -61,7 +61,7 @@ const initOptions = {
 		type: `rounded` as DotType,
 	},
 	backgroundOptions: {
-		color: `#FFF`,
+		color: `#FFFFFF`,
 		// gradient: {
 		//   type: 'linear', // 'radial'
 		//   rotation: 0,
