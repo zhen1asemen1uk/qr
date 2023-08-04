@@ -18,7 +18,7 @@ interface IEmail {
 const arrFields = [
 	{
 		title: `Email`,
-		require: true,
+		require: false,
 		key: EmailKeys.EMAIL,
 		ph: "email@mail.com",
 	},

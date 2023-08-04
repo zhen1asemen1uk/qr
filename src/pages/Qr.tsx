@@ -108,13 +108,15 @@ export const Qr: FC = () => {
 			w={`100%`}
 			jc={`space-between`}
 			fd={size.width < 1280 ? `column` : `row`}
-			m={`0 0 100px 0`}>
-			<Col g={`20px`}>
+			m={`0 auto 100px auto`}
+			maxW='1440px'>
+			<Col g={`20px`} w='100%'>
 				{/* Buttons block */}
 				<Row
 					g={`5px`}
 					jc={`space-between`}
-					fd={size.width < 1280 ? `column` : `row`}>
+					fd={size.width < 1280 ? `column` : `row`}
+					m='0 0 29px 0'>
 					{arrTypes.map((typeData, i) => {
 						return (
 							<Button

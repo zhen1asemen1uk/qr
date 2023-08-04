@@ -46,7 +46,6 @@ const SmsType: React.FC<IOptions> = ({ options, setOptions }) => {
 					onBlur={() => {
 						showLogo(options, setOptions);
 					}}
-					autoFocus={true}
 				/>
 			</Col>
 

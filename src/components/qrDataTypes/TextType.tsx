@@ -31,7 +31,6 @@ const TextType: React.FC<IOptions> = ({ options, setOptions }) => {
 					setOptions({ ...options, data: e.target.value || " " })
 				}
 				w='100%'
-				autoFocus={true}
 			/>
 
 			{isPast && (

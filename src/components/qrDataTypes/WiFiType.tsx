@@ -54,7 +54,6 @@ const WiFiType: FC<IOptions> = ({ options, setOptions }) => {
 							networkName: e.target.value,
 						})
 					}
-					autoFocus
 				/>
 			</Col>
 			<Col ai='stretch'>
