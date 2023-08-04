@@ -1,30 +1,6 @@
-// export const resizeCanvas = (
-// 	canvasEl: HTMLCanvasElement,
-// 	newWidth: number,
-// 	newHeight: number
-// ) => {
-// 	// Збереження зображення перед зміною розмірів
-// 	const context = canvasEl.getContext("2d");
-// 	const imageData = context?.getImageData(
-// 		0,
-// 		0,
-// 		canvasEl.width,
-// 		canvasEl.height
-// 	);
-
 import QRCodeStyling, { Options } from "qr-code-styling";
 import { extension } from "./extension";
 import { RefObject } from "react";
-
-// 	// Зміна розмірів елемента <canvas>
-// 	canvasEl.width = newWidth;
-// 	canvasEl.height = newHeight;
-
-// 	// Відновлення зображення після зміни розмірів
-// 	if (context && imageData) {
-// 		context.putImageData(imageData, 0, 0);
-// 	}
-// };
 
 export const transformQr = (
 	qrCodeCopy: QRCodeStyling,
@@ -42,7 +18,10 @@ export const transformQr = (
 	qrCodeCopy.append(refQrStyledCopy.current);
 };
 
-export const onCopyClick = (canvasEl: HTMLCanvasElement) => {
+interface IOnCopy {
+	(canvasEl: HTMLCanvasElement, isTypes: string, options: Options): void;
+}
+export const onCopy: IOnCopy = (canvasEl, isTypes, options) => {
 	if (!canvasEl) return;
 
 	canvasEl.toBlob((blob) => {
@@ -56,4 +35,10 @@ export const onCopyClick = (canvasEl: HTMLCanvasElement) => {
 			}),
 		]);
 	});
+
+	// onGenerateQrCodeGTM({
+	// 	qr_capture_type: "copy",
+	// 	qr_action: isTypes,
+	// 	options,
+	// });
 };

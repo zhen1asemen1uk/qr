@@ -16,6 +16,7 @@ interface IDownload {
 	fileExt: FileExtension;
 	setFileExt: Dispatch<SetStateAction<FileExtension>>;
 	options: Options;
+	disabled?: boolean;
 }
 
 const Download: FC<IDownload> = ({
@@ -24,6 +25,7 @@ const Download: FC<IDownload> = ({
 	fileExt,
 	setFileExt,
 	options,
+	disabled = false,
 }) => {
 	const [sizeForDownload, setSizeForDownload] = useState<number>(500);
 
@@ -60,7 +62,7 @@ const Download: FC<IDownload> = ({
 								value={`${sizeForDownload}`}
 								onChange={(e) => setSizeForDownload(+e.target.value)}
 							/>
-							<Row m='0 auto'>or</Row>
+							<Row m='0 auto'>or set resulution here ↙️</Row>
 							<Input
 								min={`300`}
 								step={"5"}
@@ -92,6 +94,7 @@ const Download: FC<IDownload> = ({
 				title={"Download"}
 				w={size.width < 1280 ? "100%" : "50%"}
 				m={`0 auto`}
+				disabled={disabled}
 			/>
 		</>
 	);

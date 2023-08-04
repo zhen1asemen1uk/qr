@@ -41,7 +41,7 @@ export const Customization: FC<ICustomization> = ({
 			case TypeQr.SMS:
 				return <SmsType options={options} setOptions={setOptions} />;
 
-			case TypeQr.WiFi:
+			case TypeQr.WIFI:
 				return <WiFiType options={options} setOptions={setOptions} />;
 
 			case TypeQr.EMAIL:

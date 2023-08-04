@@ -5,6 +5,7 @@ import { Col } from "../../styles/styles";
 import Input from "../reusable/Input";
 import { hideLogo, showLogo } from "../../utils/switchLogo";
 import { IOptions } from "../../types/components";
+import { transformSymbols } from "../../utils/helpers";
 
 interface ISms {
 	tel: string;
@@ -20,7 +21,9 @@ const SmsType: React.FC<IOptions> = ({ options, setOptions }) => {
 	useEffect(() => {
 		let formatedSmsCode = `smsto:${sms.tel}`;
 
-		if (sms.text.length > 0) formatedSmsCode += `:${sms.text}`;
+		if (sms.text.length > 0) {
+			formatedSmsCode += `:${transformSymbols(sms.text)}`;
+		}
 
 		setOptions?.({ ...options, data: formatedSmsCode });
 	}, [sms]);

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, FC } from "react";
+import { useEffect, useState, FC } from "react";
 
 import QRCodeStyling, {
 	type FileExtension,
@@ -16,8 +16,6 @@ import useWindowSize from "../hooks/useWindowSize";
 
 import QrMain from "../components/QrMain";
 
-// DataTypes
-
 import { Col, Row } from "../styles/styles";
 
 import { TypeImage, TypeQr } from "../types/enumes";
@@ -28,7 +26,7 @@ import { Customization } from "../components/Customization";
 const arrTypes = [
 	{ title: `vCard`, value: TypeQr.VCARD },
 	{ title: `Sms`, value: TypeQr.SMS },
-	{ title: `WiFi`, value: TypeQr.WiFi },
+	{ title: `WiFi`, value: TypeQr.WIFI },
 	{ title: `Email`, value: TypeQr.EMAIL },
 	{ title: `Text/Link`, value: TypeQr.TEXT },
 ];
@@ -153,6 +151,7 @@ export const Qr: FC = () => {
 				fileExt={fileExt}
 				qrCode={qrCode}
 				textTips={textTips}
+				isTypes={isTypes}
 			/>
 		</Row>
 	);

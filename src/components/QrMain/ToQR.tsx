@@ -1,5 +1,7 @@
 import React, { FC, RefObject } from "react";
 import styled from "styled-components";
+import useIsVisible from "../../hooks/useIsVisible";
+import ArrowSVG from "../reusable/Svg's/ArrowSVG";
 
 const ToQRStyled = styled.div`
 	position: fixed;
@@ -19,32 +21,34 @@ const ToQRStyled = styled.div`
 	border-radius: 50%;
 
 	border: 2px solid #e91e63;
-	color: #fff;
+	color: #e91e63;
 	backdrop-filter: blur(10px);
 
-	img {
-		height: 25px;
-		width: 30px;
+	svg {
+		width: 20px;
 	}
 `;
 
 interface IToQR {
-	refQrStyled: RefObject<HTMLDivElement>;
+	refScrollTo: RefObject<HTMLDivElement>;
+	size: number;
 }
 
-export const ToQR: FC<IToQR> = ({ refQrStyled }) => {
+export const ToQR: FC<IToQR> = ({ refScrollTo, size }) => {
+	const isVisible = useIsVisible(refScrollTo);
+	if (size > 1280 || isVisible) return null;
+
 	return (
 		<ToQRStyled
 			onClick={(e) => {
-				if (refQrStyled?.current) {
-					console.log(refQrStyled?.current);
-					refQrStyled?.current.scrollIntoView({
+				if (refScrollTo?.current) {
+					refScrollTo?.current.scrollIntoView({
 						behavior: "smooth",
 					});
 				}
 			}}>
 			<strong>QR</strong>
-			<span>👇🏻</span>
+			<ArrowSVG fill='#E91E63' />
 		</ToQRStyled>
 	);
 };

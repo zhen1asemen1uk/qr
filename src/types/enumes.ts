@@ -2,7 +2,7 @@ export enum TypeQr {
 	TEXT = `TEXT`,
 	VCARD = `VCARD`,
 	SMS = `SMS`,
-	WiFi = `WiFi`,
+	WIFI = `WiFi`,
 	EMAIL = `EMAIL`,
 }
 

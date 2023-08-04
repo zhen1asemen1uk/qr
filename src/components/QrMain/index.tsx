@@ -10,13 +10,11 @@ import QRCodeStyling from "qr-code-styling";
 import { FileExtension, Options } from "qr-code-styling";
 
 import { Col, Row } from "../../styles/styles";
-import Button from "../reusable/Button";
 
-import useIsVisible from "../../hooks/useIsVisible";
-
-import { onCopyClick, transformQr } from "../../utils/onCopyClick";
+import { transformQr } from "../../utils/onCopy";
 import Download from "./Download";
 import { ToQR } from "./ToQR";
+import { Copy } from "./Copy";
 
 const QrStyled = styled(Row)`
 	align-items: center;
@@ -48,7 +46,19 @@ interface IQrMain {
 	options: Options;
 	setOptions: Dispatch<SetStateAction<Options>>;
 	size: { width: number; height: number };
+	isTypes: string;
 }
+
+const setQrURL = (
+	canvas: HTMLCanvasElement,
+	setUrl: React.Dispatch<React.SetStateAction<string>>
+) => {
+	canvas.toBlob((blob) => {
+		if (!blob) return;
+
+		setUrl(URL.createObjectURL(blob));
+	});
+};
 
 const QrMain: React.FC<IQrMain> = ({
 	qrCode,
@@ -57,6 +67,7 @@ const QrMain: React.FC<IQrMain> = ({
 	textTips,
 	options,
 	size,
+	isTypes,
 }) => {
 	const [qrCodeCopy] = useState<QRCodeStyling>(new QRCodeStyling(options));
 
@@ -64,39 +75,30 @@ const QrMain: React.FC<IQrMain> = ({
 	const refScrollTo = useRef<HTMLDivElement>(null);
 	const refQrStyledCopy = useRef<HTMLDivElement>(document.createElement("div"));
 
-	const isVisible = useIsVisible(refScrollTo);
-
-	const [isCopied, setIsCopied] = useState<boolean>(false);
+	const [isIphone, setIsIphone] = useState<boolean>(false);
 	const [linkFromBlob, setLinkFromBlob] = useState<string>(
 		`/images/qr-example-4.png`
 	);
 
 	useEffect(() => {
-		if (!refQrStyled?.current) return;
-
-		qrCode.append(refQrStyled.current);
+		if (qrCode && refQrStyled.current) {
+			setIsIphone(/iPhone|iPad|iPod/i.test(navigator.userAgent));
+			qrCode.append(refQrStyled.current);
+		}
 	}, [qrCode, refQrStyled]);
 
 	// for copy Qr with size 1024
 	useEffect(() => {
-		if (!qrCodeCopy) return;
-
-		if (refQrStyledCopy?.current) {
+		if (qrCodeCopy && refQrStyledCopy?.current) {
 			transformQr(qrCodeCopy, refQrStyledCopy, options, textTips);
 		}
 	}, [qrCodeCopy, refQrStyledCopy, textTips, options]);
 
 	useEffect(() => {
-		if (!refQrStyled?.current || !refQrStyled?.current?.children[0]) return;
+		const canvasEl = refQrStyled?.current?.children[0] as HTMLCanvasElement;
 
-		if (size.width < 1280) {
-			(refQrStyled?.current?.children[0] as HTMLCanvasElement).toBlob(
-				(blob) => {
-					if (!blob) return;
-
-					setLinkFromBlob(URL.createObjectURL(blob));
-				}
-			);
+		if (canvasEl && size.width < 1280) {
+			setQrURL(canvasEl, setLinkFromBlob);
 		}
 	}, [options, size.width]);
 
@@ -105,7 +107,7 @@ const QrMain: React.FC<IQrMain> = ({
 			<Col pos={`sticky`} posT={`20px`} g={`15px`} ref={refScrollTo}>
 				<QrStyled ref={refQrStyled} />
 
-				<MobilQr src={linkFromBlob} alt='Qr-Code' />
+				{linkFromBlob && <MobilQr src={linkFromBlob} alt='Qr-Code' />}
 
 				<Col g={`15px`} w={`80%`} m={"0 auto"}>
 					<Download
@@ -116,30 +118,18 @@ const QrMain: React.FC<IQrMain> = ({
 						options={options}
 					/>
 
-					{/* Copy */}
-					<Button
-						onClick={() => {
-							setIsCopied(true);
-
-							const canvasEl = refQrStyledCopy?.current
-								?.children[0] as HTMLCanvasElement;
-
-							onCopyClick(canvasEl);
-
-							setTimeout(() => {
-								setIsCopied(false);
-							}, 2500);
-						}}
-						disabled={isCopied}
-						title={!isCopied ? "Copy" : "Copied!"}
-						w={size.width < 1280 ? "100%" : "50%"}
-						m={`0 auto`}
+					<Copy
+						size={size}
+						refQrStyledCopy={refQrStyledCopy}
+						options={options}
+						isTypes={isTypes}
+						isIphone={isIphone}
 					/>
 				</Col>
 			</Col>
 
 			{/* "Go Qr" - only mobile */}
-			{size.width < 1280 && !isVisible && <ToQR refQrStyled={refScrollTo} />}
+			<ToQR size={size.width} refScrollTo={refScrollTo} />
 		</Col>
 	);
 };

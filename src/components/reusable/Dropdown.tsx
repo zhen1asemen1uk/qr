@@ -9,7 +9,7 @@ const DropdownStyled = styled(FlexBlock)<{ isOpen: boolean }>`
 	width: 100%;
 	padding: 10px;
 
-	color: white;
+	color: #e91e63;
 
 	background: #fad3e0;
 	border-radius: 2px;
@@ -52,6 +52,10 @@ const OptionStyled = styled(FlexBlock)`
 	border-bottom: 1px solid #e91e63;
 
 	cursor: pointer;
+
+	&:hover {
+		background: #f6a5c0;
+	}
 `;
 
 const ArrowConteiner = styled.div<{ isOpen: boolean }>`
@@ -97,7 +101,7 @@ export const Dropdown: FC<IDropdown> = ({
 			</OptionConteiner>
 
 			<ArrowConteiner isOpen={isOpen}>
-				<ArrowSVG fill='white' />
+				<ArrowSVG fill='#E91E63' />
 			</ArrowConteiner>
 		</DropdownStyled>
 	);

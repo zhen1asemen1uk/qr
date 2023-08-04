@@ -20,10 +20,15 @@ const Checkmark = styled.span`
 
 const LabelStyled = styled.label`
 	display: block;
+
 	position: relative;
+
+	width: fit-content;
+
 	padding-left: 35px;
 	margin-bottom: 12px;
 	cursor: pointer;
+
 	font-size: 22px;
 	-webkit-user-select: none;
 	-moz-user-select: none;

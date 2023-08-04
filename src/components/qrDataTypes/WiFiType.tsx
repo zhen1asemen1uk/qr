@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect, useMemo, useState } from "react";
+import { FC, useEffect, useState } from "react";
 
 import { Col } from "../../styles/styles";
 

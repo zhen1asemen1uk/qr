@@ -26,9 +26,9 @@ const Loader = styled.div`
 	width: 15px;
 	height: 15px;
 
-	border: 3px solid rgba(6, 35, 75, 0.2);
+	border: 3px solid rgba(246, 0, 82, 0.2);
 	border-radius: 50%;
-	border-top-color: rgb(6, 35, 75);
+	border-top-color: #e91e63;
 
 	background: transparent;
 
