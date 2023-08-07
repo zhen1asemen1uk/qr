@@ -103,12 +103,6 @@ export interface IOption {
 	value: FileExtension;
 }
 
-export interface IDropdown {
-	value: FileExtension;
-	setValue: Dispatch<SetStateAction<FileExtension>>;
-	options: IOption[];
-}
-
 export interface IInput {
 	title?: string | ReactNode;
 	secondary?: boolean;

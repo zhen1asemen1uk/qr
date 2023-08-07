@@ -34,7 +34,7 @@ export const Copy: FC<ICopy> = ({
 					const canvasEl = refQrStyledCopy.current
 						.children[0] as HTMLCanvasElement;
 
-					onCopy(canvasEl, isTypes, options);
+					onCopy({ canvasEl, isTypes, options });
 
 					setTimeout(() => {
 						setIsCopied(false);

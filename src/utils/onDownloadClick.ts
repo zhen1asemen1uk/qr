@@ -1,5 +1,6 @@
 import QRCodeStyling, { FileExtension, Options } from "qr-code-styling";
 import { extension } from "./extension";
+import { calcMargin } from "./helpers";
 
 export const onDownloadClick = (
 	textTips: string,
@@ -11,7 +12,7 @@ export const onDownloadClick = (
 		...options,
 		width: resolutionOfQr,
 		height: resolutionOfQr,
-		margin: 30,
+		margin: calcMargin(resolutionOfQr),
 	});
 
 	qrCode.applyExtension((svg: SVGElement, options: Options) =>

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { FlexBlock } from "../../styles/styles";
 import ArrowSVG from "./Svg's/ArrowSVG";
 
-const DropdownStyled = styled(FlexBlock)<{ isOpen: boolean }>`
+const SelectStyled = styled(FlexBlock)<{ isOpen: boolean }>`
 	position: relative;
 
 	width: 100%;
@@ -71,7 +71,7 @@ const ArrowConteiner = styled.div<{ isOpen: boolean }>`
 	}
 `;
 
-interface IDropdown {
+interface ISelect {
 	label?: string;
 	id?: string;
 	value: string;
@@ -79,7 +79,7 @@ interface IDropdown {
 	options: { title: string; value: string }[];
 }
 
-export const Dropdown: FC<IDropdown> = ({
+export const Select: FC<ISelect> = ({
 	label = "Test",
 	id,
 	value,
@@ -89,7 +89,7 @@ export const Dropdown: FC<IDropdown> = ({
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 
 	return (
-		<DropdownStyled onClick={() => setIsOpen(!isOpen)} isOpen={isOpen} id={id}>
+		<SelectStyled onClick={() => setIsOpen(!isOpen)} isOpen={isOpen} id={id}>
 			{value || label}
 			<OptionConteiner>
 				{isOpen &&
@@ -103,6 +103,6 @@ export const Dropdown: FC<IDropdown> = ({
 			<ArrowConteiner isOpen={isOpen}>
 				<ArrowSVG fill='#E91E63' />
 			</ArrowConteiner>
-		</DropdownStyled>
+		</SelectStyled>
 	);
 };

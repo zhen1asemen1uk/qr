@@ -11,7 +11,7 @@ import { FileExtension, Options } from "qr-code-styling";
 
 import { Col, Row } from "../../styles/styles";
 
-import { transformQr } from "../../utils/onCopy";
+import { setQrURL, transformQr } from "../../utils/onCopy";
 import Download from "./Download";
 import { ToQR } from "./ToQR";
 import { Copy } from "./Copy";
@@ -21,8 +21,7 @@ const QrStyled = styled(Row)`
 	align-items: center;
 	justify-content: center;
 
-	svg,
-	canvas {
+	* {
 		border-radius: 20px;
 	}
 
@@ -49,17 +48,6 @@ interface IQrMain {
 	size: { width: number; height: number };
 	isTypes: string;
 }
-
-const setQrURL = (
-	canvas: HTMLCanvasElement,
-	setUrl: React.Dispatch<React.SetStateAction<string>>
-) => {
-	canvas.toBlob((blob) => {
-		if (!blob) return;
-
-		setUrl(URL.createObjectURL(blob));
-	});
-};
 
 const QrMain: React.FC<IQrMain> = ({
 	qrCode,
@@ -144,7 +132,6 @@ const QrMain: React.FC<IQrMain> = ({
 				</Col>
 			</Col>
 
-			{/* "Go Qr" - only mobile */}
 			<ToQR size={size.width} refScrollTo={refScrollTo} />
 		</Col>
 	);

@@ -38,6 +38,9 @@ const GlobalStyle = createGlobalStyle`
 		text-decoration: none;
 		box-sizing: border-box;
 	}
+	a{
+		color: #e91e63;
+	}
 `;
 
 export default GlobalStyle;

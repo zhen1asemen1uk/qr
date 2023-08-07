@@ -34,9 +34,12 @@ export const transformQr = ({
 };
 
 interface IOnCopy {
-	(canvasEl: HTMLCanvasElement, isTypes: string, options: Options): void;
+	canvasEl: HTMLCanvasElement;
+	isTypes: string;
+	options: Options;
 }
-export const onCopy: IOnCopy = (canvasEl, isTypes, options) => {
+
+export const onCopy = ({ canvasEl, isTypes, options }: IOnCopy) => {
 	if (!canvasEl) return;
 
 	canvasEl.toBlob((blob) => {
@@ -56,4 +59,15 @@ export const onCopy: IOnCopy = (canvasEl, isTypes, options) => {
 	// 	qr_action: isTypes,
 	// 	options,
 	// });
+};
+
+export const setQrURL = (
+	canvas: HTMLCanvasElement,
+	setUrl: React.Dispatch<React.SetStateAction<string>>
+) => {
+	canvas.toBlob((blob) => {
+		if (!blob) return;
+
+		setUrl(URL.createObjectURL(blob));
+	});
 };

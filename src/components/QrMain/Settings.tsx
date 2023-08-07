@@ -1,7 +1,7 @@
 import { Dispatch, FC, SetStateAction } from "react";
 import { FileExtension } from "qr-code-styling";
 
-import { Dropdown } from "../reusable/Dropdown";
+import { Select } from "../reusable/Select";
 import Accordion from "../reusable/Accordeon";
 import InputRagne from "../reusable/InputRagne";
 import Input from "../reusable/Input";
@@ -28,7 +28,7 @@ export const Settings: FC<ISettings> = ({
 			content={
 				<Col g='20px'>
 					Formate of image:
-					<Dropdown
+					<Select
 						value={fileExt.toUpperCase()}
 						id='formateForDownload'
 						onClick={(value) => setFileExt(value as FileExtension)}
@@ -55,7 +55,7 @@ export const Settings: FC<ISettings> = ({
 							onChange={(e) => setResolutionOfQr(+e.target.value)}
 						/>
 
-						<Row m='0 auto'>or set resulution here ↙️</Row>
+						<Row m='0 auto'>or set resulution here (optionally) ↙️</Row>
 
 						<Input
 							min={`300`}

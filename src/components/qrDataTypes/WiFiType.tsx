@@ -7,7 +7,7 @@ import Input from "../reusable/Input";
 
 import { IOptions } from "../../types/components";
 import Checkbox from "../reusable/Checkbox";
-import { Dropdown } from "../reusable/Dropdown";
+import { Select } from "../reusable/Select";
 
 interface IWiFi {
 	networkName: string;
@@ -62,7 +62,7 @@ const WiFiType: FC<IOptions> = ({ options, setOptions }) => {
 					<RedStar />
 				</label>
 
-				<Dropdown
+				<Select
 					id='networkType'
 					value={wiFi.networkType}
 					onClick={(value) =>
