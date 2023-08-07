@@ -24,8 +24,6 @@ const Tips: FC<ITips> = ({ qrCode, textTips, setTextTips }) => {
 	const triggerTextTips = useDebounce(textTips, 1800, setIsLoading);
 
 	useEffect(() => {
-		if (!triggerTextTips) return;
-
 		qrCode.applyExtension((svg: SVGElement, options: Options) =>
 			extension(svg, options, triggerTextTips)
 		);

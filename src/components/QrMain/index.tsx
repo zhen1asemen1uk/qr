@@ -15,6 +15,7 @@ import { transformQr } from "../../utils/onCopy";
 import Download from "./Download";
 import { ToQR } from "./ToQR";
 import { Copy } from "./Copy";
+import { Settings } from "./Settings";
 
 const QrStyled = styled(Row)`
 	align-items: center;
@@ -70,6 +71,7 @@ const QrMain: React.FC<IQrMain> = ({
 	isTypes,
 }) => {
 	const [qrCodeCopy] = useState<QRCodeStyling>(new QRCodeStyling(options));
+	const [resolutionOfQr, setResolutionOfQr] = useState<number>(1024);
 
 	const refQrStyled = useRef<HTMLDivElement>(null);
 	const refScrollTo = useRef<HTMLDivElement>(null);
@@ -90,9 +92,15 @@ const QrMain: React.FC<IQrMain> = ({
 	// for copy Qr with size 1024
 	useEffect(() => {
 		if (qrCodeCopy && refQrStyledCopy?.current) {
-			transformQr(qrCodeCopy, refQrStyledCopy, options, textTips);
+			transformQr({
+				qrCodeCopy: qrCodeCopy,
+				qrRefStyledDiv: refQrStyledCopy,
+				optionsOfQr: options,
+				resolutionOfQr: resolutionOfQr,
+				textTips: textTips,
+			});
 		}
-	}, [qrCodeCopy, refQrStyledCopy, textTips, options]);
+	}, [qrCodeCopy, refQrStyledCopy, textTips, options, resolutionOfQr]);
 
 	useEffect(() => {
 		const canvasEl = refQrStyled?.current?.children[0] as HTMLCanvasElement;
@@ -110,12 +118,20 @@ const QrMain: React.FC<IQrMain> = ({
 				{linkFromBlob && <MobilQr src={linkFromBlob} alt='Qr-Code' />}
 
 				<Col g={`15px`} w={`80%`} m={"0 auto"}>
+					<Settings
+						fileExt={fileExt}
+						setFileExt={setFileExt}
+						resolutionOfQr={resolutionOfQr}
+						setResolutionOfQr={setResolutionOfQr}
+					/>
+
 					<Download
 						size={size}
 						textTips={textTips}
 						fileExt={fileExt}
 						setFileExt={setFileExt}
 						options={options}
+						resolutionOfQr={resolutionOfQr}
 					/>
 
 					<Copy

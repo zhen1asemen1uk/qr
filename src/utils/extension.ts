@@ -1,4 +1,5 @@
 import { Options } from "qr-code-styling";
+import { transformSymbols } from "./helpers";
 
 const fz = (width: number): string => {
 	const crearWidth = width - 300;
@@ -28,7 +29,7 @@ export const extension = (
 			`${options.dotsOptions?.color || "#000"}`
 		);
 		textElement.setAttribute("fill", `${options.dotsOptions?.color || "#000"}`);
-		textElement.textContent = textTips;
+		textElement.textContent = transformSymbols(textTips);
 		svg.appendChild(textElement);
 	};
 

@@ -4,13 +4,13 @@ import { extension } from "./extension";
 export const onDownloadClick = (
 	textTips: string,
 	fileExt: FileExtension,
-	sizeForDownload: number,
+	resolutionOfQr: number,
 	options: Options
 ) => {
 	const qrCode = new QRCodeStyling({
 		...options,
-		width: sizeForDownload,
-		height: sizeForDownload,
+		width: resolutionOfQr,
+		height: resolutionOfQr,
 		margin: 30,
 	});
 

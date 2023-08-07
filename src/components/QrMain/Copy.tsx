@@ -33,6 +33,7 @@ export const Copy: FC<ICopy> = ({
 				if (refQrStyledCopy?.current) {
 					const canvasEl = refQrStyledCopy.current
 						.children[0] as HTMLCanvasElement;
+
 					onCopy(canvasEl, isTypes, options);
 
 					setTimeout(() => {

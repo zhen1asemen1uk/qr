@@ -91,7 +91,7 @@ export const Qr: FC = () => {
 
 	const [textTips, setTextTips] = useState<string>("");
 	const [isTypes, setIsTypes] = useState<string>(TypeQr.TEXT);
-	const [fileExt, setFileExt] = useState<FileExtension>(TypeImage.SVG);
+	const [fileExt, setFileExt] = useState<FileExtension>(TypeImage.PNG);
 
 	const [options, setOptions] = useState<Options>(initOptions);
 

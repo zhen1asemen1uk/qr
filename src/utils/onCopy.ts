@@ -2,20 +2,35 @@ import QRCodeStyling, { Options } from "qr-code-styling";
 import { extension } from "./extension";
 import { RefObject } from "react";
 
-export const transformQr = (
-	qrCodeCopy: QRCodeStyling,
-	refQrStyledCopy: RefObject<HTMLDivElement>,
-	options: Options,
-	textTips: string
-) => {
-	if (!refQrStyledCopy.current) return;
+interface ITransformQr {
+	qrCodeCopy: QRCodeStyling;
+	qrRefStyledDiv: RefObject<HTMLDivElement>;
+	optionsOfQr: Options;
+	resolutionOfQr: number;
+	textTips: string;
+}
 
-	qrCodeCopy.update({ ...options, width: 1024, height: 1024, margin: 30 });
-	qrCodeCopy.applyExtension((svg: SVGElement, options: Options) =>
-		extension(svg, options, textTips)
+export const transformQr = ({
+	qrCodeCopy,
+	qrRefStyledDiv,
+	optionsOfQr,
+	resolutionOfQr,
+	textTips,
+}: ITransformQr) => {
+	if (!qrRefStyledDiv.current) return;
+
+	qrCodeCopy.update({
+		...optionsOfQr,
+		width: resolutionOfQr,
+		height: resolutionOfQr,
+		margin: 40,
+	});
+
+	qrCodeCopy.applyExtension((svg: SVGElement, optionsOfQr: Options) =>
+		extension(svg, optionsOfQr, textTips)
 	);
 
-	qrCodeCopy.append(refQrStyledCopy.current);
+	qrCodeCopy.append(qrRefStyledDiv.current);
 };
 
 interface IOnCopy {

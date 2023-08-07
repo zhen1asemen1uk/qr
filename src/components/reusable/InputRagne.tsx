@@ -1,5 +1,5 @@
-import React, { FC } from "react";
-import styled, { keyframes } from "styled-components";
+import { FC } from "react";
+import styled from "styled-components";
 
 import { Col } from "../../styles/styles";
 import { IInput } from "../../types/resusable";
@@ -13,9 +13,11 @@ const WrappInput = styled(Col)`
 		margin: 10px 0;
 		width: 100%;
 	}
+
 	input[type="range"]:focus {
 		outline: none;
 	}
+
 	input[type="range"]::-webkit-slider-runnable-track {
 		width: 100%;
 		height: 7px;
@@ -26,6 +28,7 @@ const WrappInput = styled(Col)`
 		border-radius: 2px;
 		border: 0px solid #000000;
 	}
+
 	input[type="range"]::-webkit-slider-thumb {
 		box-shadow: 0px 0px 0px #f6a6c0;
 		border: 0px solid #f6a6c0;
@@ -37,9 +40,11 @@ const WrappInput = styled(Col)`
 		-webkit-appearance: none;
 		margin-top: -6.5px;
 	}
+
 	input[type="range"]:focus::-webkit-slider-runnable-track {
 		background: #f6a6c0;
 	}
+
 	input[type="range"]::-moz-range-track {
 		width: 100%;
 		height: 7px;
@@ -50,6 +55,7 @@ const WrappInput = styled(Col)`
 		border-radius: 2px;
 		border: 0px solid #000000;
 	}
+
 	input[type="range"]::-moz-range-thumb {
 		box-shadow: 0px 0px 0px #f6a6c0;
 		border: 0px solid #f6a6c0;
@@ -59,6 +65,7 @@ const WrappInput = styled(Col)`
 		background: #e91e63;
 		cursor: pointer;
 	}
+
 	input[type="range"]::-ms-track {
 		width: 100%;
 		height: 7px;
@@ -68,18 +75,21 @@ const WrappInput = styled(Col)`
 		border-color: transparent;
 		color: transparent;
 	}
+
 	input[type="range"]::-ms-fill-lower {
 		background: #f6a6c0;
 		border: 0px solid #000000;
 		border-radius: 4px;
 		box-shadow: 0px 0px 0px #000000;
 	}
+
 	input[type="range"]::-ms-fill-upper {
 		background: #f6a6c0;
 		border: 0px solid #000000;
 		border-radius: 4px;
 		box-shadow: 0px 0px 0px #000000;
 	}
+
 	input[type="range"]::-ms-thumb {
 		margin-top: 1px;
 		box-shadow: 0px 0px 0px #f6a6c0;
@@ -90,9 +100,11 @@ const WrappInput = styled(Col)`
 		background: #e91e63;
 		cursor: pointer;
 	}
+
 	input[type="range"]:focus::-ms-fill-lower {
 		background: #f6a6c0;
 	}
+
 	input[type="range"]:focus::-ms-fill-upper {
 		background: #f6a6c0;
 	}
@@ -104,7 +116,6 @@ const InputConteiner = styled.div`
 
 const InputStyled = styled.input`
 	width: 100%;
-
 	padding: 10px;
 
 	background: #fad3e0;
