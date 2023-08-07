@@ -120,6 +120,7 @@ const QrMain: React.FC<IQrMain> = ({
 						setFileExt={setFileExt}
 						options={options}
 						resolutionOfQr={resolutionOfQr}
+						isTypes={isTypes}
 					/>
 
 					<Copy

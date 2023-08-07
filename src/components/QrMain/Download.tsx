@@ -12,6 +12,7 @@ interface IDownload {
 	options: Options;
 	disabled?: boolean;
 	resolutionOfQr: number;
+	isTypes: string;
 }
 
 const Download: FC<IDownload> = ({
@@ -21,6 +22,7 @@ const Download: FC<IDownload> = ({
 	options,
 	disabled = false,
 	resolutionOfQr,
+	isTypes,
 }) => {
 	const [isDownload, setIsDownload] = useState<boolean>(false);
 
@@ -29,7 +31,7 @@ const Download: FC<IDownload> = ({
 			onClick={() => {
 				setIsDownload(true);
 
-				onDownloadClick(textTips, fileExt, resolutionOfQr, options);
+				onDownloadClick(textTips, fileExt, resolutionOfQr, options, isTypes);
 
 				setTimeout(() => {
 					setIsDownload(false);

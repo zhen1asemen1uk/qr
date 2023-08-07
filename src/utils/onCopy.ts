@@ -1,6 +1,7 @@
 import QRCodeStyling, { Options } from "qr-code-styling";
 import { extension } from "./extension";
 import { RefObject } from "react";
+import { onGenerateQrCodeGTM } from "./googleTagManager";
 
 interface ITransformQr {
 	qrCodeCopy: QRCodeStyling;
@@ -54,11 +55,11 @@ export const onCopy = ({ canvasEl, isTypes, options }: IOnCopy) => {
 		]);
 	});
 
-	// onGenerateQrCodeGTM({
-	// 	qr_capture_type: "copy",
-	// 	qr_action: isTypes,
-	// 	options,
-	// });
+	onGenerateQrCodeGTM({
+		qr_capture_type: "copy",
+		qr_action: isTypes,
+		options,
+	});
 };
 
 export const setQrURL = (
