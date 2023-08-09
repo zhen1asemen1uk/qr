@@ -17,8 +17,8 @@ const WrappButton = styled.button<ButtonProps>`
 	padding: ${({ p }) => p ?? `15px 20px`};
 	margin: ${({ m }) => m ?? `0`};
 
-	background: ${({ bgColor, secondary }) =>
-		bgColor ?? (secondary ? `transparent` : `#E91E63`)};
+	background: ${({ bgColor, secondary, theme }) =>
+		bgColor ?? (secondary ? `transparent` : theme.main)};
 
 	border: ${({ secondary }) => (secondary ? `1px solid #494e5b` : `none`)};
 	border-radius: 2px;
@@ -32,7 +32,7 @@ const WrappButton = styled.button<ButtonProps>`
 	text-transform: uppercase;
 	text-decoration: ${({ td }) => td || `none`};
 
-	color: ${({ secondary }) => (secondary ? `#E91E63` : `#FFFFFF`)};
+	color: ${({ secondary, theme }) => (secondary ? theme.main : `#FFFFFF`)};
 
 	font-size: 12px;
 
@@ -59,11 +59,11 @@ const WrappButton = styled.button<ButtonProps>`
 				? `#5a6268`
 				: `#5a6268`};
 
-		color: ${({ disabled, secondary }) =>
+		color: ${({ disabled, secondary, theme }) =>
 			disabled && secondary
-				? `#E91E63`
+				? theme.main
 				: disabled
-				? `#E91E63`
+				? theme.main
 				: secondary
 				? `#FFFFFF`
 				: `#FFFFFF`};
@@ -88,11 +88,11 @@ const WrappButton = styled.button<ButtonProps>`
 				? `#4f565c`
 				: `#4f565c`};
 
-		color: ${({ disabled, secondary }) =>
+		color: ${({ disabled, secondary, theme }) =>
 			disabled && secondary
-				? `#E91E63`
+				? theme.main
 				: disabled
-				? `#E91E63`
+				? theme.main
 				: secondary
 				? `#FFFFFF`
 				: `#FFFFFF`};

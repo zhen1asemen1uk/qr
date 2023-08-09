@@ -1,9 +1,8 @@
 import React, { FC } from "react";
-import styled from "styled-components";
+import styled, { DefaultTheme, useTheme } from "styled-components";
 
 import { Col, FlexBlock, Row } from "../../styles/styles";
-
-import { IOptions } from "../../types/components";
+import { ExampleTheme, IOptions } from "../../types/components";
 
 const Title = styled.h1``;
 
@@ -13,44 +12,46 @@ const ImageEx = styled.img`
 	object-fit: contain;
 `;
 
-const examplesThemes = [
+const examplesThemes = ({ theme }: { theme: DefaultTheme }): ExampleTheme[] => [
 	{
 		link: `images/qr-example-1.png`,
-		dotsOptions: "#E91E63",
-		backgroundOptions: "#FFFFFF",
-		cornersSquareOptions: "#E91E63",
-		cornersDotOptions: "#E91E63",
+		dotsOptions: `${theme.main}`,
+		backgroundOptions: `${theme.secondary}`,
+		cornersSquareOptions: `${theme.main}`,
+		cornersDotOptions: `${theme.main}`,
 	},
 	{
 		link: `images/qr-example-2.png`,
-		dotsOptions: "#FFFFFF",
-		backgroundOptions: "#E91E63",
-		cornersSquareOptions: "#FFFFFF",
-		cornersDotOptions: "#FFFFFF",
+		dotsOptions: `${theme.main}`,
+		backgroundOptions: `${theme.secondary}`,
+		cornersSquareOptions: `${theme.main}`,
+		cornersDotOptions: `${theme.main}`,
 	},
 	{
 		link: `images/qr-example-3.png`,
-		dotsOptions: "#FFFFFF",
-		backgroundOptions: "#000000",
-		cornersSquareOptions: "#FFFFFF",
-		cornersDotOptions: "#FFFFFF",
+		dotsOptions: `${theme.main}`,
+		backgroundOptions: `${theme.secondary}`,
+		cornersSquareOptions: `${theme.main}`,
+		cornersDotOptions: `${theme.main}`,
 	},
 	{
 		link: `images/qr-example-4.png`,
-		dotsOptions: "#000000",
-		backgroundOptions: "#FFFFFF",
-		cornersSquareOptions: "#000000",
-		cornersDotOptions: "#000000",
+		dotsOptions: `${theme.main}`,
+		backgroundOptions: `${theme.secondary}`,
+		cornersSquareOptions: `${theme.main}`,
+		cornersDotOptions: `${theme.main}`,
 	},
 ];
 
 const ExamplesThemes: FC<IOptions> = ({ options, setOptions }) => {
+	const theme = useTheme();
+	const examplesThemesArr = examplesThemes({ theme });
 	return (
 		<Col g={`5px`}>
 			<Title>Colors:</Title>
 			Examples:
 			<Row g={`5px`} jc={`space-between`}>
-				{examplesThemes.map((example, i) => {
+				{examplesThemesArr.map((example, i) => {
 					return (
 						<FlexBlock
 							key={`${example.link}_${i}`}
@@ -63,8 +64,8 @@ const ExamplesThemes: FC<IOptions> = ({ options, setOptions }) => {
 								example.cornersSquareOptions ===
 									options.cornersSquareOptions?.color &&
 								example.cornersDotOptions === options.cornersDotOptions?.color
-									? `2px solid #E91E63`
-									: `2px solid #FAD3E0`
+									? `2px solid ${theme.main}`
+									: `2px solid ${theme.secondary}`
 							}
 							onClick={() => {
 								setOptions?.({

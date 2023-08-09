@@ -42,3 +42,10 @@ export enum TypeImage {
 	JPEG = `jpeg`,
 	PNG = `png`,
 }
+
+export enum Themes {
+	KEY = `themeQr`,
+	WHITE = `white`,
+	BLACK = `black`,
+	PINK = `pink`,
+}

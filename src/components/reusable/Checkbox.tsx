@@ -7,8 +7,8 @@ const Checkmark = styled.span`
 	left: 0;
 	height: 25px;
 	width: 25px;
-	background-color: #fad3e0;
-	border: 1px solid #e91e63;
+	background: ${({ theme }) => theme.secondary};
+	border: ${({ theme }) => `2px solid ${theme.main}`};
 	border-radius: 2px;
 
 	&:after {
@@ -36,7 +36,7 @@ const LabelStyled = styled.label`
 	user-select: none;
 
 	input:checked ~ ${Checkmark} {
-		background-color: #fad3e0;
+		background: ${({ theme }) => theme.secondary};
 	}
 
 	input:checked ~ ${Checkmark}:after {
@@ -44,7 +44,7 @@ const LabelStyled = styled.label`
 	}
 
 	&:hover input ~ ${Checkmark} {
-		background-color: #f6a6c0;
+		background: ${({ theme }) => theme.secondary};
 	}
 
 	${Checkmark}:after {
@@ -52,7 +52,7 @@ const LabelStyled = styled.label`
 		top: 4px;
 		width: 5px;
 		height: 10px;
-		border: solid #e91e63;
+		border: ${({ theme }) => `solid ${theme.main}`};
 		border-width: 0 3px 3px 0;
 		-webkit-transform: rotate(45deg);
 		-ms-transform: rotate(45deg);

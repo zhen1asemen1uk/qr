@@ -22,6 +22,7 @@ import { TypeImage, TypeQr } from "../types/enumes";
 import Button from "../components/reusable/Button";
 
 import { Customization } from "../components/Customization";
+import { useTheme } from "styled-components";
 
 const arrTypes = [
 	{ title: `vCard`, value: TypeQr.VCARD },
@@ -31,7 +32,19 @@ const arrTypes = [
 	{ title: `Text/Link`, value: TypeQr.TEXT },
 ];
 
-const initOptions = {
+interface InitOptions {
+	dotsC: string;
+	backgroundC: string;
+	cornersSquareC: string;
+	cornersDotC: string;
+}
+
+const initOptions = ({
+	dotsC,
+	backgroundC,
+	cornersSquareC,
+	cornersDotC,
+}: InitOptions) => ({
 	width: 300,
 	height: 300,
 	type: `canvas` as DrawType,
@@ -50,7 +63,7 @@ const initOptions = {
 		crossOrigin: `anonymous`,
 	},
 	dotsOptions: {
-		color: `#E91E63`,
+		color: `${dotsC}`,
 		// gradient: {
 		//   type: 'linear', // 'radial'
 		//   rotation: 0,
@@ -59,7 +72,7 @@ const initOptions = {
 		type: `rounded` as DotType,
 	},
 	backgroundOptions: {
-		color: `#FFFFFF`,
+		color: `${backgroundC}`,
 		// gradient: {
 		//   type: 'linear', // 'radial'
 		//   rotation: 0,
@@ -67,7 +80,7 @@ const initOptions = {
 		// },
 	},
 	cornersSquareOptions: {
-		color: `#E91E63`,
+		color: `${cornersSquareC}`,
 		type: `extra-rounded` as CornerSquareType,
 		// gradient: {
 		//   type: 'linear', // 'radial'
@@ -76,7 +89,7 @@ const initOptions = {
 		// },
 	},
 	cornersDotOptions: {
-		color: `#E91E63`,
+		color: `${cornersDotC}`,
 		type: `dot` as CornerDotType,
 		// gradient: {
 		//   type: 'linear', // 'radial'
@@ -84,16 +97,24 @@ const initOptions = {
 		//   colorStops: [{ offset: 0, color: '#00266e' }, { offset: 1, color: '#4060b3' }]
 		// },
 	},
-};
+});
 
 export const Qr: FC = () => {
 	const size = useWindowSize();
+	const theme = useTheme();
 
 	const [textTips, setTextTips] = useState<string>("");
 	const [isTypes, setIsTypes] = useState<string>(TypeQr.TEXT);
 	const [fileExt, setFileExt] = useState<FileExtension>(TypeImage.PNG);
 
-	const [options, setOptions] = useState<Options>(initOptions);
+	const [options, setOptions] = useState<Options>(
+		initOptions({
+			dotsC: theme.main,
+			backgroundC: theme.secondary,
+			cornersSquareC: theme.main,
+			cornersDotC: theme.main,
+		})
+	);
 
 	const [qrCode] = useState<QRCodeStyling>(new QRCodeStyling(options));
 

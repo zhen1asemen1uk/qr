@@ -43,3 +43,7 @@ export interface ICornersDotOptions {
 		};
 	};
 }
+
+export interface ExampleTheme {
+	[key: string]: string;
+}

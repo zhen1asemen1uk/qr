@@ -1,5 +1,5 @@
 import React, { FC, RefObject } from "react";
-import styled from "styled-components";
+import styled, { useTheme } from "styled-components";
 import useIsVisible from "../../hooks/useIsVisible";
 import ArrowSVG from "../reusable/Svg's/ArrowSVG";
 
@@ -20,8 +20,8 @@ const ToQRStyled = styled.div`
 
 	border-radius: 50%;
 
-	border: 2px solid #e91e63;
-	color: #e91e63;
+	border: ${({ theme }) => `2px solid ${theme.secondary}`};
+	color: ${({ theme }) => theme.main};
 	backdrop-filter: blur(10px);
 
 	svg {
@@ -35,7 +35,9 @@ interface IToQR {
 }
 
 export const ToQR: FC<IToQR> = ({ refScrollTo, size }) => {
+	const theme = useTheme();
 	const isVisible = useIsVisible(refScrollTo);
+
 	if (size > 1280 || isVisible) return null;
 
 	return (
@@ -48,7 +50,7 @@ export const ToQR: FC<IToQR> = ({ refScrollTo, size }) => {
 				}
 			}}>
 			<strong>QR</strong>
-			<ArrowSVG fill='#E91E63' />
+			<ArrowSVG fill={theme.main} />
 		</ToQRStyled>
 	);
 };

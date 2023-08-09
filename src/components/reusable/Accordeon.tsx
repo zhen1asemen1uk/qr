@@ -9,7 +9,7 @@ interface IAccordion {
 }
 
 const AccordionItem = styled(Col)`
-	background: #fad3e0 !important;
+	background: ${({ theme }) => theme.secondary} !important;
 
 	border: none;
 	color: white;
@@ -21,7 +21,7 @@ const AccordionWrappTitle = styled(Row)`
 	align-items: center;
 	justify-content: space-between;
 
-	background: #e91e63;
+	background: ${({ theme }) => theme.main};
 
 	padding: 15px 20px;
 	width: 100%;

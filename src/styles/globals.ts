@@ -39,7 +39,7 @@ const GlobalStyle = createGlobalStyle`
 		box-sizing: border-box;
 	}
 	a{
-		color: #e91e63;
+		color: ${({ theme }) => theme.main};
 	}
 `;
 

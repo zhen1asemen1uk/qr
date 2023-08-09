@@ -24,25 +24,25 @@ const WrappInput = styled(Col)`
 		cursor: pointer;
 		animate: 0.2s;
 		box-shadow: 0px 0px 0px #000000;
-		background: #f6a6c0;
+		background: ${({ theme }) => theme.secondary};
 		border-radius: 2px;
 		border: 0px solid #000000;
 	}
 
 	input[type="range"]::-webkit-slider-thumb {
-		box-shadow: 0px 0px 0px #f6a6c0;
-		border: 0px solid #f6a6c0;
+		box-shadow: ${({ theme }) => `0px 0px 0px ${theme.secondary}`};
+		border: ${({ theme }) => `0px solid ${theme.secondary}`};
 		height: 20px;
 		width: 5px;
 		border-radius: 2px;
-		background: #e91e63;
+		background: ${({ theme }) => theme.main};
 		cursor: pointer;
 		-webkit-appearance: none;
 		margin-top: -6.5px;
 	}
 
 	input[type="range"]:focus::-webkit-slider-runnable-track {
-		background: #f6a6c0;
+		background: ${({ theme }) => theme.secondary};
 	}
 
 	input[type="range"]::-moz-range-track {
@@ -51,18 +51,18 @@ const WrappInput = styled(Col)`
 		cursor: pointer;
 		animate: 0.2s;
 		box-shadow: 0px 0px 0px #000000;
-		background: #f6a6c0;
+		background: ${({ theme }) => theme.secondary};
 		border-radius: 2px;
 		border: 0px solid #000000;
 	}
 
 	input[type="range"]::-moz-range-thumb {
-		box-shadow: 0px 0px 0px #f6a6c0;
-		border: 0px solid #f6a6c0;
+		box-shadow: ${({ theme }) => `0px 0px 0px ${theme.secondary}`};
+		border: ${({ theme }) => `0px solid ${theme.secondary}`};
 		height: 20px;
 		width: 5px;
 		border-radius: 2px;
-		background: #e91e63;
+		background: ${({ theme }) => theme.main};
 		cursor: pointer;
 	}
 
@@ -77,14 +77,14 @@ const WrappInput = styled(Col)`
 	}
 
 	input[type="range"]::-ms-fill-lower {
-		background: #f6a6c0;
+		background: ${({ theme }) => theme.secondary};
 		border: 0px solid #000000;
 		border-radius: 4px;
 		box-shadow: 0px 0px 0px #000000;
 	}
 
 	input[type="range"]::-ms-fill-upper {
-		background: #f6a6c0;
+		background: ${({ theme }) => theme.secondary};
 		border: 0px solid #000000;
 		border-radius: 4px;
 		box-shadow: 0px 0px 0px #000000;
@@ -92,21 +92,21 @@ const WrappInput = styled(Col)`
 
 	input[type="range"]::-ms-thumb {
 		margin-top: 1px;
-		box-shadow: 0px 0px 0px #f6a6c0;
-		border: 0px solid #f6a6c0;
+		box-shadow: ${({ theme }) => `0px 0px 0px ${theme.secondary}`};
+		border: ${({ theme }) => `0px solid ${theme.secondary}`};
 		height: 20px;
 		width: 5px;
 		border-radius: 2px;
-		background: #e91e63;
+		background: ${({ theme }) => theme.main};
 		cursor: pointer;
 	}
 
 	input[type="range"]:focus::-ms-fill-lower {
-		background: #f6a6c0;
+		background: ${({ theme }) => theme.secondary};
 	}
 
 	input[type="range"]:focus::-ms-fill-upper {
-		background: #f6a6c0;
+		background: ${({ theme }) => theme.secondary};
 	}
 `;
 
@@ -118,7 +118,7 @@ const InputStyled = styled.input`
 	width: 100%;
 	padding: 10px;
 
-	background: #fad3e0;
+	background: ${({ theme }) => theme.secondary};
 
 	border: none;
 	border-radius: 2px 2px 0 0;

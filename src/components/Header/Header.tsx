@@ -13,8 +13,8 @@ const Wrapper = styled(Wrapp)`
 	height: 50px;
 	padding: 0 50px;
 
-	background: #e91e63;
-	border-bottom: #fad3e0;
+	background: ${({ theme }) => theme.main};
+	border-bottom: ${({ theme }) => theme.secondary};
 	color: #fff;
 `;
 

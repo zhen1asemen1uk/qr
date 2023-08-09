@@ -28,7 +28,7 @@ const Loader = styled.div`
 
 	border: 3px solid rgba(246, 0, 82, 0.2);
 	border-radius: 50%;
-	border-top-color: #e91e63;
+	border-top-color: ${({ theme }) => theme.main};
 
 	background: transparent;
 
@@ -44,17 +44,17 @@ const InputStyled = styled.input`
 
 	padding: 10px;
 
-	background: #fad3e0;
+	background: ${({ theme }) => theme.secondary};
 
 	border: none;
-	border-bottom: 2px solid #f6a5c0 !important;
+	border-bottom: ${({ theme }) => `2px solid ${theme.secondary}`} !important;
 	border-radius: 2px 2px 0 0;
 
 	outline: none;
 	transition: all 0.3s ease-in-out;
 
 	&:focus {
-		border-bottom: 2px solid #e91e63 !important;
+		border-bottom: ${({ theme }) => `2px solid ${theme.main}`} !important;
 	}
 `;
 

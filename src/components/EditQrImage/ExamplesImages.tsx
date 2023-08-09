@@ -1,7 +1,7 @@
 import React, { Dispatch, FC, SetStateAction } from "react";
 import { Col, FlexBlock, Row } from "../../styles/styles";
 
-import styled from "styled-components";
+import styled, { useTheme } from "styled-components";
 import { IOptions } from "../../types/components";
 
 const ImageEx = styled.img<{ disabled: boolean }>`
@@ -47,6 +47,8 @@ const ExamplesImages: FC<IExamplesImages> = ({
 	setWithoutImage,
 	withoutImage,
 }) => {
+	const theme = useTheme();
+
 	return (
 		<Col g={`5px`}>
 			Examples:
@@ -57,8 +59,8 @@ const ExamplesImages: FC<IExamplesImages> = ({
 							key={example.title + "_" + i}
 							b={
 								example.link === options.image
-									? `2px solid #E91E63`
-									: `1px solid #E91E63`
+									? `2px solid ${theme.main}`
+									: `1px solid ${theme.main}`
 							}
 							flex={`1 1 auto`}>
 							<ImageEx

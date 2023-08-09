@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import styled from "styled-components";
+import styled, { useTheme } from "styled-components";
 import { FlexBlock } from "../../styles/styles";
 import ArrowSVG from "./Svg's/ArrowSVG";
 
@@ -9,9 +9,9 @@ const SelectStyled = styled(FlexBlock)<{ isOpen: boolean }>`
 	width: 100%;
 	padding: 10px;
 
-	color: #e91e63;
+	color: ${({ theme }) => theme.main};
 
-	background: #fad3e0;
+	background: ${({ theme }) => theme.secondary};
 	border-radius: 2px;
 
 	display: flex;
@@ -22,8 +22,8 @@ const SelectStyled = styled(FlexBlock)<{ isOpen: boolean }>`
 
 	cursor: pointer;
 
-	border-bottom: ${({ isOpen }) =>
-		!isOpen ? `2px solid #f6a5c0` : `2px solid #e91e63`};
+	border-bottom: ${({ isOpen, theme }) =>
+		!isOpen ? `2px solid ${theme.secondary}` : `2px solid ${theme.main}`};
 `;
 
 const OptionConteiner = styled(FlexBlock)`
@@ -47,14 +47,14 @@ const OptionStyled = styled(FlexBlock)`
 	width: 100%;
 	padding: 10px;
 
-	background: #fad3e0;
+	background: ${({ theme }) => theme.secondary};
 	transition: all 0.3s ease-in-out;
-	border-bottom: 1px solid #e91e63;
+	border-bottom: ${({ theme }) => `2px solid ${theme.main}`};
 
 	cursor: pointer;
 
 	&:hover {
-		background: #f6a5c0;
+		background: ${({ theme }) => theme.secondary};
 	}
 `;
 
@@ -86,6 +86,7 @@ export const Select: FC<ISelect> = ({
 	onClick,
 	options,
 }) => {
+	const theme = useTheme();
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 
 	return (
@@ -101,7 +102,7 @@ export const Select: FC<ISelect> = ({
 			</OptionConteiner>
 
 			<ArrowConteiner isOpen={isOpen}>
-				<ArrowSVG fill='#E91E63' />
+				<ArrowSVG fill={theme.main} />
 			</ArrowConteiner>
 		</SelectStyled>
 	);

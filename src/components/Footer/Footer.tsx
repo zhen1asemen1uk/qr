@@ -8,8 +8,8 @@ const Wrapper = styled(Wrapp)`
 
 	padding: 25px 50px;
 
-	background: #fad3e0;
-	border-top: 2px solid #e91e63;
+	background: ${({ theme }) => theme.secondary};
+	border-top: ${({ theme }) => `2px solid ${theme.main}}`};
 `;
 
 const Footer: React.FC = () => {
