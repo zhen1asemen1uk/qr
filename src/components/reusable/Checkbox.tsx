@@ -48,8 +48,8 @@ const LabelStyled = styled.label`
 	}
 
 	${Checkmark}:after {
-		left: 8px;
-		top: 4px;
+		left: 7px;
+		top: 3px;
 		width: 5px;
 		height: 10px;
 		border: ${({ theme }) => `solid ${theme.main}`};

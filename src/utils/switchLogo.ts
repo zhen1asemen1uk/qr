@@ -22,10 +22,9 @@ export const showLogo = (
 	options: Options,
 	setOptions: Dispatch<SetStateAction<Options>>
 ) => {
-	const linkFromLocalStorage =
-		localStorage.getItem("temporaly_link") || "{image:''}";
+	const linkFromLocalStorage = localStorage.getItem("temporaly_link");
 
-	if (linkFromLocalStorage) {
+	if (linkFromLocalStorage && linkFromLocalStorage !== "null") {
 		const link = JSON.parse(linkFromLocalStorage);
 		setOptions?.({
 			...options,

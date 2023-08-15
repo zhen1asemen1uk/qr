@@ -1,4 +1,5 @@
-import React, {
+import {
+	FC,
 	useEffect,
 	useState,
 	SetStateAction,
@@ -9,13 +10,15 @@ import styled from "styled-components";
 import QRCodeStyling from "qr-code-styling";
 import { FileExtension, Options } from "qr-code-styling";
 
-import { Col, Row } from "../../styles/styles";
-
-import { setQrURL, transformQr } from "../../utils/onCopy";
-import Download from "./Download";
-import { ToQR } from "./ToQR";
-import { Copy } from "./Copy";
 import { Settings } from "./Settings";
+
+import Download from "./Download";
+import { Copy } from "./Copy";
+
+import { ToQR } from "./ToQR";
+
+import { getUrlFromCanvas } from "../../utils/onCopy";
+import { Col, Row } from "../../styles/styles";
 
 const QrStyled = styled(Row)`
 	align-items: center;
@@ -42,28 +45,25 @@ interface IQrMain {
 	qrCode: QRCodeStyling;
 	setFileExt: Dispatch<SetStateAction<FileExtension>>;
 	fileExt: FileExtension;
-	textTips: string;
+	triggerTextTips: string;
 	options: Options;
-	setOptions: Dispatch<SetStateAction<Options>>;
 	size: { width: number; height: number };
 	isTypes: string;
 }
 
-const QrMain: React.FC<IQrMain> = ({
+const QrMain: FC<IQrMain> = ({
 	qrCode,
 	setFileExt,
 	fileExt,
-	textTips,
+	triggerTextTips,
 	options,
 	size,
 	isTypes,
 }) => {
-	const [qrCodeCopy] = useState<QRCodeStyling>(new QRCodeStyling(options));
 	const [resolutionOfQr, setResolutionOfQr] = useState<number>(1024);
 
 	const refQrStyled = useRef<HTMLDivElement>(null);
 	const refScrollTo = useRef<HTMLDivElement>(null);
-	const refQrStyledCopy = useRef<HTMLDivElement>(document.createElement("div"));
 
 	const [isIphone, setIsIphone] = useState<boolean>(false);
 	const [linkFromBlob, setLinkFromBlob] = useState<string>(
@@ -77,26 +77,15 @@ const QrMain: React.FC<IQrMain> = ({
 		}
 	}, [qrCode, refQrStyled]);
 
-	// for copy Qr with size 1024
-	useEffect(() => {
-		if (qrCodeCopy && refQrStyledCopy?.current) {
-			transformQr({
-				qrCodeCopy: qrCodeCopy,
-				qrRefStyledDiv: refQrStyledCopy,
-				optionsOfQr: options,
-				resolutionOfQr: resolutionOfQr,
-				textTips: textTips,
-			});
-		}
-	}, [qrCodeCopy, refQrStyledCopy, textTips, options, resolutionOfQr]);
-
 	useEffect(() => {
 		const canvasEl = refQrStyled?.current?.children[0] as HTMLCanvasElement;
 
 		if (canvasEl && size.width < 1280) {
-			setQrURL(canvasEl, setLinkFromBlob);
+			getUrlFromCanvas(canvasEl).then((url) => {
+				setLinkFromBlob(url);
+			});
 		}
-	}, [options, size.width]);
+	}, [options, size.width, triggerTextTips]);
 
 	return (
 		<Col w={`100%`}>
@@ -115,7 +104,7 @@ const QrMain: React.FC<IQrMain> = ({
 
 					<Download
 						size={size}
-						textTips={textTips}
+						triggerTextTips={triggerTextTips}
 						fileExt={fileExt}
 						setFileExt={setFileExt}
 						options={options}
@@ -125,10 +114,11 @@ const QrMain: React.FC<IQrMain> = ({
 
 					<Copy
 						size={size}
-						refQrStyledCopy={refQrStyledCopy}
 						options={options}
 						isTypes={isTypes}
 						isIphone={isIphone}
+						resolutionOfQr={resolutionOfQr}
+						triggerTextTips={triggerTextTips}
 					/>
 				</Col>
 			</Col>

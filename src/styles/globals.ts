@@ -38,9 +38,6 @@ const GlobalStyle = createGlobalStyle`
 		text-decoration: none;
 		box-sizing: border-box;
 	}
-	a{
-		color: ${({ theme }) => theme.main};
-	}
 `;
 
 export default GlobalStyle;

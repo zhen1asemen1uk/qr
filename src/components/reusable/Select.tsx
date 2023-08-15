@@ -2,6 +2,7 @@ import { FC, useState } from "react";
 import styled, { useTheme } from "styled-components";
 import { FlexBlock } from "../../styles/styles";
 import ArrowSVG from "./Svg's/ArrowSVG";
+import { firstLetterToUpperCase } from "../../utils/helpers";
 
 const SelectStyled = styled(FlexBlock)<{ isOpen: boolean }>`
 	position: relative;
@@ -58,13 +59,25 @@ const OptionStyled = styled(FlexBlock)`
 	}
 `;
 
+const OverwiewStyled = styled.div<{ isOpen: boolean }>`
+	display: ${({ isOpen }) => (isOpen ? `flex` : `none`)};
+
+	position: fixed;
+	top: 0;
+	left: 0;
+
+	width: 100vw;
+	height: 100vh;
+`;
+
 const ArrowConteiner = styled.div<{ isOpen: boolean }>`
 	position: absolute;
 	top: 10px;
 	right: 10px;
 
 	transform: ${({ isOpen }) => (!isOpen ? `rotate(0deg)` : `rotate(180deg)`)};
-	transition: all 0.3s ease-in-out;
+	transition: all 0.3s ease-in-out !important;
+	transform-origin: center center !important;
 	svg {
 		width: 15px;
 		height: 15px;
@@ -72,15 +85,15 @@ const ArrowConteiner = styled.div<{ isOpen: boolean }>`
 `;
 
 interface ISelect {
-	label?: string;
+	title?: string;
 	id?: string;
 	value: string;
 	onClick: (e: any) => void;
-	options: { title: string; value: string }[];
+	options: { label: string; value: string }[];
 }
 
 export const Select: FC<ISelect> = ({
-	label = "Test",
+	title = "Select",
 	id,
 	value,
 	onClick,
@@ -91,12 +104,13 @@ export const Select: FC<ISelect> = ({
 
 	return (
 		<SelectStyled onClick={() => setIsOpen(!isOpen)} isOpen={isOpen} id={id}>
-			{value || label}
+			{firstLetterToUpperCase(value || title)}
+			<OverwiewStyled isOpen={isOpen} onClick={() => setIsOpen(!isOpen)} />
 			<OptionConteiner>
 				{isOpen &&
 					options.map((el) => (
 						<OptionStyled key={el.value} onClick={() => onClick(el.value)}>
-							{el.title}
+							{el.label}
 						</OptionStyled>
 					))}
 			</OptionConteiner>

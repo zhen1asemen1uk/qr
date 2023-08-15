@@ -33,10 +33,10 @@ export const Settings: FC<ISettings> = ({
 						id='formateForDownload'
 						onClick={(value) => setFileExt(value as FileExtension)}
 						options={[
-							{ value: TypeImage.SVG, title: TypeImage.SVG },
-							{ value: TypeImage.WEBP, title: TypeImage.WEBP },
-							{ value: TypeImage.JPEG, title: TypeImage.JPEG },
-							{ value: TypeImage.PNG, title: TypeImage.PNG },
+							{ value: TypeImage.SVG, label: TypeImage.SVG },
+							{ value: TypeImage.WEBP, label: TypeImage.WEBP },
+							{ value: TypeImage.JPEG, label: TypeImage.JPEG },
+							{ value: TypeImage.PNG, label: TypeImage.PNG },
 						]}
 					/>
 					<Col>
@@ -63,7 +63,9 @@ export const Settings: FC<ISettings> = ({
 							max={"2160"}
 							type='number'
 							onChange={(e) => {
-								if (+e.target.value < 2160) {
+								if (+e.target.value < 300) {
+									setResolutionOfQr(300);
+								} else if (+e.target.value < 2160) {
 									setResolutionOfQr(+e.target.value);
 								} else {
 									setResolutionOfQr(2160);

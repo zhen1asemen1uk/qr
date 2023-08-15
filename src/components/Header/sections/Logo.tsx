@@ -4,16 +4,25 @@ import { Link } from "react-router-dom";
 
 const LinkStyled = styled(Link)`
 	font-family: "DollieScript";
-
 	font-size: 40px;
 
+	text-align: center;
 	margin: 0;
 
-	color: white;
+	color: ${({ theme }) => theme.text.title} !important;
 	cursor: pointer;
 
 	@media (max-width: 1280px) {
 		margin: 0 auto;
+		font-size: 35px;
+	}
+
+	@media (max-width: 768px) {
+		font-size: 30px;
+	}
+
+	@media (max-width: 480px) {
+		font-size: 20px;
 	}
 `;
 

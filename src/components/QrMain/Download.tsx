@@ -6,7 +6,7 @@ import { onDownloadClick } from "../../utils/onDownloadClick";
 
 interface IDownload {
 	size: { width: number; height: number };
-	textTips: string;
+	triggerTextTips: string;
 	fileExt: FileExtension;
 	setFileExt: Dispatch<SetStateAction<FileExtension>>;
 	options: Options;
@@ -17,7 +17,7 @@ interface IDownload {
 
 const Download: FC<IDownload> = ({
 	size,
-	textTips,
+	triggerTextTips,
 	fileExt,
 	options,
 	disabled = false,
@@ -31,7 +31,13 @@ const Download: FC<IDownload> = ({
 			onClick={() => {
 				setIsDownload(true);
 
-				onDownloadClick(textTips, fileExt, resolutionOfQr, options, isTypes);
+				onDownloadClick(
+					triggerTextTips,
+					fileExt,
+					resolutionOfQr,
+					options,
+					isTypes
+				);
 
 				setTimeout(() => {
 					setIsDownload(false);

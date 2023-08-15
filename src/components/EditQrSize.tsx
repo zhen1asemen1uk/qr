@@ -1,18 +1,15 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
 
 import { roundToTheNearestTen } from "../utils/roundingNumbers";
 
 import useWindowSize from "../hooks/useWindowSize";
 
-import { Col, Row } from "../styles/styles";
+import { Col, Row, Title } from "../styles/styles";
 import Button from "./reusable/Button";
 import { IArrSize } from "../types/resusable";
 import { IOptions } from "../types/components";
 import { hideLogo, showLogo } from "../utils/switchLogo";
 import InputRagne from "./reusable/InputRagne";
-
-const Title = styled.h1``;
 
 const EditQrSize: React.FC<IOptions> = ({ options, setOptions }) => {
 	const size = useWindowSize();

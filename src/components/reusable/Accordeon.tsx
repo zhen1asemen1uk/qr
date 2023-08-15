@@ -1,6 +1,6 @@
 import { FC, ReactNode, useState } from "react";
-import styled from "styled-components";
-import { Col, Row } from "../../styles/styles";
+import styled, { useTheme } from "styled-components";
+import { Col, Row, Title } from "../../styles/styles";
 import ArrowSVG from "./Svg's/ArrowSVG";
 
 interface IAccordion {
@@ -9,10 +9,9 @@ interface IAccordion {
 }
 
 const AccordionItem = styled(Col)`
-	background: ${({ theme }) => theme.secondary} !important;
-
-	border: none;
-	color: white;
+	background: ${({ theme }) => theme.main} !important;
+	border: ${({ theme }) => `1px solid ${theme.secondary}`};
+	color: ${({ theme }) => theme.text};
 
 	cursor: pointer;
 `;
@@ -21,7 +20,7 @@ const AccordionWrappTitle = styled(Row)`
 	align-items: center;
 	justify-content: space-between;
 
-	background: ${({ theme }) => theme.main};
+	background: ${({ theme }) => theme.main} !important;
 
 	padding: 15px 20px;
 	width: 100%;
@@ -40,7 +39,7 @@ const WrappArrow = styled.div<{ isRotate: boolean }>`
 `;
 
 const AccordionContent = styled.div<{ isActive: boolean }>`
-	color: black;
+	color: ${({ theme }) => theme.text.simple};
 
 	padding: ${({ isActive }) => (isActive ? `15px 20px` : `0 20px`)};
 
@@ -65,14 +64,15 @@ const AccordionContent = styled.div<{ isActive: boolean }>`
 `;
 
 const Accordion: FC<IAccordion> = ({ title, content }) => {
+	const theme = useTheme();
 	const [isActive, setIsActive] = useState<boolean>(false);
 
 	return (
 		<AccordionItem>
 			<AccordionWrappTitle onClick={() => setIsActive(!isActive)}>
-				<h5>{title}</h5>
+				<Title>{title}</Title>
 				<WrappArrow isRotate={isActive}>
-					<ArrowSVG fill='#FFFFFF' />
+					<ArrowSVG fill={theme.secondary} />
 				</WrappArrow>
 			</AccordionWrappTitle>
 			<AccordionContent isActive={isActive}>{content}</AccordionContent>

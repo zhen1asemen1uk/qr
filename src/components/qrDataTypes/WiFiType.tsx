@@ -72,9 +72,9 @@ const WiFiType: FC<IOptions> = ({ options, setOptions }) => {
 						})
 					}
 					options={[
-						{ value: "WEP", title: "WEP" },
-						{ value: "WPA", title: "WPA/WPA2" },
-						{ value: "", title: "No encryption" },
+						{ value: "WEP", label: "WEP" },
+						{ value: "WPA", label: "WPA/WPA2" },
+						{ value: "", label: "No encryption" },
 					]}
 				/>
 			</Col>

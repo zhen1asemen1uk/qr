@@ -59,7 +59,7 @@ const ExamplesImages: FC<IExamplesImages> = ({
 							key={example.title + "_" + i}
 							b={
 								example.link === options.image
-									? `2px solid ${theme.main}`
+									? `1px solid ${theme.secondary}`
 									: `1px solid ${theme.main}`
 							}
 							flex={`1 1 auto`}>

@@ -13,7 +13,7 @@ const LabelStyled = styled.label`
 	${Color}[type="color"] {
 		cursor: pointer;
 		-webkit-appearance: none;
-		border: none;
+		border: ${({ theme }) => `1px solid ${theme.input.bg}`};
 		background: transparent;
 		border-radius: 50%;
 		overflow: hidden;

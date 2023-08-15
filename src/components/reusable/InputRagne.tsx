@@ -23,15 +23,15 @@ const WrappInput = styled(Col)`
 		height: 7px;
 		cursor: pointer;
 		animate: 0.2s;
-		box-shadow: 0px 0px 0px #000000;
+		box-shadow: ${({ theme }) => `0px 0px 0px ${theme.main}`};
 		background: ${({ theme }) => theme.secondary};
 		border-radius: 2px;
-		border: 0px solid #000000;
+		border: ${({ theme }) => `0px solid ${theme.main}`};
 	}
 
 	input[type="range"]::-webkit-slider-thumb {
 		box-shadow: ${({ theme }) => `0px 0px 0px ${theme.secondary}`};
-		border: ${({ theme }) => `0px solid ${theme.secondary}`};
+		border: ${({ theme }) => `1px solid ${theme.secondary}`};
 		height: 20px;
 		width: 5px;
 		border-radius: 2px;
@@ -118,7 +118,7 @@ const InputStyled = styled.input`
 	width: 100%;
 	padding: 10px;
 
-	background: ${({ theme }) => theme.secondary};
+	background: transparent;
 
 	border: none;
 	border-radius: 2px 2px 0 0;

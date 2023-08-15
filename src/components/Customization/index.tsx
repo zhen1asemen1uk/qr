@@ -17,9 +17,11 @@ interface ICustomization {
 	options: Options;
 	setOptions: Dispatch<SetStateAction<Options>>;
 	isTypes: string;
-	setTextTips: Dispatch<SetStateAction<string>>;
-	textTips: string;
 	qrCode: QRCodeStyling;
+	triggerTextTips: string;
+	textTips: string;
+	setTextTips: Dispatch<SetStateAction<string>>;
+	isLoading: boolean;
 }
 
 export const Customization: FC<ICustomization> = ({
@@ -27,8 +29,10 @@ export const Customization: FC<ICustomization> = ({
 	setOptions,
 	isTypes,
 	qrCode,
+	triggerTextTips,
 	textTips,
 	setTextTips,
+	isLoading,
 }) => {
 	const changeTypeQr = useCallback(() => {
 		switch (isTypes) {
@@ -61,7 +65,13 @@ export const Customization: FC<ICustomization> = ({
 			<ListOfAccordion options={options} setOptions={setOptions} />
 
 			{/* Tip */}
-			<Tips qrCode={qrCode} textTips={textTips} setTextTips={setTextTips} />
+			<Tips
+				qrCode={qrCode}
+				triggerTextTips={triggerTextTips}
+				textTips={textTips}
+				setTextTips={setTextTips}
+				isLoading={isLoading}
+			/>
 		</>
 	);
 };

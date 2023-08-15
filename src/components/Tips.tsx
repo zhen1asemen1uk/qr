@@ -1,28 +1,25 @@
-import React, {
-	Dispatch,
-	FC,
-	SetStateAction,
-	useEffect,
-	useState,
-} from "react";
+import { Dispatch, FC, SetStateAction, useEffect } from "react";
 import QRCodeStyling, { Options } from "qr-code-styling";
 
 import Input from "./reusable/Input";
-import useDebounce from "../hooks/useDebounce";
 
 import { Row } from "../styles/styles";
 import { extension } from "../utils/extension";
 
 interface ITips {
 	qrCode: QRCodeStyling;
+	triggerTextTips: string;
 	textTips: string;
+	isLoading: boolean;
 	setTextTips: Dispatch<SetStateAction<string>>;
 }
-const Tips: FC<ITips> = ({ qrCode, textTips, setTextTips }) => {
-	const [isLoading, setIsLoading] = useState<boolean>(false);
-
-	const triggerTextTips = useDebounce(textTips, 1800, setIsLoading);
-
+const Tips: FC<ITips> = ({
+	qrCode,
+	triggerTextTips,
+	textTips,
+	setTextTips,
+	isLoading,
+}) => {
 	useEffect(() => {
 		qrCode.applyExtension((svg: SVGElement, options: Options) =>
 			extension(svg, options, triggerTextTips)

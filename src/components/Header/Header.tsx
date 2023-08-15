@@ -1,8 +1,10 @@
-import React from "react";
-import styled from "styled-components";
+import { Dispatch, FC, SetStateAction } from "react";
+import styled, { DefaultTheme } from "styled-components";
 
 import { Wrapp } from "../../styles/styles";
 import Logo from "./sections/Logo";
+import ThemesBlock from "./sections/ThemesBlock";
+
 // import { Link } from "react-router-dom";
 
 const Wrapper = styled(Wrapp)`
@@ -14,8 +16,12 @@ const Wrapper = styled(Wrapp)`
 	padding: 0 50px;
 
 	background: ${({ theme }) => theme.main};
-	border-bottom: ${({ theme }) => theme.secondary};
-	color: #fff;
+	border-bottom: ${({ theme }) => `1px solid ${theme.secondary}`};
+	color: ${({ theme }) => theme.text.title};
+
+	a {
+		color: ${({ theme }) => theme.logo} !important;
+	}
 `;
 
 // const UlStyled = styled.ul`
@@ -23,10 +29,14 @@ const Wrapper = styled(Wrapp)`
 // 	gap: 20px;
 // `;
 
-const Header: React.FC = () => {
+interface IHeader {
+	setThemeSwitcher: Dispatch<SetStateAction<DefaultTheme>>;
+}
+const Header: FC<IHeader> = ({ setThemeSwitcher }) => {
 	return (
 		<Wrapper>
 			<Logo />
+			<ThemesBlock setThemeSwitcher={setThemeSwitcher} />
 			{/* <nav>
 				<UlStyled>
 					<li>

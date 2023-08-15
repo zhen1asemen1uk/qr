@@ -23,6 +23,7 @@ import Button from "../components/reusable/Button";
 
 import { Customization } from "../components/Customization";
 import { useTheme } from "styled-components";
+import useDebounce from "../hooks/useDebounce";
 
 const arrTypes = [
 	{ title: `vCard`, value: TypeQr.VCARD },
@@ -118,6 +119,10 @@ export const Qr: FC = () => {
 
 	const [qrCode] = useState<QRCodeStyling>(new QRCodeStyling(options));
 
+	const [isLoading, setIsLoading] = useState<boolean>(false);
+
+	const triggerTextTips = useDebounce(textTips, 1800, setIsLoading);
+
 	useEffect(() => {
 		if (!qrCode) return;
 
@@ -160,8 +165,10 @@ export const Qr: FC = () => {
 					setOptions={setOptions}
 					isTypes={isTypes}
 					qrCode={qrCode}
+					triggerTextTips={triggerTextTips}
 					textTips={textTips}
 					setTextTips={setTextTips}
+					isLoading={isLoading}
 				/>
 			</Col>
 
@@ -169,12 +176,11 @@ export const Qr: FC = () => {
 			<QrMain
 				size={size}
 				options={options}
-				setOptions={setOptions}
 				setFileExt={setFileExt}
 				fileExt={fileExt}
 				qrCode={qrCode}
-				textTips={textTips}
 				isTypes={isTypes}
+				triggerTextTips={triggerTextTips}
 			/>
 		</Row>
 	);

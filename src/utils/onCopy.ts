@@ -62,13 +62,18 @@ export const onCopy = ({ canvasEl, isTypes, options }: IOnCopy) => {
 	});
 };
 
-export const setQrURL = (
-	canvas: HTMLCanvasElement,
-	setUrl: React.Dispatch<React.SetStateAction<string>>
-) => {
-	canvas.toBlob((blob) => {
-		if (!blob) return;
+export const getUrlFromCanvas = async (
+	canvas: HTMLCanvasElement
+): Promise<string> => {
+	return await new Promise((resolve) => {
+		canvas.toBlob((blob) => {
+			if (!blob) {
+				resolve("");
+				return;
+			}
 
-		setUrl(URL.createObjectURL(blob));
+			const url = URL.createObjectURL(blob);
+			resolve(url);
+		});
 	});
 };

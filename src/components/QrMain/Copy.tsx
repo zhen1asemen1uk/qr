@@ -1,45 +1,61 @@
-import React, { FC, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 
 import Button from "../reusable/Button";
-import { Options } from "qr-code-styling";
-import { onCopy } from "../../utils/onCopy";
+
+import { onCopy, transformQr } from "../../utils/onCopy";
+import QRCodeStyling, { Options } from "qr-code-styling";
 
 interface ICopy {
-	refQrStyledCopy: React.RefObject<HTMLDivElement>;
 	options: Options;
 	isTypes: string;
 	size: { width: number };
 	disabled?: boolean;
 	isIphone?: boolean;
+	resolutionOfQr: number;
+	triggerTextTips: string;
 }
 
 export const Copy: FC<ICopy> = ({
-	refQrStyledCopy,
 	options,
 	isTypes,
 	size,
 	disabled = false,
 	isIphone = false,
+	resolutionOfQr,
+	triggerTextTips,
 }) => {
+	const refQrStyledCopy = useRef<HTMLDivElement>(document.createElement("div"));
+	const [qrCodeCopy] = useState<QRCodeStyling>(new QRCodeStyling(options));
 	const [isCopied, setIsCopied] = useState<boolean>(false);
+
+	// for copy Qr with size !!! not refactoring it !!!
+	useEffect(() => {
+		if (qrCodeCopy && refQrStyledCopy?.current) {
+			transformQr({
+				qrCodeCopy: qrCodeCopy,
+				qrRefStyledDiv: refQrStyledCopy,
+				optionsOfQr: options,
+				resolutionOfQr: resolutionOfQr,
+				textTips: triggerTextTips,
+			});
+		}
+	}, [qrCodeCopy, options, resolutionOfQr, triggerTextTips, isTypes]);
 
 	if (isIphone) return null;
 
 	return (
 		<Button
-			onClick={() => {
+			onClick={function () {
 				setIsCopied(true);
 
-				if (refQrStyledCopy?.current) {
-					const canvasEl = refQrStyledCopy.current
-						.children[0] as HTMLCanvasElement;
+				const canvasEl = refQrStyledCopy.current
+					.children[0] as HTMLCanvasElement;
 
-					onCopy({ canvasEl, isTypes, options });
+				onCopy({ canvasEl, isTypes, options });
 
-					setTimeout(() => {
-						setIsCopied(false);
-					}, 2500);
-				}
+				setTimeout(() => {
+					setIsCopied(false);
+				}, 2500);
 			}}
 			disabled={!!(disabled || isCopied)}
 			title={!isCopied ? "Copy" : "Copied!"}

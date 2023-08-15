@@ -6,7 +6,7 @@ import { IInput } from "../../types/resusable";
 
 const WrappInput = styled(Col)`
 	cursor: pointer;
-	color: rgb(233, 30, 99);
+	color: ${({ theme }) => theme.text};
 `;
 
 const rotating = keyframes`
@@ -26,9 +26,9 @@ const Loader = styled.div`
 	width: 15px;
 	height: 15px;
 
-	border: 3px solid rgba(246, 0, 82, 0.2);
+	border: ${({ theme }) => `3px solid ${theme.loader.secondary}`};
 	border-radius: 50%;
-	border-top-color: ${({ theme }) => theme.main};
+	border-top-color: ${({ theme }) => theme.loader.main};
 
 	background: transparent;
 
@@ -37,6 +37,12 @@ const Loader = styled.div`
 
 const InputConteiner = styled.div`
 	position: relative;
+	border: none;
+	border-bottom: ${({ theme }) => `1px solid ${theme.secondary}`};
+
+	&:focus {
+		border-bottom: ${({ theme }) => `2px solid ${theme.input.b}`} !important;
+	}
 `;
 
 const InputStyled = styled.input`
@@ -44,17 +50,19 @@ const InputStyled = styled.input`
 
 	padding: 10px;
 
-	background: ${({ theme }) => theme.secondary};
+	background: ${({ theme }) => theme.input.bg};
 
 	border: none;
-	border-bottom: ${({ theme }) => `2px solid ${theme.secondary}`} !important;
+	border-bottom: ${({ theme }) =>
+		`2px solid ${theme.input.secondary}`} !important;
+
 	border-radius: 2px 2px 0 0;
 
 	outline: none;
 	transition: all 0.3s ease-in-out;
 
 	&:focus {
-		border-bottom: ${({ theme }) => `2px solid ${theme.main}`} !important;
+		border-bottom: ${({ theme }) => `2px solid ${theme.input.b}`} !important;
 	}
 `;
 
