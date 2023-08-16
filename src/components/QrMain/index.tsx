@@ -20,7 +20,7 @@ import { ToQR } from "./ToQR";
 
 import { Col, Row } from "../../styles/styles";
 import useDebounce from "../../hooks/useDebounce";
-import Loander from "../reusable/Loander";
+import Loader from "../reusable/Loader";
 
 const Copy = lazy(() => import("./Copy"));
 
@@ -103,7 +103,7 @@ const QrMain: FC<IQrMain> = ({
 						isTypes={isTypes}
 					/>
 
-					<Suspense fallback={<Loander />}>
+					<Suspense fallback={<Loader />}>
 						<Copy
 							size={size}
 							options={options}

@@ -1,7 +1,7 @@
 import { Link, useRouteError } from "react-router-dom";
 
 import { Col, FlexBlock } from "../styles/styles";
-import Loander from "../components/reusable/Loander";
+import Loader from "../components/reusable/Loader";
 import { FC } from "react";
 
 interface RouteError {
@@ -18,7 +18,7 @@ const ErrorPage: FC = () => {
 		<Col ai='center' jc='space-between' h='100vh'>
 			<h1>Oops!</h1>
 
-			<Loander />
+			<Loader />
 
 			<p>Sorry, an unexpected error has occurred.</p>
 			<FlexBlock c='red'>

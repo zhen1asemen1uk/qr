@@ -2,7 +2,7 @@ import { Dispatch, FC, SetStateAction, Suspense, lazy } from "react";
 import { FileExtension } from "qr-code-styling";
 
 import Accordion from "../../reusable/Accordeon";
-import Loander from "../../reusable/Loander";
+import Loader from "../../reusable/Loader";
 
 const AccordionContent = lazy(() => import("./AccordionContent"));
 
@@ -23,7 +23,7 @@ export const Settings: FC<ISettings> = ({
 		<Accordion
 			title={"Download Settings"}
 			content={
-				<Suspense fallback={<Loander />}>
+				<Suspense fallback={<Loader />}>
 					<AccordionContent
 						fileExt={fileExt}
 						setFileExt={setFileExt}

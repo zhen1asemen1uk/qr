@@ -14,6 +14,7 @@ const Main = styled.div`
 	flex: 1 1 auto;
 	padding: 50px;
 
+	min-height: 100vh;
 	a {
 		color: ${({ theme }) => theme.text.link} !important;
 	}

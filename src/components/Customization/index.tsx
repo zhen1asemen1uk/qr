@@ -13,7 +13,7 @@ import { Col } from "../../styles/styles";
 
 import Tips from "../Tips";
 import { ListOfAccordion } from "./ListOfAccordion";
-import Loander from "../reusable/Loander";
+import Loader from "../reusable/Loader";
 
 const TextType = lazy(() => import("../qrDataTypes/TextType"));
 const VCardType = lazy(() => import("../qrDataTypes/VCardType"));
@@ -68,7 +68,7 @@ export const Customization: FC<ICustomization> = ({
 		<>
 			{/* Fields block */}
 			<Col>
-				<Suspense fallback={<Loander />}>{changeTypeQr()}</Suspense>
+				<Suspense fallback={<Loader />}>{changeTypeQr()}</Suspense>
 			</Col>
 
 			{/* Edit block */}

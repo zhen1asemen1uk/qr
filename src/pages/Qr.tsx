@@ -100,7 +100,7 @@ const initOptions = ({
 	},
 });
 
-export const Qr: FC = () => {
+const Qr: FC = () => {
 	const size = useWindowSize();
 	const theme = useTheme();
 
@@ -205,3 +205,5 @@ export const Qr: FC = () => {
 		</Row>
 	);
 };
+
+export default Qr;

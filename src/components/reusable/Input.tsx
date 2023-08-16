@@ -1,38 +1,13 @@
 import { FC } from "react";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 
 import { Col } from "../../styles/styles";
 import { IInput } from "../../types/resusable";
+import Loader from "./Loader";
 
 const WrappInput = styled(Col)`
 	cursor: pointer;
 	color: ${({ theme }) => theme.text};
-`;
-
-const rotating = keyframes`
-	from {
-	  transform: rotate(0deg);
-	}
-	to {
-	  transform: rotate(360deg);
-	}
-  `;
-
-const Loader = styled.div`
-	position: absolute;
-	top: 10px;
-	right: 10px;
-
-	width: 15px;
-	height: 15px;
-
-	border: ${({ theme }) => `3px solid ${theme.loader.secondary}`};
-	border-radius: 50%;
-	border-top-color: ${({ theme }) => theme.loader.main};
-
-	background: transparent;
-
-	animation: ${rotating} 1s linear infinite;
 `;
 
 const InputConteiner = styled.div`
@@ -114,11 +89,7 @@ const Input: FC<IInput> = ({
 					max={max}
 					autoFocus={autoFocus}
 				/>
-				{isLoading && (
-					<Loader>
-						<div />
-					</Loader>
-				)}
+				{isLoading && <Loader />}
 			</InputConteiner>
 		</WrappInput>
 	);
