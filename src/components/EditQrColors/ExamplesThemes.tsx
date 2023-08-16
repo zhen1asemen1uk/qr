@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import styled, { DefaultTheme, useTheme } from "styled-components";
 
 import { Col, FlexBlock, Row } from "../../styles/styles";
@@ -14,28 +14,28 @@ const ImageEx = styled.img`
 
 const examplesThemes = ({ theme }: { theme: DefaultTheme }): ExampleTheme[] => [
 	{
-		link: `images/qr-example-1.png`,
+		link: `images/qr-example-1.webp`,
 		dotsOptions: `${theme.main}`,
 		backgroundOptions: `${theme.secondary}`,
 		cornersSquareOptions: `${theme.main}`,
 		cornersDotOptions: `${theme.main}`,
 	},
 	{
-		link: `images/qr-example-2.png`,
+		link: `images/qr-example-2.webp`,
 		dotsOptions: `${theme.secondary}`,
 		backgroundOptions: `${theme.main}`,
 		cornersSquareOptions: `${theme.secondary}`,
 		cornersDotOptions: `${theme.secondary}`,
 	},
 	{
-		link: `images/qr-example-3.png`,
+		link: `images/qr-example-3.webp`,
 		dotsOptions: `#FFFFFF`,
 		backgroundOptions: `#000000`,
 		cornersSquareOptions: `#FFFFFF`,
 		cornersDotOptions: `#FFFFFF`,
 	},
 	{
-		link: `images/qr-example-4.png`,
+		link: `images/qr-example-4.webp`,
 		dotsOptions: `#000000`,
 		backgroundOptions: `#FFFFFF`,
 		cornersSquareOptions: `#000000`,

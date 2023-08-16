@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import Button from "../reusable/Button";
 
@@ -15,7 +15,7 @@ interface ICopy {
 	triggerTextTips: string;
 }
 
-export const Copy: FC<ICopy> = ({
+const Copy: FC<ICopy> = ({
 	options,
 	isTypes,
 	size,
@@ -24,39 +24,39 @@ export const Copy: FC<ICopy> = ({
 	resolutionOfQr,
 	triggerTextTips,
 }) => {
-	const refQrStyledCopy = useRef<HTMLDivElement>(document.createElement("div"));
-	const [qrCodeCopy] = useState<QRCodeStyling>(new QRCodeStyling(options));
+	const refQrStyledCopy = useRef<HTMLDivElement>(null);
+	const qrCodeCopy = useMemo(() => new QRCodeStyling(options), [options]);
 	const [isCopied, setIsCopied] = useState<boolean>(false);
 
-	// for copy Qr with size !!! not refactoring it !!!
+	const onCopyCallback = useCallback(() => {
+		setIsCopied(true);
+
+		const canvasEl = refQrStyledCopy.current?.children[0] as HTMLCanvasElement;
+
+		onCopy({ canvasEl, isTypes, options });
+
+		setTimeout(() => {
+			setIsCopied(false);
+		}, 2000);
+	}, [isTypes, options]);
+
 	useEffect(() => {
-		if (qrCodeCopy && refQrStyledCopy?.current) {
+		if (refQrStyledCopy.current) {
 			transformQr({
-				qrCodeCopy: qrCodeCopy,
+				qrCodeCopy,
 				qrRefStyledDiv: refQrStyledCopy,
 				optionsOfQr: options,
-				resolutionOfQr: resolutionOfQr,
+				resolutionOfQr,
 				textTips: triggerTextTips,
 			});
 		}
-	}, [qrCodeCopy, options, resolutionOfQr, triggerTextTips, isTypes]);
+	}, [qrCodeCopy, options, resolutionOfQr, triggerTextTips]);
 
 	if (isIphone) return null;
 
 	return (
 		<Button
-			onClick={function () {
-				setIsCopied(true);
-
-				const canvasEl = refQrStyledCopy.current
-					.children[0] as HTMLCanvasElement;
-
-				onCopy({ canvasEl, isTypes, options });
-
-				setTimeout(() => {
-					setIsCopied(false);
-				}, 2500);
-			}}
+			onClick={onCopyCallback}
 			disabled={!!(disabled || isCopied)}
 			title={!isCopied ? "Copy" : "Copied!"}
 			w={size.width < 768 ? "100%" : "50%"}
@@ -64,3 +64,5 @@ export const Copy: FC<ICopy> = ({
 		/>
 	);
 };
+
+export default Copy;

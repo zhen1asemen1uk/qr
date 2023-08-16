@@ -1,4 +1,4 @@
-import { Dispatch, FC, SetStateAction, useEffect } from "react";
+import { Dispatch, FC, SetStateAction, memo, useEffect } from "react";
 import QRCodeStyling, { Options } from "qr-code-styling";
 
 import Input from "./reusable/Input";
@@ -13,27 +13,23 @@ interface ITips {
 	isLoading: boolean;
 	setTextTips: Dispatch<SetStateAction<string>>;
 }
-const Tips: FC<ITips> = ({
-	qrCode,
-	triggerTextTips,
-	textTips,
-	setTextTips,
-	isLoading,
-}) => {
-	useEffect(() => {
-		qrCode.applyExtension((svg: SVGElement, options: Options) =>
-			extension(svg, options, triggerTextTips)
-		);
-	}, [qrCode, triggerTextTips]);
+const Tips: FC<ITips> = memo(
+	({ qrCode, triggerTextTips, textTips, setTextTips, isLoading }) => {
+		useEffect(() => {
+			qrCode.applyExtension((svg: SVGElement, options: Options) =>
+				extension(svg, options, triggerTextTips)
+			);
+		}, [qrCode, triggerTextTips]);
 
-	return (
-		<Input
-			title={<Row>Tips:</Row>}
-			onChange={(e) => setTextTips(e.target.value)}
-			value={textTips}
-			isLoading={isLoading}
-		/>
-	);
-};
+		return (
+			<Input
+				title={<Row>Tips:</Row>}
+				onChange={(e) => setTextTips(e.target.value)}
+				value={textTips}
+				isLoading={isLoading}
+			/>
+		);
+	}
+);
 
 export default Tips;

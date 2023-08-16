@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ChangeEvent } from "react";
+import { useState, useEffect, ChangeEvent, FC } from "react";
 
 import { Col, Row } from "../../styles/styles";
 // import UploadImage from "./UploadImage";
@@ -34,7 +34,7 @@ const arrSizes: IArrSize[] = [
 	},
 ];
 
-const EditQrImage: React.FC<IOptions> = ({ options, setOptions }) => {
+const EditQrImage: FC<IOptions> = ({ options, setOptions }) => {
 	const [withoutImage, setWithoutImage] = useState<boolean>(false);
 	const [linkImg, setLinkImg] = useState<string>(``);
 	const delay: number = 500;

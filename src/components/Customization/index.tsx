@@ -1,17 +1,25 @@
-import { Dispatch, FC, SetStateAction, useCallback } from "react";
+import {
+	lazy,
+	Suspense,
+	Dispatch,
+	FC,
+	SetStateAction,
+	useCallback,
+} from "react";
 import QRCodeStyling, { Options } from "qr-code-styling";
-
-import TextType from "../qrDataTypes/TextType";
-import VCardType from "../qrDataTypes/VCardType";
-import SmsType from "../qrDataTypes/SmsType";
-import WiFiType from "../qrDataTypes/WiFiType";
-import EmailType from "../qrDataTypes/EmailType";
 
 import { TypeQr } from "../../types/enumes";
 import { Col } from "../../styles/styles";
 
 import Tips from "../Tips";
 import { ListOfAccordion } from "./ListOfAccordion";
+import Loander from "../reusable/Loander";
+
+const TextType = lazy(() => import("../qrDataTypes/TextType"));
+const VCardType = lazy(() => import("../qrDataTypes/VCardType"));
+const SmsType = lazy(() => import("../qrDataTypes/SmsType"));
+const WiFiType = lazy(() => import("../qrDataTypes/WiFiType"));
+const EmailType = lazy(() => import("../qrDataTypes/EmailType"));
 
 interface ICustomization {
 	options: Options;
@@ -59,7 +67,9 @@ export const Customization: FC<ICustomization> = ({
 	return (
 		<>
 			{/* Fields block */}
-			<Col>{changeTypeQr()}</Col>
+			<Col>
+				<Suspense fallback={<Loander />}>{changeTypeQr()}</Suspense>
+			</Col>
 
 			{/* Edit block */}
 			<ListOfAccordion options={options} setOptions={setOptions} />

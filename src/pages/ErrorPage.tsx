@@ -2,6 +2,7 @@ import { Link, useRouteError } from "react-router-dom";
 
 import { Col, FlexBlock } from "../styles/styles";
 import Loander from "../components/reusable/Loander";
+import { FC } from "react";
 
 interface RouteError {
 	status: string;
@@ -9,7 +10,7 @@ interface RouteError {
 	location: string;
 }
 
-const ErrorPage: React.FC = () => {
+const ErrorPage: FC = () => {
 	const error = useRouteError() as RouteError;
 	console.error(error && error);
 

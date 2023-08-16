@@ -1,4 +1,4 @@
-import React, { Dispatch, FC, SetStateAction } from "react";
+import { Dispatch, FC, SetStateAction } from "react";
 import { Col, FlexBlock, Row } from "../../styles/styles";
 
 import styled, { useTheme } from "styled-components";
@@ -19,20 +19,20 @@ const ImageEx = styled.img<{ disabled: boolean }>`
 const examplesImages = [
 	{
 		title: "Example №1",
-		link: `https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/800px-Apple_logo_black.svg.png`,
+		link: `/logos/Apple_logo.webp`,
 	},
 	{
 		title: "Example №2",
-		link: `https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Superman_shield.svg/1200px-Superman_shield.svg.png`,
+		link: `/logos/superman.webp`,
 	},
 
 	{
 		title: "Example №3",
-		link: `https://upload.wikimedia.org/wikipedia/sco/thumb/b/bf/KFC_logo.svg/2048px-KFC_logo.svg.png`,
+		link: `/logos/KFC_logo.webp`,
 	},
 	{
 		title: "Example №4",
-		link: `/logos/genesis.png`,
+		link: `/logos/genesis.webp`,
 	},
 ];
 

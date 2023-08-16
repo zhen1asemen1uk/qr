@@ -1,4 +1,4 @@
-import { useEffect, useState, FC } from "react";
+import { useEffect, useState, FC, useMemo } from "react";
 
 import QRCodeStyling, {
 	type FileExtension,
@@ -107,6 +107,7 @@ export const Qr: FC = () => {
 	const [textTips, setTextTips] = useState<string>("");
 	const [isTypes, setIsTypes] = useState<string>(TypeQr.TEXT);
 	const [fileExt, setFileExt] = useState<FileExtension>(TypeImage.PNG);
+	const [isLoading, setIsLoading] = useState<boolean>(false);
 
 	const [options, setOptions] = useState<Options>(
 		initOptions({
@@ -116,12 +117,9 @@ export const Qr: FC = () => {
 			cornersDotC: theme.main,
 		})
 	);
+	const triggerTextTips = useDebounce(textTips, 1300, setIsLoading);
 
-	const [qrCode] = useState<QRCodeStyling>(new QRCodeStyling(options));
-
-	const [isLoading, setIsLoading] = useState<boolean>(false);
-
-	const triggerTextTips = useDebounce(textTips, 1800, setIsLoading);
+	const qrCode = useMemo(() => new QRCodeStyling(options), [options]);
 
 	useEffect(() => {
 		if (!qrCode) return;

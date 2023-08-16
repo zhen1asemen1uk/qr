@@ -1,4 +1,4 @@
-import React from "react";
+import { FC, memo } from "react";
 import styled, { keyframes } from "styled-components";
 
 import { FlexBlock } from "../../styles/styles";
@@ -45,12 +45,12 @@ const Wrap = styled(FlexBlock)`
 	animation: ${bounceInTop} 1.1s linear infinite alternate-reverse both;
 `;
 
-const Loander: React.FC = () => {
+const Loander: FC = memo(() => {
 	return (
 		<Wrap>
 			<DollarSoinSVG />
 		</Wrap>
 	);
-};
+});
 
 export default Loander;

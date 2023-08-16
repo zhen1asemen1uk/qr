@@ -1,4 +1,4 @@
-import React, { FC, RefObject } from "react";
+import { FC, RefObject } from "react";
 import styled, { useTheme } from "styled-components";
 import useIsVisible from "../../hooks/useIsVisible";
 import ArrowSVG from "../reusable/Svg's/ArrowSVG";

@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { FC, memo, useEffect, useState } from "react";
 
 import Input from "../reusable/Input";
 import { Row } from "../../styles/styles";
 import Button from "../reusable/Button";
 import { IOptions } from "../../types/components";
 
-const TextType: React.FC<IOptions> = ({ options, setOptions }) => {
+const TextType: FC<IOptions> = memo(({ options, setOptions }) => {
 	const [isPast, setIsPast] = useState<string>("");
 
 	useEffect(() => {
@@ -48,6 +48,6 @@ const TextType: React.FC<IOptions> = ({ options, setOptions }) => {
 			)}
 		</Row>
 	);
-};
+});
 
 export default TextType;

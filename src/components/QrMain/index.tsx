@@ -5,19 +5,24 @@ import {
 	SetStateAction,
 	Dispatch,
 	useRef,
+	Suspense,
+	lazy,
 } from "react";
 import styled from "styled-components";
 import QRCodeStyling from "qr-code-styling";
 import { FileExtension, Options } from "qr-code-styling";
 
-import { Settings } from "./Settings";
+import { Settings } from "./Settings/Settings";
 
 import Download from "./Download";
-import { Copy } from "./Copy";
 
 import { ToQR } from "./ToQR";
 
 import { Col, Row } from "../../styles/styles";
+import useDebounce from "../../hooks/useDebounce";
+import Loander from "../reusable/Loander";
+
+const Copy = lazy(() => import("./Copy"));
 
 const QrStyled = styled(Row)`
 	align-items: center;
@@ -27,6 +32,17 @@ const QrStyled = styled(Row)`
 		border-radius: 20px;
 	}
 	background: transparent;
+`;
+
+const ConteinerStyled = styled(Col)`
+	gap: 15px;
+	width: 80%;
+	margin: 0 auto;
+
+	@media (max-width: 768px) {
+		flex-direction: column;
+		width: 100%;
+	}
 `;
 
 interface IQrMain {
@@ -50,6 +66,8 @@ const QrMain: FC<IQrMain> = ({
 }) => {
 	const [resolutionOfQr, setResolutionOfQr] = useState<number>(1024);
 
+	const triggerResolutionOfQr = useDebounce(resolutionOfQr, 5000);
+
 	const refQrStyled = useRef<HTMLDivElement>(null);
 	const refScrollTo = useRef<HTMLDivElement>(null);
 
@@ -67,7 +85,7 @@ const QrMain: FC<IQrMain> = ({
 			<Col pos={`sticky`} posT={`20px`} g={`15px`} ref={refScrollTo}>
 				<QrStyled ref={refQrStyled} />
 
-				<Col g={`15px`} w={`80%`} m={"0 auto"}>
+				<ConteinerStyled>
 					<Settings
 						fileExt={fileExt}
 						setFileExt={setFileExt}
@@ -81,24 +99,25 @@ const QrMain: FC<IQrMain> = ({
 						fileExt={fileExt}
 						setFileExt={setFileExt}
 						options={options}
-						resolutionOfQr={resolutionOfQr}
+						resolutionOfQr={triggerResolutionOfQr}
 						isTypes={isTypes}
 					/>
 
-					<Copy
-						size={size}
-						options={options}
-						isTypes={isTypes}
-						isIphone={isIphone}
-						resolutionOfQr={resolutionOfQr}
-						triggerTextTips={triggerTextTips}
-					/>
-				</Col>
+					<Suspense fallback={<Loander />}>
+						<Copy
+							size={size}
+							options={options}
+							isTypes={isTypes}
+							isIphone={isIphone}
+							resolutionOfQr={triggerResolutionOfQr}
+							triggerTextTips={triggerTextTips}
+						/>
+					</Suspense>
+				</ConteinerStyled>
 			</Col>
 
 			<ToQR size={size.width} refScrollTo={refScrollTo} />
 		</Col>
 	);
 };
-
 export default QrMain;

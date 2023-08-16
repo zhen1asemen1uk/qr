@@ -1,4 +1,4 @@
-import React from "react";
+import { FC } from "react";
 import styled from "styled-components";
 
 import { Row } from "../../styles/styles";
@@ -37,7 +37,7 @@ const arrKeysForChangeColor = [
 	},
 ];
 
-const EditQrColors: React.FC<IOptions> = ({ options, setOptions }) => {
+const EditQrColors: FC<IOptions> = ({ options, setOptions }) => {
 	return (
 		<>
 			<Title>Colors:</Title>

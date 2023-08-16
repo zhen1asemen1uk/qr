@@ -1,4 +1,4 @@
-import { FC, ReactNode, useState } from "react";
+import { FC, ReactNode, memo, useState } from "react";
 import styled, { useTheme } from "styled-components";
 import { Col, Row, Title } from "../../styles/styles";
 import ArrowSVG from "./Svg's/ArrowSVG";
@@ -63,7 +63,7 @@ const AccordionContent = styled.div<{ isActive: boolean }>`
 	}
 `;
 
-const Accordion: FC<IAccordion> = ({ title, content }) => {
+const Accordion: FC<IAccordion> = memo(({ title, content }) => {
 	const theme = useTheme();
 	const [isActive, setIsActive] = useState<boolean>(false);
 
@@ -78,6 +78,6 @@ const Accordion: FC<IAccordion> = ({ title, content }) => {
 			<AccordionContent isActive={isActive}>{content}</AccordionContent>
 		</AccordionItem>
 	);
-};
+});
 
 export default Accordion;

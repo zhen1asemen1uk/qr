@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, memo, useEffect, useState } from "react";
 
 import { Col } from "../../styles/styles";
 
@@ -16,7 +16,7 @@ interface IWiFi {
 	hide: boolean;
 }
 
-const WiFiType: FC<IOptions> = ({ options, setOptions }) => {
+const WiFiType: FC<IOptions> = memo(({ options, setOptions }) => {
 	const [wiFi, setWiFi] = useState<IWiFi>({
 		networkName: "",
 		pass: "",
@@ -113,6 +113,6 @@ const WiFiType: FC<IOptions> = ({ options, setOptions }) => {
 			/>
 		</Col>
 	);
-};
+});
 
 export default WiFiType;

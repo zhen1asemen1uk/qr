@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { FC, memo, useEffect, useState } from "react";
 
 import { EmailKeys } from "../../types/enumes";
 import RedStar from "../reusable/RedStar";
@@ -38,7 +38,7 @@ const arrFields = [
 	{ title: `Body`, require: false, key: EmailKeys.BODY, ph: "body" },
 ];
 
-const EmailType: React.FC<IOptions> = ({ options, setOptions }) => {
+const EmailType: FC<IOptions> = memo(({ options, setOptions }) => {
 	const [data, setData] = useState<IEmail>({
 		email: "",
 		CC: "",
@@ -92,6 +92,6 @@ const EmailType: React.FC<IOptions> = ({ options, setOptions }) => {
 			})}
 		</Col>
 	);
-};
+});
 
 export default EmailType;

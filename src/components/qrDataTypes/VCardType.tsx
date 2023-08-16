@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { FC, memo, useCallback, useEffect, useState } from "react";
 
 import { VCardKeys } from "../../types/enumes";
 import RedStar from "../reusable/RedStar";
@@ -36,7 +36,7 @@ interface IVCard {
 	vcountry: string;
 }
 
-const VCardType: React.FC<IOptions> = ({ options, setOptions }) => {
+const VCardType: FC<IOptions> = memo(({ options, setOptions }) => {
 	const [vCard, setVCard] = useState<IVCard>({
 		vname: "",
 		vlast: "",
@@ -96,6 +96,14 @@ const VCardType: React.FC<IOptions> = ({ options, setOptions }) => {
 		setOptions?.({ ...options, data: formatedVCardCode });
 	}, [vCard]);
 
+	const hideLogoClick = useCallback(() => {
+		hideLogo(options, setOptions);
+	}, [options, setOptions]);
+
+	const showLogoClick = useCallback(() => {
+		showLogo(options, setOptions);
+	}, [options, setOptions]);
+
 	return (
 		<Col g='20px'>
 			{arrFields.map((el, i) => {
@@ -112,10 +120,12 @@ const VCardType: React.FC<IOptions> = ({ options, setOptions }) => {
 							value={`${vCard[el.key]}`}
 							onChange={(e) => setVCard({ ...vCard, [el.key]: e.target.value })}
 							onFocus={() => {
-								hideLogo(options, setOptions);
+								hideLogoClick();
+								// hideLogo(options, setOptions);
 							}}
 							onBlur={() => {
-								showLogo(options, setOptions);
+								showLogoClick();
+								// showLogo(options, setOptions);
 							}}
 						/>
 					</Col>
@@ -123,6 +133,6 @@ const VCardType: React.FC<IOptions> = ({ options, setOptions }) => {
 			})}
 		</Col>
 	);
-};
+});
 
 export default VCardType;

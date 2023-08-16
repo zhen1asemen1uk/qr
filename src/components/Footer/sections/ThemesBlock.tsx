@@ -16,7 +16,7 @@ const ThemesBlock: FC<IThemesBlock> = ({ setThemeSwitcher }) => {
 
 	return (
 		<Wrapp w='200px'>
-			Change theme:
+			Change site theme:
 			<Select
 				title='Select theme'
 				id='theme'

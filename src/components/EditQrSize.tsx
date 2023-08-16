@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 
 import { roundToTheNearestTen } from "../utils/roundingNumbers";
 
@@ -11,7 +11,7 @@ import { IOptions } from "../types/components";
 import { hideLogo, showLogo } from "../utils/switchLogo";
 import InputRagne from "./reusable/InputRagne";
 
-const EditQrSize: React.FC<IOptions> = ({ options, setOptions }) => {
+const EditQrSize: FC<IOptions> = ({ options, setOptions }) => {
 	const size = useWindowSize();
 	const [arrSize, setArrSize] = useState<IArrSize[]>([]);
 

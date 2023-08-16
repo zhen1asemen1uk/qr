@@ -13,3 +13,15 @@ export const calcMargin = (resolutionOfQr: number) => {
 export const firstLetterToUpperCase = (str: string) => {
 	return str.charAt(0).toUpperCase() + str.slice(1);
 };
+
+export const clearElements = () => {
+	const scriptParentBody = document.body as HTMLBodyElement;
+
+	if (scriptParentBody) {
+		scriptParentBody.childNodes.forEach((el) => {
+			if (el instanceof HTMLElement && el.id !== "root") {
+				scriptParentBody.removeChild(el);
+			}
+		});
+	}
+};

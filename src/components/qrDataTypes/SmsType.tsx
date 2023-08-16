@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { FC, memo, useEffect, useState } from "react";
 
 import RedStar from "../reusable/RedStar";
 import { Col } from "../../styles/styles";
@@ -12,7 +12,7 @@ interface ISms {
 	text: string;
 }
 
-const SmsType: React.FC<IOptions> = ({ options, setOptions }) => {
+const SmsType: FC<IOptions> = memo(({ options, setOptions }) => {
 	const [sms, setSms] = useState<ISms>({
 		tel: "",
 		text: "",
@@ -67,6 +67,6 @@ const SmsType: React.FC<IOptions> = ({ options, setOptions }) => {
 			</Col>
 		</Col>
 	);
-};
+});
 
 export default SmsType;

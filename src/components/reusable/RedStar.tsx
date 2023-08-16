@@ -1,6 +1,6 @@
-import React from "react";
+import { FC } from "react";
 
-const RedStar: React.FC = () => {
+const RedStar: FC = () => {
 	return <sup style={{ color: `red` }}>*</sup>;
 };
 

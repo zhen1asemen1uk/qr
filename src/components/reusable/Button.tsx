@@ -1,7 +1,7 @@
-import React from "react";
 import styled from "styled-components";
 
 import { type ButtonProps } from "../../types/resusable";
+import { FC } from "react";
 
 const WrappButton = styled.button<ButtonProps>`
 	${({ pos }) => pos && `position: ${pos}`};
@@ -118,7 +118,7 @@ const WrappButton = styled.button<ButtonProps>`
 	width: ${({ w }) => w ?? `auto`};
 `;
 
-const Button: React.FC<ButtonProps> = ({
+const Button: FC<ButtonProps> = ({
 	title = `Button`,
 
 	onClick,

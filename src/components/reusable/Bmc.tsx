@@ -1,11 +1,12 @@
-import { FC, useEffect } from "react";
+import { FC, memo, useEffect } from "react";
 import { DefaultTheme } from "styled-components";
+import { clearElements } from "../../utils/helpers";
 
 interface IBmc {
 	themeNew: DefaultTheme;
 }
 
-const Bmc: FC<IBmc> = ({ themeNew }) => {
+const Bmc: FC<IBmc> = memo(({ themeNew }) => {
 	useEffect(() => {
 		const script = document.createElement("script");
 		script.src = "https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js";
@@ -25,22 +26,28 @@ const Bmc: FC<IBmc> = ({ themeNew }) => {
 		// script.async = true;
 
 		script.onload = function () {
-			var evt = document.createEvent("Event");
-			evt.initEvent("DOMContentLoaded", false, false);
+			const evt = new Event("DOMContentLoaded", {
+				bubbles: false,
+				cancelable: false,
+			});
 			window.dispatchEvent(evt);
 		};
 
-		const scriptParent = document.head;
-		if (scriptParent) {
-			scriptParent.appendChild(script);
-		}
+		const scriptParentHead = document.head;
+
+		if (scriptParentHead) scriptParentHead.appendChild(script);
 
 		return () => {
-			scriptParent.removeChild(script);
+			scriptParentHead.removeChild(script);
+
+			// temporary solution for removing bmc widget 😅
+			for (let i = 0; i < 3; i++) {
+				clearElements();
+			}
 		};
-	}, [themeNew.main]);
+	}, [themeNew]);
 
 	return null;
-};
+});
 
 export default Bmc;

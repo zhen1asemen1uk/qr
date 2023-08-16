@@ -28,6 +28,16 @@ const BunnerStyled = styled.div`
 	border-radius: 2px;
 	opacity: 0.5;
 
+	div {
+		-webkit-touch-callout: none; /* iOS Safari */
+		-webkit-user-select: none; /* Chrome/Safari/Opera */
+		-khtml-user-select: none; /* Konqueror */
+		-moz-user-select: none; /* Firefox */
+		-ms-user-select: none; /* Internet Explorer/Edge */
+		user-select: none;
+
+		outline: none !important;
+	}
 	@media (max-width: 768px) {
 		top: 49px;
 		height: 16px;

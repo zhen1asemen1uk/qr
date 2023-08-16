@@ -1,4 +1,4 @@
-import React, { useState, type PropsWithChildren } from "react";
+import { useState, type PropsWithChildren, FC } from "react";
 import { createPortal } from "react-dom";
 import styled from "styled-components";
 
@@ -53,7 +53,7 @@ const ModalBody = styled(FlexBlock)`
 	z-index: 1001;
 `;
 
-const PopUp: React.FC<Props> = ({ children, title, secondary }) => {
+const PopUp: FC<Props> = ({ children, title, secondary }) => {
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 
 	return (

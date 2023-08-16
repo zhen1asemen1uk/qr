@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useRef } from "react";
+import { useRef } from "react";
 
 import { Cloudinary } from "@cloudinary/url-gen";
 

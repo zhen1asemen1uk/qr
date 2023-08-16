@@ -1,4 +1,4 @@
-import { Dispatch, FC, SetStateAction, useState } from "react";
+import { Dispatch, FC, SetStateAction, useCallback, useState } from "react";
 import { FileExtension, Options } from "qr-code-styling";
 import Button from "../reusable/Button";
 
@@ -26,23 +26,19 @@ const Download: FC<IDownload> = ({
 }) => {
 	const [isDownload, setIsDownload] = useState<boolean>(false);
 
+	const onDownloadClickCallback = useCallback(() => {
+		setIsDownload(true);
+
+		onDownloadClick(triggerTextTips, fileExt, resolutionOfQr, options, isTypes);
+
+		setTimeout(() => {
+			setIsDownload(false);
+		}, 3000);
+	}, [triggerTextTips, fileExt, resolutionOfQr, options, isTypes]);
+
 	return (
 		<Button
-			onClick={() => {
-				setIsDownload(true);
-
-				onDownloadClick(
-					triggerTextTips,
-					fileExt,
-					resolutionOfQr,
-					options,
-					isTypes
-				);
-
-				setTimeout(() => {
-					setIsDownload(false);
-				}, 3000);
-			}}
+			onClick={onDownloadClickCallback}
 			title={isDownload ? "Downloading..." : "Download"}
 			w={size.width < 768 ? "100%" : "50%"}
 			m={`0 auto`}
