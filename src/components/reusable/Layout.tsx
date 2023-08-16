@@ -17,6 +17,10 @@ const Main = styled.div`
 	a {
 		color: ${({ theme }) => theme.text.link} !important;
 	}
+
+	@media (max-width: 768px) {
+		padding: 15px;
+	}
 `;
 
 const MainLayout: FC<MainLayoutProps> = ({ children }) => {
@@ -27,9 +31,9 @@ const MainLayout: FC<MainLayoutProps> = ({ children }) => {
 	return (
 		<ThemeProvider theme={themeNew}>
 			<Col>
-				<Header setThemeSwitcher={setThemeSwitcher} />
+				<Header />
 				<Main>{children}</Main>
-				<Footer />
+				<Footer setThemeSwitcher={setThemeSwitcher} />
 				<Bmc themeNew={themeNew} />
 			</Col>
 		</ThemeProvider>

@@ -1,9 +1,9 @@
-import { Dispatch, FC, SetStateAction } from "react";
-import styled, { DefaultTheme } from "styled-components";
+import { FC } from "react";
+import styled from "styled-components";
 
 import { Wrapp } from "../../styles/styles";
 import Logo from "./sections/Logo";
-import ThemesBlock from "./sections/ThemesBlock";
+import Bunner from "./sections/Bunner";
 
 // import { Link } from "react-router-dom";
 
@@ -29,14 +29,11 @@ const Wrapper = styled(Wrapp)`
 // 	gap: 20px;
 // `;
 
-interface IHeader {
-	setThemeSwitcher: Dispatch<SetStateAction<DefaultTheme>>;
-}
-const Header: FC<IHeader> = ({ setThemeSwitcher }) => {
+const Header: FC = () => {
 	return (
 		<Wrapper>
 			<Logo />
-			<ThemesBlock setThemeSwitcher={setThemeSwitcher} />
+			<Bunner />
 			{/* <nav>
 				<UlStyled>
 					<li>

@@ -27,7 +27,7 @@ const EditQrSize: React.FC<IOptions> = ({ options, setOptions }) => {
 		{
 			title: "XL",
 			pixels:
-				size.width > 1280
+				size.width > 768
 					? roundToTheNearestTen(size.width, 3) // count - "3" times smaller than the screen
 					: roundToTheNearestTen(size.width, 1), // count - "1" times smaller than the screen
 		},
@@ -84,7 +84,7 @@ const EditQrSize: React.FC<IOptions> = ({ options, setOptions }) => {
 				name='size'
 				min='100'
 				max={
-					size.width > 1280
+					size.width > 768
 						? `${roundToTheNearestTen(size.width, 3)}` // count - "3" times smaller than the screen
 						: `${size.width - 50}` // 50px - padding and margin of "Container"
 				}

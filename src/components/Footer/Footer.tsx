@@ -1,12 +1,15 @@
-import React from "react";
-import styled from "styled-components";
+import { Dispatch, FC, SetStateAction } from "react";
+import styled, { DefaultTheme } from "styled-components";
 
-import { Col, Row, Wrapp } from "../../styles/styles";
-import Banner from "./sections/Bunner";
+import { Row, Wrapp } from "../../styles/styles";
+import ThemesBlock from "./sections/ThemesBlock";
 
 const Wrapper = styled(Wrapp)`
 	position: relative;
 
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 	height: 300px;
 
 	padding: 25px 50px;
@@ -16,22 +19,35 @@ const Wrapper = styled(Wrapp)`
 
 	a {
 		color: ${({ theme }) => theme.text.link} !important;
+		text-decoration: underline;
+	}
+
+	@media (max-width: 768px) {
+		min-height: 300px;
+		height: auto;
+		justify-content: flex-start;
+		align-items: center;
+		gap: 25px;
 	}
 `;
 
-const Footer: React.FC = () => {
+interface IFooter {
+	setThemeSwitcher: Dispatch<SetStateAction<DefaultTheme>>;
+}
+
+const Footer: FC<IFooter> = ({ setThemeSwitcher }) => {
 	return (
 		<Wrapper>
-			<Col h={"100%"} jc='space-between'>
-				<Row>Here will be footer</Row>
-				<Row g='2.5px'>
-					Developed by{" "}
-					<a href='https://github.com/zhen1asemen1uk' target='_black'>
-						Yevhen S.
-					</a>
-				</Row>
-				<Banner />
-			</Col>
+			<Row jc={"space-between"}>
+				<ThemesBlock setThemeSwitcher={setThemeSwitcher} />
+			</Row>
+
+			<Row g='2.5px'>
+				Developed by{" "}
+				<a href='https://github.com/zhen1asemen1uk' target='_black'>
+					Yevhen S.
+				</a>
+			</Row>
 		</Wrapper>
 	);
 };

@@ -1,5 +1,5 @@
 import { FC } from "react";
-import styled from "styled-components";
+import styled, { useTheme } from "styled-components";
 import { Link } from "react-router-dom";
 
 const LinkStyled = styled(Link)`
@@ -26,6 +26,14 @@ const LinkStyled = styled(Link)`
 	}
 `;
 
-const Logo: FC = () => <LinkStyled to='/'>QR - code (Barbie style)</LinkStyled>;
+const Logo: FC = () => {
+	const theme = useTheme();
+
+	const textLogo = `QR - code ${
+		theme.name.includes("pink") ? `(Barbie style)` : ``
+	}`;
+
+	return <LinkStyled to='/'>{textLogo}</LinkStyled>;
+};
 
 export default Logo;

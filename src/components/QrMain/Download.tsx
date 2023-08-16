@@ -44,7 +44,7 @@ const Download: FC<IDownload> = ({
 				}, 3000);
 			}}
 			title={isDownload ? "Downloading..." : "Download"}
-			w={size.width < 1280 ? "100%" : "50%"}
+			w={size.width < 768 ? "100%" : "50%"}
 			m={`0 auto`}
 			disabled={disabled || isDownload}
 		/>

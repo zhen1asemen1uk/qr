@@ -39,6 +39,12 @@ const WrappInput = styled(Col)`
 		cursor: pointer;
 		-webkit-appearance: none;
 		margin-top: -6.5px;
+
+		@media (max-width: 768px) {
+			width: 25px;
+			height: 25px;
+			border-radius: 20px;
+		}
 	}
 
 	input[type="range"]:focus::-webkit-slider-runnable-track {

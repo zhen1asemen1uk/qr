@@ -24,6 +24,7 @@ interface FlexProps {
 	b?: string;
 	br?: string;
 	flex?: string;
+	op?: string;
 }
 
 export const FlexBlock = styled.div<FlexProps>`
@@ -55,6 +56,7 @@ export const FlexBlock = styled.div<FlexProps>`
 	${({ b }) => b && `border: ${b}`};
 	${({ br }) => br && `border-radius: ${br}`};
 	${({ flex }) => flex && `flex: ${flex}`};
+	${({ op }) => op && `opacity: ${op}`};
 `;
 
 export const Wrapp = styled(FlexBlock)`

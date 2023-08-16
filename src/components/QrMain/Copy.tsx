@@ -59,7 +59,7 @@ export const Copy: FC<ICopy> = ({
 			}}
 			disabled={!!(disabled || isCopied)}
 			title={!isCopied ? "Copy" : "Copied!"}
-			w={size.width < 1280 ? "100%" : "50%"}
+			w={size.width < 768 ? "100%" : "50%"}
 			m='0 auto'
 		/>
 	);

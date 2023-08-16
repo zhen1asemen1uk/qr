@@ -126,14 +126,36 @@ export const Qr: FC = () => {
 	useEffect(() => {
 		if (!qrCode) return;
 
+		if (options?.dotsOptions?.color !== theme.main) {
+			setOptions({
+				...options,
+				dotsOptions: {
+					...options.dotsOptions,
+					color: theme.main,
+				},
+				backgroundOptions: {
+					...options.backgroundOptions,
+					color: theme.secondary,
+				},
+				cornersSquareOptions: {
+					...options.cornersSquareOptions,
+					color: theme.main,
+				},
+				cornersDotOptions: {
+					...options.cornersDotOptions,
+					color: theme.main,
+				},
+			});
+		}
+
 		qrCode.update(options);
-	}, [qrCode, options]);
+	}, [qrCode, options, theme]);
 
 	return (
 		<Row
 			w={`100%`}
 			jc={`space-between`}
-			fd={size.width < 1280 ? `column` : `row`}
+			fd={size.width < 768 ? `column` : `row`}
 			m={`0 auto 100px auto`}
 			maxW='1440px'>
 			<Col g={`20px`} w='100%'>
@@ -141,7 +163,7 @@ export const Qr: FC = () => {
 				<Row
 					g={`5px`}
 					jc={`space-between`}
-					fd={size.width < 1280 ? `column` : `row`}
+					fd={size.width < 768 ? `column` : `row`}
 					m='0 0 29px 0'>
 					{arrTypes.map((typeData, i) => {
 						return (

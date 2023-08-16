@@ -17,7 +17,6 @@ import { Copy } from "./Copy";
 
 import { ToQR } from "./ToQR";
 
-import { getUrlFromCanvas } from "../../utils/onCopy";
 import { Col, Row } from "../../styles/styles";
 
 const QrStyled = styled(Row)`
@@ -27,18 +26,7 @@ const QrStyled = styled(Row)`
 	* {
 		border-radius: 20px;
 	}
-
-	@media (max-width: 1280px) {
-		display: none;
-	}
-`;
-
-const MobilQr = styled.img`
-	display: none;
-
-	@media (max-width: 1280px) {
-		display: flex;
-	}
+	background: transparent;
 `;
 
 interface IQrMain {
@@ -66,9 +54,6 @@ const QrMain: FC<IQrMain> = ({
 	const refScrollTo = useRef<HTMLDivElement>(null);
 
 	const [isIphone, setIsIphone] = useState<boolean>(false);
-	const [linkFromBlob, setLinkFromBlob] = useState<string>(
-		`/images/qr-example-4.png`
-	);
 
 	useEffect(() => {
 		if (qrCode && refQrStyled.current) {
@@ -77,22 +62,10 @@ const QrMain: FC<IQrMain> = ({
 		}
 	}, [qrCode, refQrStyled]);
 
-	useEffect(() => {
-		const canvasEl = refQrStyled?.current?.children[0] as HTMLCanvasElement;
-
-		if (canvasEl && size.width < 1280) {
-			getUrlFromCanvas(canvasEl).then((url) => {
-				setLinkFromBlob(url);
-			});
-		}
-	}, [options, size.width, triggerTextTips]);
-
 	return (
 		<Col w={`100%`}>
 			<Col pos={`sticky`} posT={`20px`} g={`15px`} ref={refScrollTo}>
 				<QrStyled ref={refQrStyled} />
-
-				{linkFromBlob && <MobilQr src={linkFromBlob} alt='Qr-Code' />}
 
 				<Col g={`15px`} w={`80%`} m={"0 auto"}>
 					<Settings

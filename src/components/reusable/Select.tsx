@@ -13,6 +13,7 @@ const SelectStyled = styled(FlexBlock)<{ isOpen: boolean }>`
 	color: ${({ theme }) => theme.main};
 
 	background: ${({ theme }) => theme.secondary};
+
 	border-radius: 2px;
 
 	display: flex;
@@ -25,19 +26,23 @@ const SelectStyled = styled(FlexBlock)<{ isOpen: boolean }>`
 
 	border-bottom: ${({ isOpen, theme }) =>
 		!isOpen ? `2px solid ${theme.secondary}` : `2px solid ${theme.main}`};
+	border: ${({ theme }) => `2px solid ${theme.main}`};
 `;
 
 const OptionConteiner = styled(FlexBlock)`
 	position: absolute;
-	top: 37px;
+	top: 39px;
 	left: 0;
 
 	width: 100%;
 
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: flex-start;
 	align-items: center;
+
+	overflow-y: auto;
+	max-height: 200px;
 `;
 
 const OptionStyled = styled(FlexBlock)`
