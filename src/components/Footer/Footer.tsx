@@ -14,23 +14,27 @@ const Wrapper = styled(Wrapp)`
 
 	padding: 25px 50px;
 
-	background: ${({ theme }) => theme.secondary};
-	border-top: ${({ theme }) => `2px solid ${theme.main}}`};
-
-	a {
-		color: ${({ theme }) => theme.text.link} !important;
-		text-decoration: underline;
-	}
+	background: ${({ theme }) => theme.main};
+	border-top: ${({ theme }) => `2px solid ${theme.secondary}}`};
 
 	@media (max-width: 768px) {
 		min-height: 300px;
 		height: auto;
-		justify-content: flex-start;
+		justify-content: space-between;
 		align-items: center;
 		gap: 25px;
 	}
 `;
 
+const DevelopStyled = styled(Row)`
+	gap: 2.5px;
+	color: ${({ theme }) => theme.text.simple};
+
+	a {
+		color: ${({ theme }) => theme.text.link} !important;
+		text-decoration: underline;
+	}
+`;
 interface IFooter {
 	setThemeSwitcher: Dispatch<SetStateAction<DefaultTheme>>;
 }
@@ -42,12 +46,12 @@ const Footer: FC<IFooter> = ({ setThemeSwitcher }) => {
 				<ThemesBlock setThemeSwitcher={setThemeSwitcher} />
 			</Row>
 
-			<Row g='2.5px'>
+			<DevelopStyled>
 				Developed by{" "}
 				<a href='https://github.com/zhen1asemen1uk' target='_black'>
 					Yevhen S.
 				</a>
-			</Row>
+			</DevelopStyled>
 		</Wrapper>
 	);
 };

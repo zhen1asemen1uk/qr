@@ -68,7 +68,7 @@ export const theme = {
 		text: {
 			title: "#FFFFFF",
 			simple: "#FFFFFF",
-			link: "#000000",
+			link: "#FFFFFF",
 		},
 		loader: {
 			main: "#000000",
