@@ -7,8 +7,14 @@ import { IOptions } from "../../types/components";
 
 const TextType: FC<IOptions> = memo(({ options, setOptions }) => {
 	const [isPast, setIsPast] = useState<string>("");
+	const [isVisibilityChange, setVisibilityChange] = useState<boolean>(false);
 
+	const changeVisibility = () => {
+		setVisibilityChange(document.visibilityState === `visible` ? true : false);
+	};
 	useEffect(() => {
+		document.addEventListener("visibilitychange", changeVisibility);
+
 		if ("clipboard" in navigator) {
 			navigator.clipboard
 				?.readText()
@@ -16,10 +22,15 @@ const TextType: FC<IOptions> = memo(({ options, setOptions }) => {
 					setIsPast(text);
 				})
 				.catch((err) => {
+					console.log("Something went wrong", err);
+
 					setIsPast("");
 				});
 		}
-	});
+		return () => {
+			document.removeEventListener("visibilitychange", changeVisibility);
+		};
+	}, [isVisibilityChange]);
 
 	return (
 		<Row ai={`flex-end`} g={`5px`}>
@@ -42,7 +53,10 @@ const TextType: FC<IOptions> = memo(({ options, setOptions }) => {
 
 						console.log("Pasted content: ", isPast);
 
+						// Clear the clipboard
 						navigator.clipboard.writeText("");
+						setVisibilityChange(false);
+						setIsPast("");
 					}}
 				/>
 			)}
