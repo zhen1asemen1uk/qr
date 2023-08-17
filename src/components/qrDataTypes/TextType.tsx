@@ -28,7 +28,7 @@ const TextType: FC<IOptions> = memo(({ options, setOptions }) => {
 				placeholder='Your URL address'
 				value={options.data}
 				onChange={(e) =>
-					setOptions({ ...options, data: e.target.value || " " })
+					setOptions({ ...options, data: e.target.value.trimStart() || " " })
 				}
 				w='100%'
 			/>
