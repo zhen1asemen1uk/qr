@@ -12,21 +12,21 @@ const textAnimation = keyframes`
 
 const BunnerStyled = styled.div`
 	position: absolute;
-	top: 0;
+	top: 49px;
+
 	right: 0;
 
 	background: red;
 	color: white;
 
-	width: 200px;
-	height: 50px;
+	height: 16px;
+	width: 100%;
 
 	display: flex;
 	align-items: center;
 	justify-content: center;
 
 	border-radius: 2px;
-	opacity: 0.5;
 
 	div {
 		-webkit-touch-callout: none; /* iOS Safari */
@@ -36,17 +36,17 @@ const BunnerStyled = styled.div`
 		-ms-user-select: none; /* Internet Explorer/Edge */
 		user-select: none;
 
+		text-align: center;
+		animation: ${textAnimation} 20s linear infinite;
+		padding-left: 120%;
+		white-space: nowrap;
+
 		outline: none !important;
 	}
+
 	@media (max-width: 768px) {
-		top: 49px;
-		height: 16px;
-		width: 100%;
 		div {
-			text-align: center;
 			animation: ${textAnimation} 8s linear infinite;
-			padding-left: 120%;
-			white-space: nowrap;
 		}
 	}
 `;
