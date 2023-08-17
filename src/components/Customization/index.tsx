@@ -22,6 +22,7 @@ const WiFiType = lazy(() => import("../qrDataTypes/WiFiType"));
 const EmailType = lazy(() => import("../qrDataTypes/EmailType"));
 
 interface ICustomization {
+	triggerOptions: Options;
 	options: Options;
 	setOptions: Dispatch<SetStateAction<Options>>;
 	isTypes: string;
@@ -33,6 +34,7 @@ interface ICustomization {
 }
 
 export const Customization: FC<ICustomization> = ({
+	triggerOptions,
 	options,
 	setOptions,
 	isTypes,
@@ -72,7 +74,7 @@ export const Customization: FC<ICustomization> = ({
 			</Col>
 
 			{/* Edit block */}
-			<ListOfAccordion options={options} setOptions={setOptions} />
+			<ListOfAccordion options={triggerOptions} setOptions={setOptions} />
 
 			{/* Tip */}
 			<Tips

@@ -2,7 +2,6 @@ import { FC } from "react";
 import styled from "styled-components";
 
 import { Row } from "../../styles/styles";
-import { hideLogo, showLogo } from "../../utils/switchLogo";
 
 import Input from "../reusable/Input";
 import InputColor from "../reusable/InputColor";
@@ -57,28 +56,16 @@ const EditQrColors: FC<IOptions> = ({ options, setOptions }) => {
 										[el.key]: { color: e.target.value },
 									})
 								}
-								// onFocus={() => {
-								// 	hideLogo(options, setOptions);
-								// }}
-								// onBlur={() => {
-								// 	showLogo(options, setOptions);
-								// }}
 							/>
 
 							<InputColor
 								id={`${el.key}`}
 								value={options[el.key]!.color || ""}
 								onChange={(e) => {
-									setOptions?.({
+									setOptions({
 										...options,
-										[el.key]: { color: e.target.value },
+										[el.key]: { ...options[el.key], color: e.target.value },
 									});
-								}}
-								onFocus={() => {
-									hideLogo(options, setOptions);
-								}}
-								onBlur={() => {
-									showLogo(options, setOptions);
 								}}
 							/>
 						</Row>

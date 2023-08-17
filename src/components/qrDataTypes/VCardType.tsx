@@ -1,10 +1,10 @@
-import { FC, memo, useCallback, useEffect, useState } from "react";
+import { FC, memo, useEffect, useState } from "react";
 
 import { VCardKeys } from "../../types/enumes";
 import RedStar from "../reusable/RedStar";
 import { Col } from "../../styles/styles";
 import Input from "../reusable/Input";
-import { hideLogo, showLogo } from "../../utils/switchLogo";
+
 import { IOptions } from "../../types/components";
 
 const arrFields = [
@@ -96,14 +96,6 @@ const VCardType: FC<IOptions> = memo(({ options, setOptions }) => {
 		setOptions?.({ ...options, data: formatedVCardCode });
 	}, [vCard]);
 
-	const hideLogoClick = useCallback(() => {
-		hideLogo(options, setOptions);
-	}, [options, setOptions]);
-
-	const showLogoClick = useCallback(() => {
-		showLogo(options, setOptions);
-	}, [options, setOptions]);
-
 	return (
 		<Col g='20px'>
 			{arrFields.map((el, i) => {
@@ -119,14 +111,6 @@ const VCardType: FC<IOptions> = memo(({ options, setOptions }) => {
 							name={`${el.key}`}
 							value={`${vCard[el.key]}`}
 							onChange={(e) => setVCard({ ...vCard, [el.key]: e.target.value })}
-							onFocus={() => {
-								hideLogoClick();
-								// hideLogo(options, setOptions);
-							}}
-							onBlur={() => {
-								showLogoClick();
-								// showLogo(options, setOptions);
-							}}
 						/>
 					</Col>
 				);

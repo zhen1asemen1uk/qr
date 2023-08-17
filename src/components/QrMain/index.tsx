@@ -66,19 +66,22 @@ const QrMain: FC<IQrMain> = ({
 }) => {
 	const [resolutionOfQr, setResolutionOfQr] = useState<number>(1024);
 
-	const triggerResolutionOfQr = useDebounce(resolutionOfQr, 5000);
+	const triggerResolutionOfQr = useDebounce(resolutionOfQr, 800);
 
 	const refQrStyled = useRef<HTMLDivElement>(null);
 	const refScrollTo = useRef<HTMLDivElement>(null);
 
 	const [isIphone, setIsIphone] = useState<boolean>(false);
+	const triggerQrCode = useDebounce(qrCode, 300);
 
 	useEffect(() => {
-		if (qrCode && refQrStyled.current) {
+		if (triggerQrCode && refQrStyled.current) {
 			setIsIphone(/iPhone|iPad|iPod/i.test(navigator.userAgent));
-			qrCode.append(refQrStyled.current);
+
+			refQrStyled.current.innerHTML = "";
+			triggerQrCode.append(refQrStyled.current);
 		}
-	}, [qrCode, refQrStyled]);
+	}, [triggerQrCode]);
 
 	return (
 		<Col w={`100%`}>

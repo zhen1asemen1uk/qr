@@ -118,12 +118,19 @@ const Qr: FC = () => {
 		})
 	);
 	const triggerTextTips = useDebounce(textTips, 1300, setIsLoading);
+	const triggerOptions = useDebounce(options, 300, setIsLoading);
 
 	const qrCode = useMemo(() => new QRCodeStyling(options), [options]);
 
+	// Update qrCode
 	useEffect(() => {
 		if (!qrCode) return;
 
+		qrCode.update(options);
+	}, [qrCode, options]);
+
+	// Change color theme
+	useEffect(() => {
 		if (options?.dotsOptions?.color !== theme.main) {
 			setOptions({
 				...options,
@@ -145,9 +152,7 @@ const Qr: FC = () => {
 				},
 			});
 		}
-
-		qrCode.update(options);
-	}, [qrCode, options, theme]);
+	}, [theme]);
 
 	return (
 		<Row
@@ -181,6 +186,7 @@ const Qr: FC = () => {
 				</Row>
 
 				<Customization
+					triggerOptions={triggerOptions}
 					options={options}
 					setOptions={setOptions}
 					isTypes={isTypes}

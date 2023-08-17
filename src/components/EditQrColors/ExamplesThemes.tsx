@@ -68,15 +68,26 @@ const ExamplesThemes: FC<IOptions> = ({ options, setOptions }) => {
 									: `2px solid ${theme.secondary}`
 							}
 							onClick={() => {
-								setOptions?.({
+								setOptions({
 									...options,
-									dotsOptions: { color: example.dotsOptions },
-									backgroundOptions: { color: example.backgroundOptions },
+									dotsOptions: {
+										...options.dotsOptions,
+										color: example.dotsOptions,
+									},
+									backgroundOptions: {
+										...options.backgroundOptions,
+										color: example.backgroundOptions,
+									},
 									cornersSquareOptions: {
+										...options.cornersSquareOptions,
 										color: example.cornersSquareOptions,
 									},
-									cornersDotOptions: { color: example.cornersDotOptions },
+									cornersDotOptions: {
+										...options.cornersDotOptions,
+										color: example.cornersDotOptions,
+									},
 								});
+								console.log(options);
 							}}>
 							<ImageEx src={example.link} />
 						</FlexBlock>

@@ -4,7 +4,7 @@ import { EmailKeys } from "../../types/enumes";
 import RedStar from "../reusable/RedStar";
 import { Col } from "../../styles/styles";
 import Input from "../reusable/Input";
-import { hideLogo, showLogo } from "../../utils/switchLogo";
+
 import { IOptions } from "../../types/components";
 
 interface IEmail {
@@ -79,12 +79,6 @@ const EmailType: FC<IOptions> = memo(({ options, setOptions }) => {
 							id={`${el.key}`}
 							name={`${el.key}`}
 							placeholder={el.ph}
-							onFocus={() => {
-								hideLogo(options, setOptions);
-							}}
-							onBlur={() => {
-								showLogo(options, setOptions);
-							}}
 							autoFocus={el.require}
 						/>
 					</Col>

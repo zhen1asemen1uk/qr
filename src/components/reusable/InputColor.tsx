@@ -49,6 +49,8 @@ const InputColor: FC<IInputColor> = ({
 	size,
 	onFocus,
 	onBlur,
+	onMouseDown,
+	onMouseUp,
 }) => {
 	return (
 		<LabelStyled>
@@ -60,6 +62,8 @@ const InputColor: FC<IInputColor> = ({
 				value={value}
 				onChange={onChange}
 				size={size}
+				onMouseDown={onMouseDown}
+				onMouseUp={onMouseUp}
 			/>
 		</LabelStyled>
 	);

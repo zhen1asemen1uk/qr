@@ -3,7 +3,7 @@ import { FC, memo, useEffect, useState } from "react";
 import RedStar from "../reusable/RedStar";
 import { Col } from "../../styles/styles";
 import Input from "../reusable/Input";
-import { hideLogo, showLogo } from "../../utils/switchLogo";
+
 import { IOptions } from "../../types/components";
 import { transformSymbols } from "../../utils/helpers";
 
@@ -40,12 +40,6 @@ const SmsType: FC<IOptions> = memo(({ options, setOptions }) => {
 					value={sms.tel}
 					onChange={(e) => setSms({ ...sms, tel: e.target.value })}
 					placeholder='+18005551212'
-					onFocus={() => {
-						hideLogo(options, setOptions);
-					}}
-					onBlur={() => {
-						showLogo(options, setOptions);
-					}}
 				/>
 			</Col>
 
@@ -57,12 +51,6 @@ const SmsType: FC<IOptions> = memo(({ options, setOptions }) => {
 					onChange={(e) => setSms({ ...sms, text: e.target.value })}
 					placeholder='Your SMS text'
 					maxLength={159}
-					onFocus={() => {
-						hideLogo(options, setOptions);
-					}}
-					onBlur={() => {
-						showLogo(options, setOptions);
-					}}
 				/>
 			</Col>
 		</Col>

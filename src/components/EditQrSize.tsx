@@ -8,7 +8,7 @@ import { Col, Row, Title } from "../styles/styles";
 import Button from "./reusable/Button";
 import { IArrSize } from "../types/resusable";
 import { IOptions } from "../types/components";
-import { hideLogo, showLogo } from "../utils/switchLogo";
+
 import InputRagne from "./reusable/InputRagne";
 
 const EditQrSize: FC<IOptions> = ({ options, setOptions }) => {
@@ -74,12 +74,6 @@ const EditQrSize: FC<IOptions> = ({ options, setOptions }) => {
 			</label>
 
 			<InputRagne
-				onMouseDown={() => {
-					hideLogo(options, setOptions);
-				}}
-				onMouseUp={() => {
-					showLogo(options, setOptions);
-				}}
 				id='size'
 				name='size'
 				min='100'

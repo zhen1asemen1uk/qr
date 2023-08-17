@@ -137,6 +137,8 @@ export interface IInputColor {
 	onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 	onFocus?: (e: ChangeEvent<HTMLInputElement> | undefined) => void;
 	onBlur?: (e: ChangeEvent<HTMLInputElement> | undefined) => void;
+	onMouseDown?: MouseEventHandler<HTMLInputElement> | undefined;
+	onMouseUp?: MouseEventHandler<HTMLInputElement> | undefined;
 }
 
 export interface ISelect {
