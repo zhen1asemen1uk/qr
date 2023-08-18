@@ -45,7 +45,7 @@ export enum TypeImage {
 
 export enum Themes {
 	KEY_THEME = `themeQr`,
-	DEFAULT = `white`,
+	DEFAULT = `black`,
 	WHITE = `white`,
 	BLACK = `black`,
 	PINK = `pink`,

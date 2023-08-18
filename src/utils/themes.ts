@@ -53,12 +53,14 @@ export const detectTheme = () => {
 			// Default (when Media-Queries are not supported)
 			// set random theme one from WHITE, BLACK, PINK, GREEN, BLUE, PURPLE, ORANGE, YELLOW, RED
 
-			const randomTheme = Math.floor(Math.random() * themes.length);
+			// Start
+			// const randomTheme = Math.floor(Math.random() * themes.length);
+			// setTheme(themes[randomTheme]);
+			// theme = themes[randomTheme];
+			// End
 
-			console.log(randomTheme);
-
-			setTheme(themes[randomTheme]);
-			theme = themes[randomTheme];
+			setTheme(Themes.DEFAULT); // set to local storage
+			theme = Themes.DEFAULT; // set to theme which will be returned
 		}
 	}
 	return theme;

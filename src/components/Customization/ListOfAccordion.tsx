@@ -21,7 +21,7 @@ export const ListOfAccordion: FC<IOptions> = memo(({ options, setOptions }) => {
 				}
 			/>
 			<Accordion
-				title={"Edit Qr Image"}
+				title={"Edit Qr Logo"}
 				content={
 					<Suspense fallback={<Loader />}>
 						<EditQrImage options={options} setOptions={setOptions} />

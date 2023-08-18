@@ -78,7 +78,7 @@ const EditQrImage: FC<IOptions> = ({ options, setOptions }) => {
 		<Col g='20px'>
 			<Title>Image:</Title>
 			<Checkbox
-				label={`Without image`}
+				label={`Without logo`}
 				id='withoutImage'
 				name='withoutImage'
 				onChange={(e: ChangeEvent<HTMLInputElement>) => {
