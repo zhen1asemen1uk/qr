@@ -24,6 +24,7 @@ import Button from "../components/reusable/Button";
 import { Customization } from "../components/Customization";
 import { useTheme } from "styled-components";
 import useDebounce from "../hooks/useDebounce";
+import { roundToTheNearestTen } from "../utils/roundingNumbers";
 
 const arrTypes = [
 	{ title: `vCard`, value: TypeQr.VCARD },
@@ -46,8 +47,8 @@ const initOptions = ({
 	cornersSquareC,
 	cornersDotC,
 }: InitOptions) => ({
-	width: 300,
-	height: 300,
+	width: 460,
+	height: 460,
 	type: `canvas` as DrawType,
 	data: ` `,
 	image: ``,
@@ -59,8 +60,8 @@ const initOptions = ({
 	},
 	imageOptions: {
 		hideBackgroundDots: true,
-		imageSize: 0.5,
-		margin: 5,
+		imageSize: 0.4,
+		margin: 10,
 		crossOrigin: `anonymous`,
 	},
 	dotsOptions: {
@@ -117,8 +118,8 @@ const Qr: FC = () => {
 			cornersDotC: theme.main,
 		})
 	);
-	const triggerTextTips = useDebounce(textTips, 1300, setIsLoading);
-	const triggerOptions = useDebounce(options, 300, setIsLoading);
+	const triggerTextTips = useDebounce(textTips, 300, setIsLoading);
+	const triggerOptions = useDebounce(options, 300);
 
 	const qrCode = useMemo(() => new QRCodeStyling(options), [options]);
 
@@ -153,6 +154,23 @@ const Qr: FC = () => {
 			});
 		}
 	}, [theme]);
+
+	useEffect(() => {
+		console.log(size.width);
+		if (!size.width) return;
+
+		qrCode.update({
+			...options,
+			width:
+				size.width > 768
+					? roundToTheNearestTen(size.width, 3) // count - "3" times smaller than the screen
+					: roundToTheNearestTen(size.width, 1), // count - "1" times smaller than the screen,
+			height:
+				size.width > 768
+					? roundToTheNearestTen(size.width, 3) // count - "3" times smaller than the screen
+					: roundToTheNearestTen(size.width, 1), // count - "1" times smaller than the screen,
+		});
+	}, [size]);
 
 	return (
 		<Row

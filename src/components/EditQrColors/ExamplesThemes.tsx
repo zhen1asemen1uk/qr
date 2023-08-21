@@ -4,8 +4,6 @@ import styled, { DefaultTheme, useTheme } from "styled-components";
 import { Col, FlexBlock, Row } from "../../styles/styles";
 import { ExampleTheme, IOptions } from "../../types/components";
 
-const Title = styled.h1``;
-
 const ImageEx = styled.img`
 	width: 70px;
 	height: 70px;
@@ -48,8 +46,7 @@ const ExamplesThemes: FC<IOptions> = ({ options, setOptions }) => {
 	const examplesThemesArr = examplesThemes({ theme });
 	return (
 		<Col g={`5px`}>
-			<Title>Colors:</Title>
-			Examples:
+			Examples Qr themes:
 			<Row g={`5px`} jc={`space-between`}>
 				{examplesThemesArr.map((example, i) => {
 					return (
@@ -87,7 +84,6 @@ const ExamplesThemes: FC<IOptions> = ({ options, setOptions }) => {
 										color: example.cornersDotOptions,
 									},
 								});
-								console.log(options);
 							}}>
 							<ImageEx src={example.link} />
 						</FlexBlock>

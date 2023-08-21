@@ -62,6 +62,11 @@ const ExamplesImages: FC<IExamplesImages> = ({
 									? `1px solid ${theme.secondary}`
 									: `1px solid ${theme.main}`
 							}
+							bg={
+								example.link === options.image
+									? `${theme.secondary}80`
+									: `${theme.main}`
+							}
 							flex={`1 1 auto`}>
 							<ImageEx
 								disabled={withoutImage}

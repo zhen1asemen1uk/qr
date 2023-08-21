@@ -65,11 +65,11 @@ const WrappButton = styled.button<ButtonProps>`
 
 		color: ${({ disabled, secondary, theme }) =>
 			disabled && secondary
-				? theme.main
+				? theme.secondary
 				: disabled
 				? theme.main
 				: secondary
-				? theme.text
+				? theme.secondary
 				: theme.text};
 
 		box-shadow: ${({ disabled, secondary }) =>

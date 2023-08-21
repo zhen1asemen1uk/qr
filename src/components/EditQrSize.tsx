@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, memo, useEffect, useState } from "react";
 
 import { roundToTheNearestTen } from "../utils/roundingNumbers";
 
@@ -11,7 +11,7 @@ import { IOptions } from "../types/components";
 
 import InputRagne from "./reusable/InputRagne";
 
-const EditQrSize: FC<IOptions> = ({ options, setOptions }) => {
+const EditQrSize: FC<IOptions> = memo(({ options, setOptions }) => {
 	const size = useWindowSize();
 	const [arrSize, setArrSize] = useState<IArrSize[]>([]);
 
@@ -93,6 +93,6 @@ const EditQrSize: FC<IOptions> = ({ options, setOptions }) => {
 			/>
 		</Col>
 	);
-};
+});
 
 export default EditQrSize;

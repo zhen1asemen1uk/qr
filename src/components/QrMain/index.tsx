@@ -8,7 +8,7 @@ import {
 	Suspense,
 	lazy,
 } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import QRCodeStyling from "qr-code-styling";
 import { FileExtension, Options } from "qr-code-styling";
 
@@ -24,7 +24,28 @@ import Loader from "../reusable/Loader";
 
 const Copy = lazy(() => import("./Copy"));
 
+const Wrapp = styled(Col)`
+	width: 100%;
+`;
+
+const animation = keyframes`
+0%{
+	opacity: 0;
+}
+50%{
+	opacity: 0;
+}
+75%{
+	opacity: 0.5;
+}
+100%{
+	opacity: 1;
+}
+`;
+
 const QrStyled = styled(Row)`
+	animation: ${animation} 2s ease-in;
+
 	align-items: center;
 	justify-content: center;
 
@@ -84,7 +105,7 @@ const QrMain: FC<IQrMain> = ({
 	}, [triggerQrCode]);
 
 	return (
-		<Col w={`100%`}>
+		<Wrapp>
 			<Col pos={`sticky`} posT={`20px`} g={`15px`} ref={refScrollTo}>
 				<QrStyled ref={refQrStyled} />
 
@@ -120,7 +141,7 @@ const QrMain: FC<IQrMain> = ({
 			</Col>
 
 			<ToQR size={size.width} refScrollTo={refScrollTo} />
-		</Col>
+		</Wrapp>
 	);
 };
 export default QrMain;

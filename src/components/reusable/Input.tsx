@@ -6,8 +6,9 @@ import { IInput } from "../../types/resusable";
 import Loader from "./Loader";
 
 const WrappInput = styled(Col)`
-	cursor: pointer;
 	color: ${({ theme }) => theme.text};
+	gap: 5px;
+	cursor: default;
 `;
 
 const InputConteiner = styled.div`
@@ -35,6 +36,8 @@ const InputStyled = styled.input`
 
 	outline: none;
 	transition: all 0.3s ease-in-out;
+
+	cursor: ${({ disabled }) => (disabled ? `not-allowed` : `pointer`)};
 
 	&:focus {
 		border-bottom: ${({ theme }) => `2px solid ${theme.input.b}`} !important;
@@ -76,7 +79,7 @@ const Input: FC<IInput> = ({
 					id={id}
 					value={value}
 					onChange={onChange}
-					placeholder={placeholder}
+					placeholder={disabled ? `Disabled` : placeholder}
 					type={type}
 					name={name}
 					maxLength={maxLength}

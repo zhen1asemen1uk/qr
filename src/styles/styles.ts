@@ -25,6 +25,7 @@ interface FlexProps {
 	br?: string;
 	flex?: string;
 	op?: string;
+	ov?: string;
 }
 
 export const FlexBlock = styled.div<FlexProps>`
@@ -57,6 +58,7 @@ export const FlexBlock = styled.div<FlexProps>`
 	${({ br }) => br && `border-radius: ${br}`};
 	${({ flex }) => flex && `flex: ${flex}`};
 	${({ op }) => op && `opacity: ${op}`};
+	${({ ov }) => ov && `overflow: ${ov}`};
 `;
 
 export const Wrapp = styled(FlexBlock)`
@@ -69,7 +71,7 @@ export const Col = styled(FlexBlock)`
 	flex-direction: ${({ fd }) => fd ?? `column`};
 `;
 
-const Text = styled.span`
+const Text = styled.div`
 	-webkit-touch-callout: none; /* iOS Safari */
 	-webkit-user-select: none; /* Chrome/Safari/Opera */
 	-khtml-user-select: none; /* Konqueror */

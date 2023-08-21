@@ -43,7 +43,6 @@ const AccordionContent = styled.div<{ isActive: boolean }>`
 
 	padding: ${({ isActive }) => (isActive ? `15px 20px` : `0 20px`)};
 
-	overflow: hidden;
 	transition: padding 0.6s;
 
 	* {

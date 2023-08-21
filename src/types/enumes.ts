@@ -56,3 +56,10 @@ export enum Themes {
 	YELLOW = `yellow`,
 	RED = `red`,
 }
+
+export enum KeysColor {
+	DOTSOPTIONS = `dotsOptions`,
+	BACKGROUNDOPTIONS = `backgroundOptions`,
+	CORNERSSQUAREOPTIONS = `cornersSquareOptions`,
+	CORNERSDOTOPTIONS = `cornersDotOptions`,
+}

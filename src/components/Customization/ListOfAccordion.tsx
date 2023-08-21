@@ -7,7 +7,7 @@ import Loader from "../reusable/Loader";
 
 const EditQrColors = lazy(() => import("../EditQrColors/EditQrColors"));
 const EditQrImage = lazy(() => import("../EditQrImage/EditQrImage"));
-const EditQrSize = lazy(() => import("../EditQrSize"));
+// const EditQrSize = lazy(() => import("../EditQrSize"));
 
 export const ListOfAccordion: FC<IOptions> = memo(({ options, setOptions }) => {
 	return (
@@ -28,14 +28,14 @@ export const ListOfAccordion: FC<IOptions> = memo(({ options, setOptions }) => {
 					</Suspense>
 				}
 			/>
-			<Accordion
+			{/* <Accordion
 				title={"Edit Qr Size"}
 				content={
 					<Suspense fallback={<Loader />}>
 						<EditQrSize options={options} setOptions={setOptions} />
 					</Suspense>
 				}
-			/>
+			/> */}
 		</>
 	);
 });
