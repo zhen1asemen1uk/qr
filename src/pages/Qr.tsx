@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, FC } from "react";
+import { useEffect, useState, FC, useMemo } from "react";
 
 import QRCodeStyling, {
 	type FileExtension,
@@ -16,160 +16,176 @@ import useWindowSize from "../hooks/useWindowSize";
 
 import QrMain from "../components/QrMain";
 
-// DataTypes
-import TextType from "../components/qrDataTypes/TextType";
-import VCardType from "../components/qrDataTypes/VCardType";
-import EmailType from "../components/qrDataTypes/EmailType";
-import SmsType from "../components/qrDataTypes/SmsType";
-import WiFiType from "../components/qrDataTypes/WiFiType";
-
-import EditQrColors from "../components/EditQrColors/EditQrColors";
-
 import { Col, Row } from "../styles/styles";
 
-import { hardcodeImage } from "../components/reusable/mockData";
-import Accordion from "../components/reusable/Accordeon";
-
-import { TypeQr } from "../types/enumes";
+import { TypeImage, TypeQr } from "../types/enumes";
 import Button from "../components/reusable/Button";
-import EditQrSize from "../components/EditQrSize";
-import EditQrImage from "../components/EditQrImage/EditQrImage";
-import Tips from "../components/Tips";
+
+import { Customization } from "../components/Customization";
+import { useTheme } from "styled-components";
+import useDebounce from "../hooks/useDebounce";
+import { roundToTheNearestTen } from "../utils/roundingNumbers";
 
 const arrTypes = [
-	{ title: `vCard`, value: `VCARD` },
-	{ title: `Sms`, value: `SMS` },
-	{ title: `WiFi`, value: `WiFi` },
-	{ title: `Email`, value: `EMAIL` },
-	{ title: `Text/Link`, value: `TEXT` },
+	{ title: `vCard`, value: TypeQr.VCARD },
+	{ title: `Sms`, value: TypeQr.SMS },
+	{ title: `WiFi`, value: TypeQr.WIFI },
+	{ title: `Email`, value: TypeQr.EMAIL },
+	{ title: `Text/Link`, value: TypeQr.TEXT },
 ];
 
-export const Qr: FC = () => {
+interface InitOptions {
+	dotsC: string;
+	backgroundC: string;
+	cornersSquareC: string;
+	cornersDotC: string;
+}
+
+const initOptions = ({
+	dotsC,
+	backgroundC,
+	cornersSquareC,
+	cornersDotC,
+}: InitOptions) => ({
+	width: 460,
+	height: 460,
+	type: `canvas` as DrawType,
+	data: ` `,
+	image: ``,
+	margin: 10,
+	qrOptions: {
+		typeNumber: 0 as TypeNumber,
+		mode: `Byte` as Mode,
+		errorCorrectionLevel: `Q` as ErrorCorrectionLevel,
+	},
+	imageOptions: {
+		hideBackgroundDots: true,
+		imageSize: 0.4,
+		margin: 10,
+		crossOrigin: `anonymous`,
+	},
+	dotsOptions: {
+		color: `${dotsC}`,
+		// gradient: {
+		//   type: 'linear', // 'radial'
+		//   rotation: 0,
+		//   colorStops: [{ offset: 0, color: '#8688B2' }, { offset: 1, color: '#77779C' }]
+		// },
+		type: `rounded` as DotType,
+	},
+	backgroundOptions: {
+		color: `${backgroundC}`,
+		// gradient: {
+		//   type: 'linear', // 'radial'
+		//   rotation: 0,
+		//   colorStops: [{ offset: 0, color: '#ededff' }, { offset: 1, color: '#e6e7ff' }]
+		// },
+	},
+	cornersSquareOptions: {
+		color: `${cornersSquareC}`,
+		type: `extra-rounded` as CornerSquareType,
+		// gradient: {
+		//   type: 'linear', // 'radial'
+		//   rotation: 180,
+		//   colorStops: [{ offset: 0, color: '#25456e' }, { offset: 1, color: '#4267b2' }]
+		// },
+	},
+	cornersDotOptions: {
+		color: `${cornersDotC}`,
+		type: `dot` as CornerDotType,
+		// gradient: {
+		//   type: 'linear', // 'radial'
+		//   rotation: 180,
+		//   colorStops: [{ offset: 0, color: '#00266e' }, { offset: 1, color: '#4060b3' }]
+		// },
+	},
+});
+
+const Qr: FC = () => {
 	const size = useWindowSize();
+	const theme = useTheme();
 
 	const [textTips, setTextTips] = useState<string>("");
 	const [isTypes, setIsTypes] = useState<string>(TypeQr.TEXT);
-	const [fileExt, setFileExt] = useState<FileExtension>(`svg`);
+	const [fileExt, setFileExt] = useState<FileExtension>(TypeImage.PNG);
+	const [isLoading, setIsLoading] = useState<boolean>(false);
 
-	const [options, setOptions] = useState<Options>({
-		width: 300,
-		height: 300,
-		type: `canvas` as DrawType,
-		data: ` `,
-		image: hardcodeImage,
-		margin: 10,
-		qrOptions: {
-			typeNumber: 0 as TypeNumber,
-			mode: `Byte` as Mode,
-			errorCorrectionLevel: `Q` as ErrorCorrectionLevel,
-		},
-		imageOptions: {
-			hideBackgroundDots: true,
-			imageSize: 0.5,
-			margin: 5,
-			crossOrigin: `anonymous`,
-		},
-		dotsOptions: {
-			color: `#0b064b`,
-			// gradient: {
-			//   type: 'linear', // 'radial'
-			//   rotation: 0,
-			//   colorStops: [{ offset: 0, color: '#8688B2' }, { offset: 1, color: '#77779C' }]
-			// },
-			type: `rounded` as DotType,
-		},
-		backgroundOptions: {
-			color: `#ffffff`,
-			// gradient: {
-			//   type: 'linear', // 'radial'
-			//   rotation: 0,
-			//   colorStops: [{ offset: 0, color: '#ededff' }, { offset: 1, color: '#e6e7ff' }]
-			// },
-		},
-		cornersSquareOptions: {
-			color: `#c9a05d`,
-			type: `extra-rounded` as CornerSquareType,
-			// gradient: {
-			//   type: 'linear', // 'radial'
-			//   rotation: 180,
-			//   colorStops: [{ offset: 0, color: '#25456e' }, { offset: 1, color: '#4267b2' }]
-			// },
-		},
-		cornersDotOptions: {
-			color: `#0b064b`,
-			type: `dot` as CornerDotType,
-			// gradient: {
-			//   type: 'linear', // 'radial'
-			//   rotation: 180,
-			//   colorStops: [{ offset: 0, color: '#00266e' }, { offset: 1, color: '#4060b3' }]
-			// },
-		},
-	});
+	const [options, setOptions] = useState<Options>(
+		initOptions({
+			dotsC: theme.main,
+			backgroundC: theme.secondary,
+			cornersSquareC: theme.main,
+			cornersDotC: theme.main,
+		})
+	);
+	const triggerTextTips = useDebounce(textTips, 300, setIsLoading);
+	const triggerOptions = useDebounce(options, 300);
 
-	const [qrCode] = useState<QRCodeStyling>(new QRCodeStyling(options));
+	const qrCode = useMemo(() => new QRCodeStyling(options), [options]);
 
+	// Update qrCode
 	useEffect(() => {
 		if (!qrCode) return;
 
 		qrCode.update(options);
 	}, [qrCode, options]);
 
-	const onDownloadClick = () => {
-		if (!qrCode) return;
-
-		void qrCode.download({
-			name: textTips || "qr-code",
-			extension: fileExt,
-		});
-	};
-
-	const onCopyClick = async (canvasEl: HTMLCanvasElement | undefined) => {
-		if (!canvasEl) return;
-
-		canvasEl.toBlob((blob) => {
-			if (!blob) return;
-
-			navigator.clipboard
-				?.write([new ClipboardItem({ [blob.type]: blob })])
-				.then(() => console.log("Logo copied to clipboard"))
-				.catch((error) => console.error(error));
-		});
-	};
-
-	const changeTypeQr = useCallback(() => {
-		switch (isTypes) {
-			case TypeQr.TEXT:
-				return <TextType options={options} setOptions={setOptions} />;
-
-			case TypeQr.VCARD:
-				return <VCardType options={options} setOptions={setOptions} />;
-
-			case TypeQr.SMS:
-				return <SmsType options={options} setOptions={setOptions} />;
-
-			case TypeQr.WiFi:
-				return <WiFiType options={options} setOptions={setOptions} />;
-
-			case TypeQr.EMAIL:
-				return <EmailType options={options} setOptions={setOptions} />;
-
-			default:
-				return <TextType options={options} setOptions={setOptions} />;
+	// Change color theme
+	useEffect(() => {
+		if (options?.dotsOptions?.color !== theme.main) {
+			setOptions({
+				...options,
+				dotsOptions: {
+					...options.dotsOptions,
+					color: theme.main,
+				},
+				backgroundOptions: {
+					...options.backgroundOptions,
+					color: theme.secondary,
+				},
+				cornersSquareOptions: {
+					...options.cornersSquareOptions,
+					color: theme.main,
+				},
+				cornersDotOptions: {
+					...options.cornersDotOptions,
+					color: theme.main,
+				},
+			});
 		}
-	}, [isTypes, options]);
+	}, [theme]);
+
+	useEffect(() => {
+		console.log(size.width);
+		if (!size.width) return;
+
+		qrCode.update({
+			...options,
+			width:
+				size.width > 768
+					? roundToTheNearestTen(size.width, 3) // count - "3" times smaller than the screen
+					: roundToTheNearestTen(size.width, 1), // count - "1" times smaller than the screen,
+			height:
+				size.width > 768
+					? roundToTheNearestTen(size.width, 3) // count - "3" times smaller than the screen
+					: roundToTheNearestTen(size.width, 1), // count - "1" times smaller than the screen,
+		});
+	}, [size]);
 
 	return (
 		<Row
 			w={`100%`}
 			jc={`space-between`}
-			fd={size.width < 1280 ? `column` : `row`}
-			m={`0 0 100px 0`}>
-			<Col g={`20px`}>
+			fd={size.width < 768 ? `column` : `row`}
+			m={`0 auto 100px auto`}
+			maxW='1440px'>
+			<Col g={`20px`} w='100%'>
 				{/* Buttons block */}
 				<Row
 					g={`5px`}
 					jc={`space-between`}
-					fd={size.width < 1280 ? `column` : `row`}>
+					fd={size.width < 768 ? `column` : `row`}
+					m='0 0 29px 0'>
 					{arrTypes.map((typeData, i) => {
 						return (
 							<Button
@@ -186,34 +202,32 @@ export const Qr: FC = () => {
 						);
 					})}
 				</Row>
-				{/* Fields block */}
-				<Col>{changeTypeQr()}</Col>
 
-				{/* Edit block */}
-				<Accordion
-					title={"Edit Qr Colors"}
-					content={<EditQrColors options={options} setOptions={setOptions} />}
+				<Customization
+					triggerOptions={triggerOptions}
+					options={options}
+					setOptions={setOptions}
+					isTypes={isTypes}
+					qrCode={qrCode}
+					triggerTextTips={triggerTextTips}
+					textTips={textTips}
+					setTextTips={setTextTips}
+					isLoading={isLoading}
 				/>
-				<Accordion
-					title={"Edit Qr Image"}
-					content={<EditQrImage options={options} setOptions={setOptions} />}
-				/>
-				<Accordion
-					title={"Edit Qr Size"}
-					content={<EditQrSize options={options} setOptions={setOptions} />}
-				/>
-
-				<Tips qrCode={qrCode} textTips={textTips} setTextTips={setTextTips} />
 			</Col>
 
 			{/* QR block */}
 			<QrMain
-				onCopyClick={onCopyClick}
+				size={size}
+				options={options}
 				setFileExt={setFileExt}
-				onDownloadClick={onDownloadClick}
-				changeTypeQr={changeTypeQr}
+				fileExt={fileExt}
 				qrCode={qrCode}
+				isTypes={isTypes}
+				triggerTextTips={triggerTextTips}
 			/>
 		</Row>
 	);
 };
+
+export default Qr;

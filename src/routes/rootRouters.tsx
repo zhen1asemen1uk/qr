@@ -1,11 +1,12 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 
 import ErrorPage from "../pages/ErrorPage";
 
-import MainLayout from "../reusable/Layout";
+import MainLayout from "../components/reusable/Layout";
+import Loader from "../components/reusable/Loader";
 
-import { Qr } from "../pages/Qr";
+const Qr = lazy(() => import("../pages/Qr"));
 
 const arrPathsAndComponents = [
 	{
@@ -19,7 +20,11 @@ const arrPathsAndComponents = [
 export const routers = createBrowserRouter(
 	arrPathsAndComponents.map((el) => ({
 		path: el.path,
-		element: <MainLayout>{el.element}</MainLayout>,
+		element: (
+			<MainLayout>
+				<Suspense fallback={<Loader />}>{el.element}</Suspense>
+			</MainLayout>
+		),
 		errorElement: <ErrorPage />,
 	}))
 );

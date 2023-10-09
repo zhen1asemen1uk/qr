@@ -13,3 +13,37 @@ export interface IOptions {
 	options: Options;
 	setOptions: Dispatch<SetStateAction<Options>>;
 }
+
+export interface IBackgroundOptions {
+	backgroundOptions: {
+		color: string;
+		gradient: {
+			type: string;
+			rotation: number;
+		};
+	};
+}
+export interface ICornersSquareOptions {
+	cornersSquareOptions: {
+		type: string;
+		color: string;
+		gradient: {
+			type: string;
+			rotation: number;
+		};
+	};
+}
+export interface ICornersDotOptions {
+	cornersDotOptions: {
+		type: string;
+		color: string;
+		gradient: {
+			type: string;
+			rotation: number;
+		};
+	};
+}
+
+export interface ExampleTheme {
+	[key: string]: string;
+}

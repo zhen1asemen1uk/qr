@@ -1,9 +1,11 @@
-import React from "react";
+import { FC } from "react";
 import styled from "styled-components";
 
 import { Wrapp } from "../../styles/styles";
 import Logo from "./sections/Logo";
-import { Link } from "react-router-dom";
+import Bunner from "./sections/Bunner";
+
+// import { Link } from "react-router-dom";
 
 const Wrapper = styled(Wrapp)`
 	flex-direction: row;
@@ -13,29 +15,32 @@ const Wrapper = styled(Wrapp)`
 	height: 50px;
 	padding: 0 50px;
 
-	background-color: #0b064b;
-`;
+	background: ${({ theme }) => theme.main};
+	border-bottom: ${({ theme }) => `1px solid ${theme.secondary}`};
+	color: ${({ theme }) => theme.text.title};
 
-const UlStyled = styled.ul`
-	display: flex;
-	gap: 20px;
-
-	li a {
-		color: #c9a05d;
+	a {
+		color: ${({ theme }) => theme.logo} !important;
 	}
 `;
 
-const Header: React.FC = () => {
+// const UlStyled = styled.ul`
+// 	display: flex;
+// 	gap: 20px;
+// `;
+
+const Header: FC = () => {
 	return (
 		<Wrapper>
 			<Logo />
-			<nav>
+			<Bunner />
+			{/* <nav>
 				<UlStyled>
 					<li>
 						<Link to={`/`}>ROOT</Link>
 					</li>
 				</UlStyled>
-			</nav>
+			</nav> */}
 		</Wrapper>
 	);
 };

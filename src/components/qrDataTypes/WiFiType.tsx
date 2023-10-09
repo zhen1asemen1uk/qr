@@ -1,31 +1,14 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
-
-import { WiFiKeys } from "../../types/enumes";
+import { FC, memo, useEffect, useState } from "react";
 
 import { Col } from "../../styles/styles";
-import { hideLogo, showLogo } from "../../utils/switchLogo";
 
 import RedStar from "../reusable/RedStar";
 import Input from "../reusable/Input";
 
 import { IOptions } from "../../types/components";
+import Checkbox from "../reusable/Checkbox";
+import { Select } from "../reusable/Select";
 
-const arrFields = [
-	{
-		title: "Network name:",
-		key: WiFiKeys.NETWORKNAME,
-		require: true,
-		type: `text`,
-	},
-	{
-		title: "Network type:",
-		key: WiFiKeys.NETWORKTYPE,
-		require: true,
-		type: `select`,
-	},
-	{ title: "Password:", key: WiFiKeys.PASS, require: true, type: `text` },
-	{ title: "Hidden", key: WiFiKeys.HIDE, require: false, type: `checkbox` },
-];
 interface IWiFi {
 	networkName: string;
 	networkType: string;
@@ -33,7 +16,7 @@ interface IWiFi {
 	hide: boolean;
 }
 
-const WiFiType: React.FC<IOptions> = ({ options, setOptions }) => {
+const WiFiType: FC<IOptions> = memo(({ options, setOptions }) => {
 	const [wiFi, setWiFi] = useState<IWiFi>({
 		networkName: "",
 		pass: "",
@@ -42,67 +25,94 @@ const WiFiType: React.FC<IOptions> = ({ options, setOptions }) => {
 	});
 
 	useEffect(() => {
-		const formatedWiFiCode = `WIFI:T:${wiFi.networkType};S:${wiFi.networkName};P:${wiFi.pass};H:${wiFi.hide};;`;
+		let formatedWiFiCode;
 
-		setOptions?.({ ...options, image: "", data: formatedWiFiCode });
+		if (wiFi.networkType) {
+			formatedWiFiCode = `WIFI:T:${wiFi.networkType};S:${wiFi.networkName};P:${wiFi.pass};H:${wiFi.hide};;`;
+		} else {
+			formatedWiFiCode = `WIFI:S:${wiFi.networkName};H:${wiFi.hide};;`;
+		}
+
+		setOptions({ ...options, data: formatedWiFiCode });
 	}, [wiFi]);
 
 	return (
 		<Col g='20px'>
-			{arrFields.map((el, i) => {
-				return (
-					<Col
-						key={`${el.title}_${i}`}
-						ai={[`checkbox`].includes(el.type) ? `flex-start` : `stretch`}>
-						<label htmlFor={`${el.key}`}>
-							{![`checkbox`].includes(el.type) && el.title}
-							{el.require && <RedStar />}
-						</label>
-						{[`select`].includes(el.type) ? (
-							<select
-								name={`${el.key}`}
-								id={`${el.key}`}
-								onChange={(e) =>
-									setWiFi({ ...wiFi, networkType: e.target.value })
-								}
-								value={wiFi.networkType}>
-								<option value='WEP'>WEP</option>
-								<option value='WPA'>WPA/WPA2</option>
-								<option value=''>No encryption</option>
-							</select>
-						) : [`checkbox`].includes(el.type) ? (
-							<>
-								<label htmlFor='withoutImage'>{el.title}</label>
-								<input
-									type='checkbox'
-									id='withoutImage'
-									name={el.key}
-									onChange={(e: ChangeEvent<HTMLInputElement>) => {
-										setWiFi({ ...wiFi, [el.key]: e.target.checked });
-									}}
-									defaultChecked={!!wiFi[el.key]}
-								/>
-							</>
-						) : (
-							<Input
-								id={`${el.key}`}
-								type={el.type}
-								name={`${el.key}`}
-								value={`${wiFi[el.key]}`}
-								onChange={(e) => setWiFi({ ...wiFi, [el.key]: e.target.value })}
-								onFocus={() => {
-									hideLogo(options, setOptions);
-								}}
-								onBlur={() => {
-									showLogo(options, setOptions);
-								}}
-							/>
-						)}
-					</Col>
-				);
-			})}
+			<Col ai='stretch'>
+				<label htmlFor='networkName'>
+					Network name:
+					<RedStar />
+				</label>
+				<Input
+					id='networkName'
+					type='text'
+					name='networkName'
+					value={`${wiFi.networkName}`}
+					onChange={(e) =>
+						setWiFi({
+							...wiFi,
+							networkName: e.target.value,
+						})
+					}
+				/>
+			</Col>
+			<Col ai='stretch'>
+				<label htmlFor='networkType'>
+					Network type:
+					<RedStar />
+				</label>
+
+				<Select
+					id='networkType'
+					value={wiFi.networkType}
+					onClick={(value) =>
+						setWiFi({
+							...wiFi,
+							networkType: value,
+						})
+					}
+					options={[
+						{ value: "WEP", label: "WEP" },
+						{ value: "WPA", label: "WPA/WPA2" },
+						{ value: "", label: "No encryption" },
+					]}
+				/>
+			</Col>
+			{wiFi.networkType && (
+				<Col ai='stretch'>
+					<label htmlFor='pass'>
+						Password:
+						<RedStar />
+					</label>
+					<Input
+						id='pass'
+						type='text'
+						name='pass'
+						value={`${wiFi.pass}`}
+						onChange={(e) =>
+							setWiFi({
+								...wiFi,
+								pass: e.target.value,
+							})
+						}
+					/>
+				</Col>
+			)}
+			Hidden
+			<Checkbox
+				label='Hidden'
+				id='hide'
+				name='hide'
+				onChange={(e) => {
+					setWiFi({
+						...wiFi,
+						hide: e.target.checked,
+					});
+				}}
+				defaultChecked={wiFi.hide}
+			/>
 		</Col>
 	);
-};
+});
 
 export default WiFiType;

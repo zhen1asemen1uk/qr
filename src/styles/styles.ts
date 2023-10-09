@@ -22,7 +22,10 @@ interface FlexProps {
 	c?: string;
 	g?: string;
 	b?: string;
+	br?: string;
 	flex?: string;
+	op?: string;
+	ov?: string;
 }
 
 export const FlexBlock = styled.div<FlexProps>`
@@ -52,7 +55,10 @@ export const FlexBlock = styled.div<FlexProps>`
 	${({ bg }) => bg && `background: ${bg}`};
 	${({ g }) => g && `gap: ${g}`};
 	${({ b }) => b && `border: ${b}`};
+	${({ br }) => br && `border-radius: ${br}`};
 	${({ flex }) => flex && `flex: ${flex}`};
+	${({ op }) => op && `opacity: ${op}`};
+	${({ ov }) => ov && `overflow: ${ov}`};
 `;
 
 export const Wrapp = styled(FlexBlock)`
@@ -63,4 +69,63 @@ export const Row = styled(FlexBlock)``;
 
 export const Col = styled(FlexBlock)`
 	flex-direction: ${({ fd }) => fd ?? `column`};
+`;
+
+const Text = styled.div`
+	-webkit-touch-callout: none; /* iOS Safari */
+	-webkit-user-select: none; /* Chrome/Safari/Opera */
+	-khtml-user-select: none; /* Konqueror */
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* Internet Explorer/Edge */
+	user-select: none;
+
+	outline: none !important;
+`;
+
+export const Title = styled(Text)`
+	color: ${({ theme }) => theme.text.title};
+
+	@media (max-width: 768px) {
+		font-size: 1.5rem;
+	}
+
+	@media (max-width: 576px) {
+		font-size: 1.2rem;
+	}
+
+	@media (max-width: 320px) {
+		font-size: 1rem;
+	}
+`;
+
+export const SimpleText = styled(Text)`
+	color: ${({ theme }) => theme.text.simple};
+
+	@media (max-width: 768px) {
+		font-size: 1.2rem;
+	}
+
+	@media (max-width: 576px) {
+		font-size: 1rem;
+	}
+
+	@media (max-width: 320px) {
+		font-size: 0.8rem;
+	}
+`;
+
+export const SmallText = styled.span`
+	color: ${({ theme }) => theme.text.simple};
+
+	@media (max-width: 768px) {
+		font-size: 1rem;
+	}
+
+	@media (max-width: 576px) {
+		font-size: 0.8rem;
+	}
+
+	@media (max-width: 320px) {
+		font-size: 0.6rem;
+	}
 `;

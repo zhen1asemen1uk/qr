@@ -1,47 +1,47 @@
-import React, { FC } from "react";
-import styled, { keyframes } from "styled-components";
+import { FC } from "react";
+import styled from "styled-components";
 
 import { Col } from "../../styles/styles";
 import { IInput } from "../../types/resusable";
+import Loader from "./Loader";
 
 const WrappInput = styled(Col)`
-	cursor: pointer;
-`;
-
-const rotating = keyframes`
-	from {
-	  transform: rotate(0deg);
-	}
-	to {
-	  transform: rotate(360deg);
-	}
-  `;
-
-const Loader = styled.div`
-	position: absolute;
-	right: 3px;
-	top: 3px;
-
-	width: 15px;
-	height: 15px;
-
-	border: 3px solid rgba(6, 35, 75, 0.2);
-	border-radius: 50%;
-	border-top-color: rgb(6, 35, 75);
-
-	background: transparent;
-
-	animation: ${rotating} 1s linear infinite;
+	color: ${({ theme }) => theme.text};
+	gap: 5px;
+	cursor: default;
 `;
 
 const InputConteiner = styled.div`
 	position: relative;
+	border: none;
+	border-bottom: ${({ theme }) => `1px solid ${theme.secondary}`};
+
+	&:focus {
+		border-bottom: ${({ theme }) => `2px solid ${theme.input.b}`} !important;
+	}
 `;
 
 const InputStyled = styled.input`
 	width: 100%;
 
+	padding: 10px;
+
+	background: ${({ theme }) => theme.input.bg};
+
+	border: none;
+	border-bottom: ${({ theme }) =>
+		`2px solid ${theme.input.secondary}`} !important;
+
+	border-radius: 2px 2px 0 0;
+
 	outline: none;
+	transition: all 0.3s ease-in-out;
+
+	cursor: ${({ disabled }) => (disabled ? `not-allowed` : `pointer`)};
+
+	&:focus {
+		border-bottom: ${({ theme }) => `2px solid ${theme.input.b}`} !important;
+	}
 `;
 
 const Input: FC<IInput> = ({
@@ -79,7 +79,7 @@ const Input: FC<IInput> = ({
 					id={id}
 					value={value}
 					onChange={onChange}
-					placeholder={placeholder}
+					placeholder={disabled ? `Disabled` : placeholder}
 					type={type}
 					name={name}
 					maxLength={maxLength}
@@ -92,11 +92,7 @@ const Input: FC<IInput> = ({
 					max={max}
 					autoFocus={autoFocus}
 				/>
-				{isLoading && (
-					<Loader>
-						<div />
-					</Loader>
-				)}
+				{isLoading && <Loader />}
 			</InputConteiner>
 		</WrappInput>
 	);

@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from "react";
+import { FC, memo, useEffect, useState } from "react";
 
 import RedStar from "../reusable/RedStar";
 import { Col } from "../../styles/styles";
 import Input from "../reusable/Input";
-import { hideLogo, showLogo } from "../../utils/switchLogo";
+
 import { IOptions } from "../../types/components";
+import { transformSymbols } from "../../utils/helpers";
 
 interface ISms {
 	tel: string;
 	text: string;
 }
 
-const SmsType: React.FC<IOptions> = ({ options, setOptions }) => {
+const SmsType: FC<IOptions> = memo(({ options, setOptions }) => {
 	const [sms, setSms] = useState<ISms>({
 		tel: "",
 		text: "",
@@ -20,7 +21,9 @@ const SmsType: React.FC<IOptions> = ({ options, setOptions }) => {
 	useEffect(() => {
 		let formatedSmsCode = `smsto:${sms.tel}`;
 
-		if (sms.text.length > 0) formatedSmsCode += `:${sms.text}`;
+		if (sms.text.length > 0) {
+			formatedSmsCode += `:${transformSymbols(sms.text)}`;
+		}
 
 		setOptions?.({ ...options, data: formatedSmsCode });
 	}, [sms]);
@@ -37,13 +40,6 @@ const SmsType: React.FC<IOptions> = ({ options, setOptions }) => {
 					value={sms.tel}
 					onChange={(e) => setSms({ ...sms, tel: e.target.value })}
 					placeholder='+18005551212'
-					onFocus={() => {
-						hideLogo(options, setOptions);
-					}}
-					onBlur={() => {
-						showLogo(options, setOptions);
-					}}
-					autoFocus={true}
 				/>
 			</Col>
 
@@ -55,16 +51,10 @@ const SmsType: React.FC<IOptions> = ({ options, setOptions }) => {
 					onChange={(e) => setSms({ ...sms, text: e.target.value })}
 					placeholder='Your SMS text'
 					maxLength={159}
-					onFocus={() => {
-						hideLogo(options, setOptions);
-					}}
-					onBlur={() => {
-						showLogo(options, setOptions);
-					}}
 				/>
 			</Col>
 		</Col>
 	);
-};
+});
 
 export default SmsType;

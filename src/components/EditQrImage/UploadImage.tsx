@@ -1,4 +1,4 @@
-import React, { type Dispatch, type SetStateAction, useState } from "react";
+import { type Dispatch, type SetStateAction, useState, FC } from "react";
 
 // import UploadWidget from "../../utils/UploadWidget";
 import { Col } from "../../styles/styles";
@@ -10,10 +10,7 @@ interface IUploadImage {
 	setSelectedImage: Dispatch<SetStateAction<string>>;
 }
 
-const UploadImage: React.FC<IUploadImage> = ({
-	disabled,
-	setSelectedImage,
-}) => {
+const UploadImage: FC<IUploadImage> = ({ disabled, setSelectedImage }) => {
 	const [error, updateError] = useState();
 
 	const handleOnUpload = (error: any, result: any, widget?: any) => {

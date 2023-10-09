@@ -1,41 +1,49 @@
-import React, { useState, useEffect, ChangeEvent } from "react";
+import { useState, useEffect, ChangeEvent, FC } from "react";
 
-import { Col, Row } from "../../styles/styles";
+import { Col, Row, Title } from "../../styles/styles";
 // import UploadImage from "./UploadImage";
 
 import { IArrSize } from "../../types/resusable";
 import Input from "../reusable/Input";
-import { hardcodeImage } from "../reusable/mockData";
+
 import Button from "../reusable/Button";
 import { IOptions } from "../../types/components";
-import styled from "styled-components";
 import ExamplesImages from "./ExamplesImages";
-
-const Title = styled.h1``;
+import Checkbox from "../reusable/Checkbox";
+import InputRagne from "../reusable/InputRagne";
+import useDebounce from "../../hooks/useDebounce";
 
 const arrSizes: IArrSize[] = [
 	{
-		title: "S",
+		title: "M",
 		pixels: 0.2,
 	},
 	{
-		title: "M",
+		title: "L",
 		pixels: 0.4,
 	},
 	{
-		title: "L",
-		pixels: 0.7,
-	},
-	{
 		title: "XL",
-		pixels: 0.9,
+		pixels: 0.6,
 	},
 ];
 
-const EditQrImage: React.FC<IOptions> = ({ options, setOptions }) => {
-	const [withoutImage, setWithoutImage] = useState<boolean>(false);
-	const [linkImg, setLinkImg] = useState<string>(hardcodeImage);
-	const [delay] = useState<number>(500);
+const EditQrImage: FC<IOptions> = ({ options, setOptions }) => {
+	const [withoutImage, setWithoutImage] = useState<boolean>(true);
+	const [linkImg, setLinkImg] = useState<string>(``);
+	const [imageSize, setImageSize] = useState(
+		options?.imageOptions?.imageSize || 0.2
+	);
+	const delay: number = 500;
+
+	const debouncedImageSize = useDebounce(imageSize, 200);
+
+	useEffect(() => {
+		setOptions?.({
+			...options,
+			imageOptions: { imageSize: debouncedImageSize },
+		});
+	}, [debouncedImageSize]);
 
 	useEffect(() => {
 		const timer = setTimeout(() => {
@@ -70,29 +78,29 @@ const EditQrImage: React.FC<IOptions> = ({ options, setOptions }) => {
 		return () => {
 			clearTimeout(timer);
 		};
-	}, [linkImg, delay]);
+	}, [linkImg]);
 
 	return (
 		<Col g='20px'>
-			<Title>Image:</Title>
-			<label htmlFor='withoutImage'>Without image</label>
-			<input
-				type='checkbox'
+			<Title>Logo:</Title>
+			<Checkbox
+				label={`Without logo`}
 				id='withoutImage'
 				name='withoutImage'
+				defaultChecked={withoutImage}
 				onChange={(e: ChangeEvent<HTMLInputElement>) => {
 					setWithoutImage(e.target?.checked);
 					setOptions?.({
 						...options,
-						image: e.target?.checked ? `` : hardcodeImage,
+						image: e.target?.checked ? `` : ``,
 					});
 					setLinkImg?.(``);
 				}}
-				defaultChecked={withoutImage}
 			/>
 			<Input
 				disabled={withoutImage}
 				title='Enter link on image:'
+				placeholder='URL addres on img'
 				onChange={(e: ChangeEvent<HTMLInputElement>) =>
 					setLinkImg(e.target.value)
 				}
@@ -124,20 +132,16 @@ const EditQrImage: React.FC<IOptions> = ({ options, setOptions }) => {
 					);
 				})}
 			</Row>
-			<Input
+			<InputRagne
 				disabled={withoutImage}
-				type='range'
-				min={`0.1`}
+				min={`0.2`}
 				step={`0.1`}
-				max={`0.8`}
+				max={`0.6`}
 				title='Logo size:'
 				onChange={(e: ChangeEvent<HTMLInputElement>) =>
-					setOptions?.({
-						...options,
-						imageOptions: { imageSize: +e.target.value },
-					})
+					setImageSize(+e.target.value)
 				}
-				value={`${options?.imageOptions?.imageSize}`}
+				value={`${imageSize}`}
 			/>
 			<ExamplesImages
 				options={options}

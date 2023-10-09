@@ -38,9 +38,6 @@ yarn-error.log*
 
 *.xml
 
-yarn.lock
 package-lock.json
-
-.cache/
-public
-src/gatsby-types.d.ts
+.firebase
+.env

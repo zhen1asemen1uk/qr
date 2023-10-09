@@ -1,14 +1,20 @@
-import React, { useEffect, useState } from "react";
+import { FC, memo, useEffect, useState } from "react";
 
 import Input from "../reusable/Input";
 import { Row } from "../../styles/styles";
 import Button from "../reusable/Button";
 import { IOptions } from "../../types/components";
 
-const TextType: React.FC<IOptions> = ({ options, setOptions }) => {
+const TextType: FC<IOptions> = memo(({ options, setOptions }) => {
 	const [isPast, setIsPast] = useState<string>("");
+	const [isVisibilityChange, setVisibilityChange] = useState<boolean>(false);
 
+	const changeVisibility = () => {
+		setVisibilityChange(document.visibilityState === `visible` ? true : false);
+	};
 	useEffect(() => {
+		document.addEventListener("visibilitychange", changeVisibility);
+
 		if ("clipboard" in navigator) {
 			navigator.clipboard
 				?.readText()
@@ -16,10 +22,15 @@ const TextType: React.FC<IOptions> = ({ options, setOptions }) => {
 					setIsPast(text);
 				})
 				.catch((err) => {
+					console.log("Something went wrong", err);
+
 					setIsPast("");
 				});
 		}
-	});
+		return () => {
+			document.removeEventListener("visibilitychange", changeVisibility);
+		};
+	}, [isVisibilityChange]);
 
 	return (
 		<Row ai={`flex-end`} g={`5px`}>
@@ -28,10 +39,9 @@ const TextType: React.FC<IOptions> = ({ options, setOptions }) => {
 				placeholder='Your URL address'
 				value={options.data}
 				onChange={(e) =>
-					setOptions({ ...options, data: e.target.value || " " })
+					setOptions({ ...options, data: e.target.value.trimStart() || " " })
 				}
 				w='100%'
-				autoFocus={true}
 			/>
 
 			{isPast && (
@@ -43,12 +53,15 @@ const TextType: React.FC<IOptions> = ({ options, setOptions }) => {
 
 						console.log("Pasted content: ", isPast);
 
+						// Clear the clipboard
 						navigator.clipboard.writeText("");
+						setVisibilityChange(false);
+						setIsPast("");
 					}}
 				/>
 			)}
 		</Row>
 	);
-};
+});
 
 export default TextType;

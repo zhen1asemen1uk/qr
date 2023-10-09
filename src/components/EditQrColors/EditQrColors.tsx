@@ -1,22 +1,13 @@
-import React from "react";
-import styled from "styled-components";
+import { FC, useEffect, useState } from "react";
 
-import { Row } from "../../styles/styles";
-import { hideLogo, showLogo } from "../../utils/switchLogo";
+import { Row, Title } from "../../styles/styles";
 
 import Input from "../reusable/Input";
 import InputColor from "../reusable/InputColor";
 import ExamplesThemes from "./ExamplesThemes";
 import { IOptions } from "../../types/components";
-
-const Title = styled.h1``;
-
-enum KeysColor {
-	DOTSOPTIONS = `dotsOptions`,
-	BACKGROUNDOPTIONS = `backgroundOptions`,
-	CORNERSSQUAREOPTIONS = `cornersSquareOptions`,
-	CORNERSDOTOPTIONS = `cornersDotOptions`,
-}
+import { KeysColor } from "../../types/enumes";
+import useDebounce from "../../hooks/useDebounce";
 
 const arrKeysForChangeColor = [
 	{
@@ -37,7 +28,48 @@ const arrKeysForChangeColor = [
 	},
 ];
 
-const EditQrColors: React.FC<IOptions> = ({ options, setOptions }) => {
+interface IColors {
+	dotsOptions: { color: string };
+	backgroundOptions: { color: string };
+	cornersSquareOptions: { color: string };
+	cornersDotOptions: { color: string };
+}
+
+const EditQrColors: FC<IOptions> = ({ options, setOptions }) => {
+	// regex for check hex code
+	// const validateHex = new RegExp(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/);
+
+	const [colors, setColors] = useState<IColors>({
+		dotsOptions: { color: options.dotsOptions?.color || `` },
+		backgroundOptions: { color: options.backgroundOptions?.color || `` },
+		cornersSquareOptions: { color: options.cornersSquareOptions?.color || `` },
+		cornersDotOptions: { color: options.cornersDotOptions?.color || `` },
+	});
+
+	const debouncedColors = useDebounce(colors, 200);
+
+	useEffect(() => {
+		setOptions({
+			...options,
+			dotsOptions: {
+				...options.dotsOptions,
+				color: debouncedColors.dotsOptions.color,
+			},
+			backgroundOptions: {
+				...options.backgroundOptions,
+				color: debouncedColors.backgroundOptions.color,
+			},
+			cornersSquareOptions: {
+				...options.cornersSquareOptions,
+				color: debouncedColors.cornersSquareOptions.color,
+			},
+			cornersDotOptions: {
+				...options.cornersDotOptions,
+				color: debouncedColors.cornersDotOptions.color,
+			},
+		});
+	}, [debouncedColors]);
+
 	return (
 		<>
 			<Title>Colors:</Title>
@@ -50,35 +82,29 @@ const EditQrColors: React.FC<IOptions> = ({ options, setOptions }) => {
 							<Input
 								w={`100%`}
 								id={`${el.key}`}
-								value={options[el.key]?.color}
-								onChange={(e) =>
-									setOptions?.({
-										...options,
+								value={`${colors[el.key]?.color}`}
+								onChange={(e) => {
+									setColors({
+										...colors,
 										[el.key]: { color: e.target.value },
-									})
-								}
-								onFocus={() => {
-									hideLogo(options, setOptions);
+									});
 								}}
-								onBlur={() => {
-									showLogo(options, setOptions);
-								}}
+								maxLength={10}
 							/>
 
 							<InputColor
 								id={`${el.key}`}
 								value={options[el.key]!.color || ""}
 								onChange={(e) => {
-									setOptions?.({
-										...options,
+									setColors({
+										...colors,
 										[el.key]: { color: e.target.value },
 									});
-								}}
-								onFocus={() => {
-									hideLogo(options, setOptions);
-								}}
-								onBlur={() => {
-									showLogo(options, setOptions);
+
+									// setOptions({
+									// 	...options,
+									// 	[el.key]: { ...options[el.key], color: e.target.value },
+									// });
 								}}
 							/>
 						</Row>

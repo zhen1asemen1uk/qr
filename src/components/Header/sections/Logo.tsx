@@ -1,17 +1,39 @@
-import React from "react";
-import styled from "styled-components";
+import { FC } from "react";
+import styled, { useTheme } from "styled-components";
 import { Link } from "react-router-dom";
 
-import { FlexBlock } from "../../../styles/styles";
+const LinkStyled = styled(Link)`
+	font-family: "DollieScript";
+	font-size: 40px;
 
-const Wrapp = styled(FlexBlock)`
+	text-align: center;
+	margin: 0;
+
+	color: ${({ theme }) => theme.text.title} !important;
 	cursor: pointer;
+
+	@media (max-width: 1280px) {
+		margin: 0 auto;
+		font-size: 35px;
+	}
+
+	@media (max-width: 768px) {
+		font-size: 30px;
+	}
+
+	@media (max-width: 480px) {
+		font-size: 20px;
+	}
 `;
 
-const Logo: React.FC = () => (
-	<Link to='/'>
-		<Wrapp>You logo</Wrapp>
-	</Link>
-);
+const Logo: FC = () => {
+	const theme = useTheme();
+
+	const textLogo = `QR - code ${
+		theme.name.includes("pink") ? `(Barbie style)` : ``
+	}`;
+
+	return <LinkStyled to='/'>{textLogo}</LinkStyled>;
+};
 
 export default Logo;

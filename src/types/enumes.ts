@@ -2,7 +2,7 @@ export enum TypeQr {
 	TEXT = `TEXT`,
 	VCARD = `VCARD`,
 	SMS = `SMS`,
-	WiFi = `WiFi`,
+	WIFI = `WiFi`,
 	EMAIL = `EMAIL`,
 }
 
@@ -29,16 +29,37 @@ export enum EmailKeys {
 	BODY = `body`,
 }
 
-export enum WiFiKeys {
-	NETWORKNAME = `networkName`,
-	NETWORKTYPE = `networkType`,
-	PASS = `pass`,
-	HIDE = `hide`,
-}
-
 export enum Placement {
 	TOP = `top`,
 	RIGHT = `right`,
 	LEFT = `left`,
 	BOTTOM = `bottom`,
+}
+
+export enum TypeImage {
+	SVG = `svg`,
+	WEBP = `webp`,
+	JPEG = `jpeg`,
+	PNG = `png`,
+}
+
+export enum Themes {
+	KEY_THEME = `themeQr`,
+	DEFAULT = `black`,
+	WHITE = `white`,
+	BLACK = `black`,
+	PINK = `pink`,
+	GREEN = `green`,
+	BLUE = `blue`,
+	PURPLE = `purple`,
+	ORANGE = `orange`,
+	YELLOW = `yellow`,
+	RED = `red`,
+}
+
+export enum KeysColor {
+	DOTSOPTIONS = `dotsOptions`,
+	BACKGROUNDOPTIONS = `backgroundOptions`,
+	CORNERSSQUAREOPTIONS = `cornersSquareOptions`,
+	CORNERSDOTOPTIONS = `cornersDotOptions`,
 }

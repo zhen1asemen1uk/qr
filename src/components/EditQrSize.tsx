@@ -1,20 +1,17 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import { FC, memo, useEffect, useState } from "react";
 
 import { roundToTheNearestTen } from "../utils/roundingNumbers";
 
 import useWindowSize from "../hooks/useWindowSize";
 
-import { Col, Row } from "../styles/styles";
+import { Col, Row, Title } from "../styles/styles";
 import Button from "./reusable/Button";
 import { IArrSize } from "../types/resusable";
 import { IOptions } from "../types/components";
-import { hideLogo, showLogo } from "../utils/switchLogo";
-import Input from "./reusable/Input";
 
-const Title = styled.h1``;
+import InputRagne from "./reusable/InputRagne";
 
-const EditQrSize: React.FC<IOptions> = ({ options, setOptions }) => {
+const EditQrSize: FC<IOptions> = memo(({ options, setOptions }) => {
 	const size = useWindowSize();
 	const [arrSize, setArrSize] = useState<IArrSize[]>([]);
 
@@ -30,7 +27,7 @@ const EditQrSize: React.FC<IOptions> = ({ options, setOptions }) => {
 		{
 			title: "XL",
 			pixels:
-				size.width > 1280
+				size.width > 768
 					? roundToTheNearestTen(size.width, 3) // count - "3" times smaller than the screen
 					: roundToTheNearestTen(size.width, 1), // count - "1" times smaller than the screen
 		},
@@ -76,19 +73,12 @@ const EditQrSize: React.FC<IOptions> = ({ options, setOptions }) => {
 				QR size: {options.width}px/{options.width}px
 			</label>
 
-			<Input
-				onMouseDown={() => {
-					hideLogo(options, setOptions);
-				}}
-				onMouseUp={() => {
-					showLogo(options, setOptions);
-				}}
-				type='range'
+			<InputRagne
 				id='size'
 				name='size'
 				min='100'
 				max={
-					size.width > 1280
+					size.width > 768
 						? `${roundToTheNearestTen(size.width, 3)}` // count - "3" times smaller than the screen
 						: `${size.width - 50}` // 50px - padding and margin of "Container"
 				}
@@ -103,6 +93,6 @@ const EditQrSize: React.FC<IOptions> = ({ options, setOptions }) => {
 			/>
 		</Col>
 	);
-};
+});
 
 export default EditQrSize;

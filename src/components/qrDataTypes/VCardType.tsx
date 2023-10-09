@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { FC, memo, useEffect, useState } from "react";
 
 import { VCardKeys } from "../../types/enumes";
 import RedStar from "../reusable/RedStar";
 import { Col } from "../../styles/styles";
 import Input from "../reusable/Input";
-import { hideLogo, showLogo } from "../../utils/switchLogo";
+
 import { IOptions } from "../../types/components";
 
 const arrFields = [
@@ -36,7 +36,7 @@ interface IVCard {
 	vcountry: string;
 }
 
-const VCardType: React.FC<IOptions> = ({ options, setOptions }) => {
+const VCardType: FC<IOptions> = memo(({ options, setOptions }) => {
 	const [vCard, setVCard] = useState<IVCard>({
 		vname: "",
 		vlast: "",
@@ -111,18 +111,12 @@ const VCardType: React.FC<IOptions> = ({ options, setOptions }) => {
 							name={`${el.key}`}
 							value={`${vCard[el.key]}`}
 							onChange={(e) => setVCard({ ...vCard, [el.key]: e.target.value })}
-							onFocus={() => {
-								hideLogo(options, setOptions);
-							}}
-							onBlur={() => {
-								showLogo(options, setOptions);
-							}}
 						/>
 					</Col>
 				);
 			})}
 		</Col>
 	);
-};
+});
 
 export default VCardType;

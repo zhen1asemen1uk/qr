@@ -1,6 +1,8 @@
 import { Link, useRouteError } from "react-router-dom";
-import Loander from "../reusable/Loander";
+
 import { Col, FlexBlock } from "../styles/styles";
+import Loader from "../components/reusable/Loader";
+import { FC } from "react";
 
 interface RouteError {
 	status: string;
@@ -8,7 +10,7 @@ interface RouteError {
 	location: string;
 }
 
-const ErrorPage: React.FC = () => {
+const ErrorPage: FC = () => {
 	const error = useRouteError() as RouteError;
 	console.error(error && error);
 
@@ -16,7 +18,7 @@ const ErrorPage: React.FC = () => {
 		<Col ai='center' jc='space-between' h='100vh'>
 			<h1>Oops!</h1>
 
-			<Loander />
+			<Loader />
 
 			<p>Sorry, an unexpected error has occurred.</p>
 			<FlexBlock c='red'>

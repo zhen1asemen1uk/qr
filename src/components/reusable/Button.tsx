@@ -1,7 +1,7 @@
-import React from "react";
 import styled from "styled-components";
 
 import { type ButtonProps } from "../../types/resusable";
+import { FC } from "react";
 
 const WrappButton = styled.button<ButtonProps>`
 	${({ pos }) => pos && `position: ${pos}`};
@@ -17,11 +17,14 @@ const WrappButton = styled.button<ButtonProps>`
 	padding: ${({ p }) => p ?? `15px 20px`};
 	margin: ${({ m }) => m ?? `0`};
 
-	background: ${({ bgColor, secondary }) =>
-		bgColor ?? (secondary ? `transparent` : `#0b064b`)};
+	background: ${({ bgColor, secondary, theme }) =>
+		bgColor ?? (secondary ? `transparent` : theme.main)};
 
-	border: ${({ secondary }) => (secondary ? `1px solid #494e5b` : `none`)};
-	border-radius: 0px;
+	border: ${({ secondary, theme }) =>
+		secondary
+			? `1px solid ${theme.button.main}`
+			: `1px solid ${theme.button.secondary}`};
+	border-radius: 2px;
 
 	font-style: normal;
 	font-weight: ${({ fw }) => fw || 600};
@@ -32,7 +35,8 @@ const WrappButton = styled.button<ButtonProps>`
 	text-transform: uppercase;
 	text-decoration: ${({ td }) => td || `none`};
 
-	color: ${({ secondary }) => (secondary ? `#0b064b` : `#b4975a`)};
+	color: ${({ secondary, theme }) =>
+		secondary ? theme.text.simple : theme.text.simple};
 
 	font-size: 12px;
 
@@ -59,14 +63,14 @@ const WrappButton = styled.button<ButtonProps>`
 				? `#5a6268`
 				: `#5a6268`};
 
-		color: ${({ disabled, secondary }) =>
+		color: ${({ disabled, secondary, theme }) =>
 			disabled && secondary
-				? `#0b064b`
+				? theme.secondary
 				: disabled
-				? `#0b064b`
+				? theme.main
 				: secondary
-				? `#ffffff`
-				: `#b4975a`};
+				? theme.secondary
+				: theme.text};
 
 		box-shadow: ${({ disabled, secondary }) =>
 			disabled && secondary
@@ -88,14 +92,14 @@ const WrappButton = styled.button<ButtonProps>`
 				? `#4f565c`
 				: `#4f565c`};
 
-		color: ${({ disabled, secondary }) =>
+		color: ${({ disabled, secondary, theme }) =>
 			disabled && secondary
-				? `#0b064b`
+				? theme.main
 				: disabled
-				? `#0b064b`
+				? theme.main
 				: secondary
-				? `#ffffff`
-				: `#ffffff`};
+				? `#FFFFFF`
+				: `#FFFFFF`};
 
 		box-shadow: ${({ disabled, secondary }) =>
 			disabled && secondary
@@ -114,7 +118,7 @@ const WrappButton = styled.button<ButtonProps>`
 	width: ${({ w }) => w ?? `auto`};
 `;
 
-const Button: React.FC<ButtonProps> = ({
+const Button: FC<ButtonProps> = ({
 	title = `Button`,
 
 	onClick,

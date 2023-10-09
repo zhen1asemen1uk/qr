@@ -1,60 +1,35 @@
-import React, {
-	Dispatch,
-	FC,
-	SetStateAction,
-	useEffect,
-	useState,
-} from "react";
+import { Dispatch, FC, SetStateAction, memo, useEffect } from "react";
 import QRCodeStyling, { Options } from "qr-code-styling";
 
 import Input from "./reusable/Input";
-import useDebounce from "../hooks/useDebounce";
 
 import { Row } from "../styles/styles";
+import { extension } from "../utils/extension";
 
 interface ITips {
 	qrCode: QRCodeStyling;
+	triggerTextTips: string;
 	textTips: string;
+	isLoading: boolean;
 	setTextTips: Dispatch<SetStateAction<string>>;
 }
-const Tips: FC<ITips> = ({ qrCode, textTips, setTextTips }) => {
-	const [isLoading, setIsLoading] = useState<boolean>(false);
-	const triggerTextTips = useDebounce(textTips, 1800, setIsLoading);
-
-	useEffect(() => {
-		if (!triggerTextTips) return;
-		const extension = (svg: SVGElement, options: Options) => {
-			const svgNamespace = "http://www.w3.org/2000/svg";
-
-			const textElement = document.createElementNS(svgNamespace, "text");
-			textElement.setAttribute("x", "25px");
-			textElement.setAttribute("y", "99%");
-
-			textElement.setAttribute("text-anchor", "start");
-			textElement.setAttribute("font-size", "14px");
-			textElement.setAttribute(
-				"stroke",
-				`${options.dotsOptions?.color || "#000"}`
+const Tips: FC<ITips> = memo(
+	({ qrCode, triggerTextTips, textTips, setTextTips, isLoading }) => {
+		useEffect(() => {
+			qrCode.applyExtension((svg: SVGElement, options: Options) =>
+				extension(svg, options, triggerTextTips)
 			);
-			textElement.setAttribute(
-				"fill",
-				`${options.dotsOptions?.color || "#000"}`
-			);
-			textElement.textContent = textTips;
-			svg.appendChild(textElement);
-		};
+		}, [qrCode, triggerTextTips]);
 
-		qrCode.applyExtension(extension);
-	}, [triggerTextTips]);
-
-	return (
-		<Input
-			title={<Row>Tips:</Row>}
-			onChange={(e) => setTextTips(e.target.value)}
-			value={textTips}
-			isLoading={isLoading}
-		/>
-	);
-};
+		return (
+			<Input
+				title={<Row>Tips:</Row>}
+				onChange={(e) => setTextTips(e.target.value)}
+				value={textTips}
+				isLoading={isLoading}
+			/>
+		);
+	}
+);
 
 export default Tips;

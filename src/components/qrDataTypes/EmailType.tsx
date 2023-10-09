@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { FC, memo, useEffect, useState } from "react";
 
 import { EmailKeys } from "../../types/enumes";
 import RedStar from "../reusable/RedStar";
 import { Col } from "../../styles/styles";
 import Input from "../reusable/Input";
-import { hideLogo, showLogo } from "../../utils/switchLogo";
+
 import { IOptions } from "../../types/components";
 
 interface IEmail {
@@ -18,7 +18,7 @@ interface IEmail {
 const arrFields = [
 	{
 		title: `Email`,
-		require: true,
+		require: false,
 		key: EmailKeys.EMAIL,
 		ph: "email@mail.com",
 	},
@@ -38,7 +38,7 @@ const arrFields = [
 	{ title: `Body`, require: false, key: EmailKeys.BODY, ph: "body" },
 ];
 
-const EmailType: React.FC<IOptions> = ({ options, setOptions }) => {
+const EmailType: FC<IOptions> = memo(({ options, setOptions }) => {
 	const [data, setData] = useState<IEmail>({
 		email: "",
 		CC: "",
@@ -79,12 +79,6 @@ const EmailType: React.FC<IOptions> = ({ options, setOptions }) => {
 							id={`${el.key}`}
 							name={`${el.key}`}
 							placeholder={el.ph}
-							onFocus={() => {
-								hideLogo(options, setOptions);
-							}}
-							onBlur={() => {
-								showLogo(options, setOptions);
-							}}
 							autoFocus={el.require}
 						/>
 					</Col>
@@ -92,6 +86,6 @@ const EmailType: React.FC<IOptions> = ({ options, setOptions }) => {
 			})}
 		</Col>
 	);
-};
+});
 
 export default EmailType;
