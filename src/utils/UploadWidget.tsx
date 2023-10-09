@@ -1,56 +1,79 @@
-// @ts-nocheck
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
-import { Cloudinary } from "@cloudinary/url-gen";
-
-interface IUploadWidget {
-	children: (props: { open: () => void }) => ReactElement;
-	onUpload: (error: any, result: any, widget?: any) => void; // Use 'any' for widget type
+declare global {
+	interface Window {
+		cloudinary: any;
+	}
 }
 
-const UploadWidget: FC<IUploadWidget> = ({ children, onUpload }) => {
-	const cloudinary = useRef<Cloudinary | null>(null);
-	const widget = useRef<any | null>(null); // Use 'any' for widget type
+interface IUploadWidget {
+	children: any;
+	onUpload: any;
+}
 
-	const createWidget = () => {
-		const options = {
-			cloudName: process.env.GATSBY_CLOUD_NAME,
-			uploadPreset: process.env.GATSBY_UPLOAD_PRESET,
-			folder: "qr-codes",
+let isCreated = false;
+
+const UploadWidget = ({ children, onUpload }: IUploadWidget) => {
+	const cloudinary = useRef<any>(null);
+	const widget = useRef<any>(null);
+
+	useEffect(() => {
+		const script = document.createElement("script");
+
+		script.src = "https://widget.cloudinary.com/v2.0/global/all.js";
+
+		script.onload = function () {
+			const evt = new Event("DOMContentLoaded", {
+				bubbles: false,
+				cancelable: false,
+			});
+			window.dispatchEvent(evt);
+
+			cloudinary.current = window.cloudinary;
 		};
 
-		return cloudinary.current?.createUploadWidget(
-			options,
-			(error: any, result: any) => {
-				if (error || result.event === "success") {
-					onUpload(error, result);
-				}
-			}
-		);
-	};
+		const scriptParentHead = document.head;
+
+		if (scriptParentHead && !isCreated) {
+			document.head.append(script);
+
+			scriptParentHead.appendChild(script);
+			isCreated = true;
+		}
+
+		return () => {
+			scriptParentHead.removeChild(script);
+		};
+	}, []);
 
 	const open = () => {
-		if (!widget?.current) {
+		if (!widget.current) {
 			widget.current = createWidget();
 		}
 
-		widget?.current && widget.current.open();
+		widget.current && widget.current.open();
 	};
 
-	const handleOnLoad = () => {
-		cloudinary.current = window?.cloudinary;
+	const createWidget = () => {
+		const widget = cloudinary.current.createUploadWidget(
+			{
+				cloudName: process.env.REACT_APP_CLOUDNAME,
+				uploadPreset: process.env.REACT_APP_UPLOADPRESET,
+				folder: process.env.REACT_APP_FOLDER1,
+				sources: ["local"],
+				multiple: false,
+			},
+			(error: any, result: any) => {
+				if (!error && result && result.event === "success") {
+					onUpload(error, result, widget);
+				}
+			}
+		);
+
+		return widget;
 	};
 
-	return (
-		<>
-			{children({ open })}
-			{/* <Script
-				id='cloudinary'
-				src='https://widget.cloudinary.com/v2.0/global/all.js'
-				onLoad={handleOnLoad}
-			/> */}
-		</>
-	);
+	return <div>{children({ open })}</div>;
 };
 
 export default UploadWidget;

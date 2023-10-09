@@ -23,7 +23,6 @@ const Bmc: FC<IBmc> = memo(({ themeNew }) => {
 		script.setAttribute("data-position", "Right");
 		script.setAttribute("data-x_margin", "18");
 		script.setAttribute("data-y_margin", "18");
-		// script.async = true;
 
 		script.onload = function () {
 			const evt = new Event("DOMContentLoaded", {

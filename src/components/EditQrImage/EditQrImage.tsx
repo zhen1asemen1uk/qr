@@ -1,7 +1,7 @@
 import { useState, useEffect, ChangeEvent, FC } from "react";
 
 import { Col, Row, Title } from "../../styles/styles";
-// import UploadImage from "./UploadImage";
+import UploadImage from "./UploadImage";
 
 import { IArrSize } from "../../types/resusable";
 import Input from "../reusable/Input";
@@ -150,11 +150,12 @@ const EditQrImage: FC<IOptions> = ({ options, setOptions }) => {
 				withoutImage={withoutImage}
 			/>
 			UploadImage
-			{/* <UploadImage
+			<UploadImage
+				setLinkImg={setLinkImg}
 				disabled={withoutImage}
-				selectedImage={linkImg}
-				setSelectedImage={setLinkImg}
-			/> */}
+				options={options}
+				setOptions={setOptions}
+			/>
 		</Col>
 	);
 };

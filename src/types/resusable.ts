@@ -57,7 +57,8 @@ export interface InputProps {
 }
 
 export interface ButtonProps {
-	onClick?: (e: ChangeEvent<HTMLInputElement> | undefined) => void;
+	onClick?: (e: ChangeEvent<HTMLInputElement>) => void;
+
 	title: string | ReactNode;
 
 	pos?: string;
